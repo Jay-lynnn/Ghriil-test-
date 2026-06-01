@@ -1,0 +1,1173 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ghriil — Bistro, Coffee, Cheers</title>
+  <meta name="description" content="Ghriil. Panggangan rempah Makassar, dimasak dua belas jam. Kopi sore. Bir hingga tengah malam. Jl. Chairil Anwar No. 8." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800;900&family=Familjen+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* ============================================================
+       GHRIIL · brand register
+       Type   : Big Shoulders Display (signage) + Familjen Grotesk (body)
+       Color  : drenched dark coffee dominant, cream paper as inserts
+       Voice  : smoky, vernacular, late-night
+    ============================================================ */
+
+    *,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+    body {
+      font-family: 'Familjen Grotesk', system-ui, sans-serif;
+      background: #140c08;
+      color: #f3e2c4;
+      line-height: 1.55;
+      overflow-x: hidden;
+      font-feature-settings: 'ss01', 'cv11';
+    }
+    img, svg { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; cursor: pointer; border: 0; background: none; color: inherit; }
+
+    :root {
+      --coffee-900: #0e0805;
+      --coffee-800: #140c08;
+      --coffee-700: #1f130c;
+      --coffee-600: #2a1a13;
+      --brown-500:  #6b3410;
+      --tan-400:    #c89968;
+      --tan-300:    #e0b985;
+      --cream-100:  #f5e8d8;
+      --cream-50:   #fbf3e3;
+      --ink:        #1d100a;
+      --ink-soft:   #4a2f1f;
+      --ember:      #ff5b1f;
+
+      --t-step-0: clamp(0.95rem, 0.9rem + 0.25vw, 1.05rem);
+      --t-step-1: clamp(1.1rem,  1rem + 0.5vw,   1.35rem);
+      --t-step-2: clamp(1.4rem,  1.2rem + 1vw,   1.85rem);
+      --t-step-3: clamp(1.9rem,  1.5rem + 2vw,   2.7rem);
+      --t-step-4: clamp(2.6rem,  2rem + 3vw,     4.2rem);
+      --t-step-5: clamp(4rem,    3rem + 7vw,     8.5rem);
+
+      --z-rail: 5;
+      --z-sticky: 30;
+      --z-overlay: 50;
+      --z-toast: 60;
+    }
+
+    .wrap { width: min(1240px, 92%); margin-inline: auto; }
+
+    .display {
+      font-family: 'Big Shoulders Display', 'Familjen Grotesk', sans-serif;
+      font-weight: 900;
+      line-height: 0.85;
+      letter-spacing: -0.015em;
+      text-transform: uppercase;
+      text-wrap: balance;
+    }
+    .display .punkt { color: var(--ember); }
+
+    .label {
+      font-family: 'Big Shoulders Display', sans-serif;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      font-size: 0.78rem;
+    }
+
+    .paper {
+      background-color: var(--cream-100);
+      color: var(--ink);
+      background-image:
+        url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.12 0 0 0 0 0.07 0 0 0 0 0.04 0 0 0 0.18 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+      background-size: 220px 220px;
+    }
+
+    /* ============================================================
+       NAVBAR
+    ============================================================ */
+    .topbar {
+      position: sticky; top: 0; z-index: var(--z-sticky);
+      background: var(--coffee-900);
+      border-bottom: 1px solid rgba(243,226,196,0.08);
+    }
+    .topbar-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0.85rem 0;
+    }
+    .wordmark {
+      font-family: 'Big Shoulders Display', sans-serif;
+      font-weight: 900;
+      font-size: 1.55rem;
+      letter-spacing: -0.02em;
+      color: var(--cream-50);
+      display: inline-flex; align-items: baseline; gap: 0.1em;
+    }
+    .wordmark .dot { color: var(--ember); font-size: 1.4em; line-height: 0; }
+
+    .topbar nav ul {
+      display: flex; gap: 1.8rem; list-style: none; align-items: center;
+    }
+    .topbar nav a {
+      font-size: 0.92rem; color: rgba(243,226,196,0.7);
+      transition: color 240ms cubic-bezier(0.165,0.84,0.44,1);
+    }
+    .topbar nav a:hover { color: var(--cream-50); }
+    .topbar .nav-cta {
+      padding: 0.55rem 1.1rem;
+      border: 1px solid var(--tan-400);
+      color: var(--cream-50);
+      border-radius: 999px;
+      font-size: 0.85rem; font-weight: 600;
+      transition: background 240ms ease, color 240ms ease;
+    }
+    .topbar .nav-cta:hover { background: var(--tan-400); color: var(--coffee-900); }
+
+    .nav-toggle { display: none; font-size: 1.4rem; padding: 0.3rem 0.5rem; }
+
+    @media (max-width: 740px) {
+      .topbar nav ul {
+        display: none;
+        position: absolute; top: 100%; inset-inline: 0;
+        background: var(--coffee-900);
+        flex-direction: column; gap: 0.6rem;
+        padding: 1rem 4%;
+        border-bottom: 1px solid rgba(243,226,196,0.08);
+      }
+      .topbar nav.open ul { display: flex; }
+      .nav-toggle { display: inline-flex; }
+    }
+
+    /* ============================================================
+       HERO, full-bleed video
+    ============================================================ */
+    .hero {
+      position: relative;
+      min-height: min(92vh, 820px);
+      background: var(--coffee-800) url('img/hero-poster.jpg') center/cover no-repeat;
+      color: var(--cream-50);
+      overflow: hidden;
+      isolation: isolate;
+      display: flex;
+      align-items: flex-end;
+    }
+
+    .hero-video {
+      position: absolute;
+      inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      z-index: -2;
+    }
+
+    .hero-scrim {
+      position: absolute; inset: 0;
+      background:
+        linear-gradient(180deg,
+          rgba(14,8,5,0.55) 0%,
+          rgba(14,8,5,0) 28%,
+          rgba(14,8,5,0) 52%,
+          rgba(14,8,5,0.92) 100%
+        ),
+        linear-gradient(90deg,
+          rgba(14,8,5,0.55) 0%,
+          rgba(14,8,5,0.15) 45%,
+          rgba(14,8,5,0) 70%
+        );
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute; inset: 0;
+      background-image:
+        url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/><feColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.06 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+      pointer-events: none;
+      z-index: -1;
+      mix-blend-mode: overlay;
+      opacity: 0.5;
+    }
+
+    .hero-content {
+      position: relative;
+      padding-block: clamp(4rem, 10vh, 6rem);
+      width: 100%;
+      max-width: 720px;
+    }
+
+    .hero-meta {
+      display: inline-flex; align-items: center; gap: 0.55rem;
+      font-size: 0.78rem;
+      color: var(--tan-300);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 1.6rem;
+      padding: 0.45rem 0.9rem;
+      background: rgba(14,8,5,0.45);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(243,226,196,0.12);
+      border-radius: 999px;
+    }
+    .hero-meta .pin {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--ember);
+      box-shadow: 0 0 0 4px rgba(255,91,31,0.18);
+      animation: pulse 2.4s cubic-bezier(0.165,0.84,0.44,1) infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 0 0 4px rgba(255,91,31,0.18); }
+      50%      { box-shadow: 0 0 0 10px rgba(255,91,31,0.04); }
+    }
+
+    .hero h1 {
+      font-size: var(--t-step-5);
+      margin-bottom: 1.8rem;
+      text-shadow: 0 6px 40px rgba(0,0,0,0.45);
+    }
+    .hero h1 .line { display: block; }
+    .hero h1 .line + .line { margin-top: -0.06em; }
+
+    .hero-lede {
+      max-width: 40ch;
+      font-size: var(--t-step-1);
+      color: rgba(243,226,196,0.92);
+      margin-bottom: 2.2rem;
+      line-height: 1.45;
+      text-wrap: pretty;
+      text-shadow: 0 2px 18px rgba(0,0,0,0.5);
+    }
+
+    .hero-cta { display: flex; flex-wrap: wrap; gap: 0.8rem; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 0.55rem;
+      padding: 0.95rem 1.5rem;
+      border-radius: 0;
+      font-weight: 600; font-size: 0.95rem;
+      border: 1px solid transparent;
+      transition: transform 280ms cubic-bezier(0.165,0.84,0.44,1),
+                  background 240ms ease, color 240ms ease, border-color 240ms ease;
+    }
+    .btn-solid {
+      background: var(--ember);
+      color: var(--coffee-900);
+      clip-path: polygon(8px 0, 100% 0, calc(100% - 8px) 100%, 0 100%);
+      padding-inline: 1.7rem;
+    }
+    .btn-solid:hover { transform: translate(2px, -2px); }
+    .btn-ghost {
+      background: rgba(14,8,5,0.35);
+      backdrop-filter: blur(8px);
+      color: var(--cream-50);
+      border-color: rgba(243,226,196,0.4);
+    }
+    .btn-ghost:hover { border-color: var(--cream-50); background: rgba(243,226,196,0.1); }
+    .btn .arrow { transition: transform 280ms cubic-bezier(0.165,0.84,0.44,1); }
+    .btn:hover .arrow { transform: translateX(4px); }
+
+    .hero-rail {
+      position: absolute;
+      top: 50%; right: 1.5%;
+      transform: translateY(-50%) rotate(180deg);
+      writing-mode: vertical-rl;
+      font-family: 'Big Shoulders Display', sans-serif;
+      font-weight: 800;
+      font-size: 0.8rem;
+      letter-spacing: 0.42em;
+      color: rgba(243,226,196,0.6);
+      z-index: var(--z-rail);
+      pointer-events: none;
+      user-select: none;
+      text-shadow: 0 0 14px rgba(0,0,0,0.6);
+    }
+    @media (max-width: 980px) { .hero-rail { display: none; } }
+
+    .scroll-hint {
+      position: absolute;
+      bottom: 1.6rem;
+      left: 50%; transform: translateX(-50%);
+      display: inline-flex; flex-direction: column; align-items: center; gap: 0.5rem;
+      color: rgba(243,226,196,0.55);
+      font-family: 'Big Shoulders Display', sans-serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      z-index: 2;
+      pointer-events: none;
+    }
+    .scroll-hint .hint-line {
+      width: 1px; height: 36px;
+      background: linear-gradient(to bottom, transparent, var(--ember));
+      animation: hintDrop 2.6s cubic-bezier(0.45,0.05,0.55,0.95) infinite;
+      transform-origin: top;
+    }
+    @keyframes hintDrop {
+      0%, 100% { transform: scaleY(0.3); opacity: 0.4; }
+      50%      { transform: scaleY(1);   opacity: 1; }
+    }
+
+    @media (max-width: 760px) {
+      .hero { min-height: min(85vh, 700px); }
+      .hero-content { max-width: 100%; }
+      .scroll-hint { display: none; }
+    }
+
+    /* ============================================================
+       MARQUEE TICKER
+    ============================================================ */
+    .marquee {
+      background: var(--ember);
+      color: var(--coffee-900);
+      padding: 0.85rem 0;
+      overflow: hidden;
+      border-block: 1px solid var(--coffee-900);
+    }
+    .marquee-track {
+      display: flex;
+      gap: 3.2rem;
+      white-space: nowrap;
+      animation: scroll 35s linear infinite;
+      font-family: 'Big Shoulders Display', sans-serif;
+      font-weight: 800;
+      font-size: 0.95rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      width: max-content;
+    }
+    .marquee-track span { display: inline-flex; align-items: center; gap: 3.2rem; }
+    .marquee-track .sep { color: rgba(20,12,8,0.5); }
+
+    .marquee.alt { background: var(--coffee-900); color: var(--cream-100); border-color: rgba(243,226,196,0.08); }
+    .marquee.alt .sep { color: var(--ember); }
+
+    @keyframes scroll {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+    .marquee:hover .marquee-track { animation-play-state: paused; }
+
+    /* ============================================================
+       STATEMENT block
+    ============================================================ */
+    .statement {
+      background: var(--coffee-900);
+      padding: clamp(5rem, 12vh, 9rem) 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .statement-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+      gap: clamp(2rem, 5vw, 5rem);
+      align-items: start;
+    }
+    .statement-tag {
+      position: sticky; top: 100px;
+      color: var(--tan-400);
+    }
+    .statement-tag .num {
+      font-family: 'Big Shoulders Display', sans-serif;
+      font-weight: 900;
+      font-size: clamp(3rem, 6vw, 5rem);
+      line-height: 0.85;
+      color: rgba(200,153,104,0.25);
+    }
+    .statement-tag .lbl {
+      display: block; margin-top: 0.5rem;
+      font-family: 'Big Shoulders Display', sans-serif;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      font-size: 0.85rem;
+      color: var(--tan-300);
+    }
+    .statement-body {
+      font-size: clamp(1.4rem, 1.1rem + 1.3vw, 2.4rem);
+      font-weight: 500;
+      line-height: 1.25;
+      color: var(--cream-50);
+      max-width: 28ch;
+      text-wrap: pretty;
+    }
+    .statement-body em {
+      font-style: normal;
+      color: var(--ember);
+      font-weight: 600;
+    }
+    .statement-body small {
+      display: block;
+      margin-top: 2rem;
+      font-size: 1rem;
+      font-weight: 400;
+      line-height: 1.55;
+      color: rgba(243,226,196,0.7);
+      max-width: 48ch;
+    }
+    @media (max-width: 760px) {
+      .statement-grid { grid-template-columns: 1fr; }
+      .statement-tag { position: static; }
+    }
+
+    /* ============================================================
+       SIGNATURE
+    ============================================================ */
+    .signature {
+      position: relative;
+      padding: clamp(4rem, 10vh, 7rem) 0;
+      overflow: hidden;
+    }
+    .sig-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+      gap: clamp(2rem, 5vw, 5rem);
+      align-items: center;
+    }
+    .sig-photo-frame {
+      position: relative;
+      aspect-ratio: 1/1;
+    }
+    .sig-photo-frame img {
+      width: 100%; height: 100%; object-fit: cover;
+      transform: rotate(-1.5deg);
+      box-shadow:
+        0 20px 50px -10px rgba(46,28,12,0.35),
+        0 0 0 10px var(--cream-50),
+        0 0 0 11px rgba(46,28,12,0.15);
+    }
+    .price-stamp {
+      position: absolute;
+      top: -1rem; right: -1rem;
+      width: clamp(100px, 14vw, 150px); height: clamp(100px, 14vw, 150px);
+      border-radius: 50%;
+      background: var(--ember);
+      color: var(--coffee-900);
+      display: grid; place-items: center;
+      transform: rotate(8deg);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.18);
+      font-family: 'Big Shoulders Display', sans-serif;
+      font-weight: 900;
+      text-align: center;
+      line-height: 0.9;
+      z-index: 2;
+    }
+    .price-stamp .rp { font-size: 0.7rem; letter-spacing: 0.1em; display: block; }
+    .price-stamp .nominal { font-size: clamp(1.6rem, 3.5vw, 2.4rem); display: block; }
+    .price-stamp .small { font-size: 0.65rem; letter-spacing: 0.15em; margin-top: 0.2rem; display: block; }
+
+    .sig-text { padding-block: 1rem; }
+    .sig-eyebrow {
+      display: inline-flex; align-items: center; gap: 0.55rem;
+      font-family: 'Big Shoulders Display', sans-serif;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      font-size: 0.8rem;
+      color: var(--brown-500);
+      margin-bottom: 1rem;
+    }
+    .sig-eyebrow .dash {
+      display: inline-block;
+      width: 28px; height: 2px;
+      background: currentColor;
+    }
+    .sig-text h2 {
+      font-family: 'Big Shoulders Display', sans-serif;
+      font-weight: 900;
+      font-size: var(--t-step-4);
+      line-height: 0.92;
+      letter-spacing: -0.02em;
+      text-transform: uppercase;
+      color: var(--ink);
+      text-wrap: balance;
+      margin-bottom: 1.4rem;
+    }
+    .sig-text h2 .accent { color: var(--brown-500); }
+    .sig-text p {
+      font-size: var(--t-step-1);
+      color: var(--ink-soft);
+      max-width: 42ch;
+      line-height: 1.55;
+      text-wrap: pretty;
+    }
+    .sig-meta {
+      margin-top: 1.6rem;
+      display: flex; flex-wrap: wrap; gap: 1.2rem;
+      font-size: 0.85rem;
+      color: var(--ink-soft);
+    }
+    .sig-meta li { display: flex; align-items: center; gap: 0.4rem; list-style: none; }
+    .sig-meta li::before {
+      content: ''; width: 4px; height: 4px; border-radius: 50%; background: var(--brown-500);
+    }
+
+    @media (max-width: 880px) {
+      .sig-grid { grid-template-columns: 1fr; }
+      .sig-photo-frame { max-width: 480px; margin: 0 auto; }
+    }
+
+    /* ============================================================
+       MENU, asymmetric grid
+    ============================================================ */
+    .menu {
+      padding: clamp(4rem, 10vh, 7rem) 0 clamp(5rem, 12vh, 8rem);
+      position: relative;
+    }
+    .menu-head {
+      display: flex; justify-content: space-between; align-items: end;
+      gap: 2rem; flex-wrap: wrap;
+      margin-bottom: clamp(2rem, 5vw, 3.5rem);
+    }
+    .menu-head h2 {
+      font-family: 'Big Shoulders Display', sans-serif;
+      font-weight: 900;
+      font-size: var(--t-step-4);
+      line-height: 0.9;
+      letter-spacing: -0.02em;
+      text-transform: uppercase;
+      color: var(--ink);
+      text-wrap: balance;
+    }
+    .menu-head h2 em {
+      font-style: italic;
+      color: var(--brown-500);
+      font-weight: 800;
+    }
+    .menu-head p {
+      max-width: 38ch;
+      color: var(--ink-soft);
+      font-size: var(--t-step-0);
+    }
+
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: clamp(1rem, 2vw, 1.6rem);
+    }
+    .dish {
+      position: relative;
+      background: var(--cream-50);
+      border: 1px solid rgba(29,16,10,0.12);
+      overflow: hidden;
+      display: flex; flex-direction: column;
+      transition: transform 360ms cubic-bezier(0.165,0.84,0.44,1);
+    }
+    .dish:hover { transform: translateY(-4px); }
+    .dish .dish-photo {
+      position: relative;
+      overflow: hidden;
+      aspect-ratio: 4/3;
+      background: var(--coffee-700);
+    }
+    .dish .dish-photo img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform 700ms cubic-bezier(0.165,0.84,0.44,1);
+    }
+    .dish:hover .dish-photo img { transform: scale(1.06); }
+    .dish .dish-body {
+      padding: 1.1rem 1.2rem 1.4rem;
+      display: flex; flex-direction: column; gap: 0.5rem;
+      flex: 1;
+    }
+    .dish h3 {
+      font-family: 'Big Shoulders Display', sans-serif;
+      font-weight: 800;
+      font-size: 1.2rem;
+      letter-spacing: -0.005em;
+      text-transform: uppercase;
+      line-height: 1;
+      color: var(--ink);
+    }
+    .dish .desc {
+      font-size: 0.88rem;
+      color: var(--ink-soft);
+      line-height: 1.5;
+    }
+    .dish .footer-row {
+      display: flex; justify-content: space-between; align-items: baseline;
+      margin-top: auto; padding-top: 0.6rem;
+      border-top: 1px dashed rgba(29,16,10,0.18);
+    }
+    .dish .price {
+      font-family: 'Big Shoulders Display', sans-serif;
+      font-weight: 900;
+      font-size: 1.4rem;
+      color: var(--brown-500);
+      letter-spacing: -0.01em;
+    }
+    .dish .tag {
+      font-family: 'Big Shoulders Display', sans-serif;
+      font-weight: 700;
+      font-size: 0.7rem;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--ink-soft);
+    }
+
+    .dish-1 { grid-column: span 4; }
+    .dish-2 { grid-column: span 2; }
+    .dish-3 { grid-column: span 2; }
+    .dish-4 { grid-column: span 4; }
+    .dish-5 { grid-column: span 3; }
+    .dish-6 { grid-column: span 3; }
+
+    @media (max-width: 880px) {
+      .menu-grid { grid-template-columns: repeat(2, 1fr); }
+      .dish-1, .dish-2, .dish-3, .dish-4, .dish-5, .dish-6 { grid-column: span 1; }
+      .dish-1, .dish-4 { grid-column: span 2; }
+    }
+    @media (max-width: 520px) {
+      .menu-grid { grid-template-columns: 1fr; }
+      .dish-1, .dish-2 { grid-column: span 1; }
+    }
+
+    .menu-actions {
+      margin-top: clamp(2.5rem, 5vw, 4rem);
+      display: flex; gap: 1rem; flex-wrap: wrap;
+      align-items: center; justify-content: center;
+    }
+    .menu-actions .btn-solid { background: var(--coffee-900); color: var(--cream-50); }
+    .menu-actions .btn-solid:hover { background: var(--brown-500); }
+    .menu-actions .note {
+      font-size: 0.85rem; color: var(--ink-soft); max-width: 24ch;
+    }
+
+    /* ============================================================
+       CONTACT
+    ============================================================ */
+    .contact {
+      background: var(--coffee-900);
+      color: var(--cream-50);
+      padding: clamp(5rem, 12vh, 9rem) 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .contact::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(800px 400px at 80% 20%, rgba(255,91,31,0.08), transparent 60%);
+      pointer-events: none;
+    }
+    .contact-grid {
+      position: relative;
+      display: grid;
+      grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+      gap: clamp(2rem, 5vw, 5rem);
+      align-items: start;
+    }
+    .contact h2 {
+      font-family: 'Big Shoulders Display', sans-serif;
+      font-weight: 900;
+      font-size: clamp(2.4rem, 5vw, 4rem);
+      line-height: 0.9;
+      letter-spacing: -0.02em;
+      text-transform: uppercase;
+      text-wrap: balance;
+      margin-bottom: 1.5rem;
+    }
+    .contact h2 .ember { color: var(--ember); }
+    .contact-lede {
+      font-size: var(--t-step-1);
+      color: rgba(243,226,196,0.75);
+      max-width: 42ch;
+      margin-bottom: 2.2rem;
+      line-height: 1.5;
+    }
+
+    .info-stack {
+      display: grid; gap: 0.2rem;
+      border-top: 1px solid rgba(243,226,196,0.12);
+    }
+    .info-row {
+      display: grid;
+      grid-template-columns: 6.5rem 1fr;
+      gap: 1.2rem;
+      padding: 1.1rem 0;
+      border-bottom: 1px solid rgba(243,226,196,0.12);
+      align-items: baseline;
+    }
+    .info-row .k {
+      font-family: 'Big Shoulders Display', sans-serif;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      font-size: 0.78rem;
+      color: var(--tan-300);
+    }
+    .info-row .v { font-size: 1.05rem; line-height: 1.45; }
+    .info-row .v a { color: var(--cream-50); border-bottom: 1px solid var(--ember); padding-bottom: 1px; }
+    .info-row .v a:hover { color: var(--ember); }
+
+    .hours-plate {
+      background: var(--cream-100);
+      color: var(--ink);
+      padding: 1.6rem 1.8rem 1.4rem;
+      position: relative;
+      box-shadow:
+        0 20px 50px -10px rgba(0,0,0,0.5),
+        0 0 0 8px rgba(245,232,216,0.04);
+    }
+    .hours-plate::before, .hours-plate::after {
+      content: '';
+      position: absolute;
+      width: 14px; height: 14px;
+      background: var(--coffee-900);
+      border-radius: 50%;
+      box-shadow: inset 0 2px 3px rgba(0,0,0,0.4);
+    }
+    .hours-plate::before { top: 10px; left: 14px; }
+    .hours-plate::after  { top: 10px; right: 14px; }
+    .hours-plate .plate-title {
+      font-family: 'Big Shoulders Display', sans-serif;
+      font-weight: 900;
+      font-size: 1.6rem;
+      text-transform: uppercase;
+      letter-spacing: -0.01em;
+      line-height: 1;
+      margin-top: 0.6rem;
+      margin-bottom: 0.6rem;
+      color: var(--ember);
+    }
+    .hours-plate .days { font-size: 0.95rem; color: var(--ink-soft); margin-bottom: 0.8rem; }
+    .hours-plate .time {
+      font-family: 'Big Shoulders Display', sans-serif;
+      font-weight: 900;
+      font-size: clamp(2.2rem, 5vw, 3rem);
+      letter-spacing: -0.01em;
+      line-height: 1;
+      color: var(--coffee-900);
+    }
+    .hours-plate .wita { font-size: 0.95rem; color: var(--ink-soft); margin-top: 0.6rem; }
+
+    .wa-pill {
+      margin-top: 1.5rem;
+      display: flex; align-items: center; gap: 0.9rem;
+      padding: 1rem 1.2rem;
+      background: #128C7E;
+      color: #fff;
+      box-shadow: 0 14px 32px -10px rgba(18,140,126,0.5);
+      transition: transform 240ms cubic-bezier(0.165,0.84,0.44,1), background 240ms ease;
+    }
+    .wa-pill:hover { transform: translateY(-2px); background: #0e7669; }
+    .wa-pill .wa-icon {
+      width: 38px; height: 38px;
+      background: rgba(255,255,255,0.18);
+      border-radius: 50%;
+      display: grid; place-items: center;
+      font-size: 1.1rem;
+    }
+    .wa-pill .wa-body { flex: 1; }
+    .wa-pill .wa-body strong { display: block; font-size: 0.95rem; }
+    .wa-pill .wa-body span { font-size: 0.82rem; opacity: 0.8; }
+    .wa-pill .wa-go {
+      font-family: 'Big Shoulders Display', sans-serif;
+      font-weight: 800; letter-spacing: 0.06em;
+    }
+
+    @media (max-width: 760px) {
+      .contact-grid { grid-template-columns: 1fr; }
+      .info-row { grid-template-columns: 5rem 1fr; }
+    }
+
+    /* ============================================================
+       FOOTER
+    ============================================================ */
+    footer.foot {
+      background: var(--coffee-900);
+      color: rgba(243,226,196,0.7);
+      padding: 3rem 0 2rem;
+      border-top: 1px solid rgba(243,226,196,0.08);
+    }
+    .foot-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr);
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
+    .foot-grid .wordmark { color: var(--cream-50); }
+    .foot-tag {
+      margin-top: 0.6rem; font-size: 0.9rem; max-width: 30ch;
+      color: rgba(243,226,196,0.6);
+    }
+    .foot-col h4 {
+      font-family: 'Big Shoulders Display', sans-serif;
+      letter-spacing: 0.16em; text-transform: uppercase;
+      font-size: 0.78rem;
+      color: var(--tan-300);
+      margin-bottom: 0.8rem;
+    }
+    .foot-col a, .foot-col p {
+      display: block;
+      font-size: 0.9rem;
+      color: rgba(243,226,196,0.65);
+      padding: 0.2rem 0;
+      transition: color 200ms ease;
+    }
+    .foot-col a:hover { color: var(--ember); }
+    .foot-bot {
+      border-top: 1px solid rgba(243,226,196,0.08);
+      padding-top: 1.4rem;
+      display: flex; justify-content: space-between; gap: 1rem;
+      flex-wrap: wrap;
+      font-size: 0.82rem;
+      color: rgba(243,226,196,0.45);
+    }
+    .foot-bot a { color: rgba(243,226,196,0.55); }
+    .foot-bot a:hover { color: var(--ember); }
+
+    @media (max-width: 720px) {
+      .foot-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    /* ============================================================
+       Floating WA
+    ============================================================ */
+    .wa-float {
+      position: fixed; bottom: 20px; right: 20px;
+      width: 56px; height: 56px;
+      background: #25D366;
+      border-radius: 50%;
+      display: grid; place-items: center;
+      box-shadow: 0 14px 32px rgba(37,211,102,0.45);
+      z-index: var(--z-overlay);
+      transition: transform 280ms cubic-bezier(0.165,0.84,0.44,1);
+    }
+    .wa-float:hover { transform: scale(1.08); }
+    .wa-float svg { width: 26px; height: 26px; fill: #fff; }
+
+    /* ============================================================
+       Reduced motion
+    ============================================================ */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+        scroll-behavior: auto !important;
+      }
+      .hero-video { display: none; }
+      .marquee-track { animation: none; }
+      .scroll-hint { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ============== NAVBAR ============== -->
+  <header class="topbar">
+    <div class="wrap topbar-inner">
+      <a href="#" class="wordmark">ghriil<span class="dot">.</span></a>
+      <nav id="primary-nav">
+        <button class="nav-toggle wordmark" aria-label="Buka menu" aria-expanded="false"
+                onclick="const n=this.parentElement;n.classList.toggle('open');this.setAttribute('aria-expanded',n.classList.contains('open'))">≡</button>
+        <ul>
+          <li><a href="#story">Cerita</a></li>
+          <li><a href="#signature">Andalan</a></li>
+          <li><a href="#menu">Menu</a></li>
+          <li><a href="#contact">Mampir</a></li>
+          <li><a class="nav-cta" href="https://wa.me/628123456789?text=Halo%20Ghriil,%20saya%20mau%20reservasi" target="_blank" rel="noopener">Reservasi</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ============== HERO ============== -->
+  <section class="hero">
+    <video class="hero-video"
+           autoplay muted loop playsinline
+           preload="metadata"
+           poster="img/hero-poster.jpg"
+           aria-hidden="true">
+      <source src="video/hero-web.mp4" type="video/mp4">
+    </video>
+    <div class="hero-scrim" aria-hidden="true"></div>
+    <div class="hero-rail" aria-hidden="true">Buka 10:00 – 24:00 WITA</div>
+
+    <div class="wrap hero-content">
+      <div class="hero-meta">
+        <span class="pin" aria-hidden="true"></span>
+        Jl. Chairil Anwar No. 8, Makassar
+      </div>
+
+      <h1 class="display">
+        <span class="line">Bistro<span class="punkt">.</span></span>
+        <span class="line">Coffee<span class="punkt">.</span></span>
+        <span class="line">Cheers<span class="punkt">.</span></span>
+      </h1>
+
+      <p class="hero-lede">
+        Panggangan rempah Makassar, dimasak dua belas jam.
+        Kopi diseduh untuk menemani sore.
+        Bir dingin sampai tengah malam.
+      </p>
+
+      <div class="hero-cta">
+        <a class="btn btn-solid" href="menu.pdf" download>
+          Bawa pulang menu <span class="arrow">↓</span>
+        </a>
+        <a class="btn btn-ghost" href="#signature">
+          Lihat andalan <span class="arrow">→</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="scroll-hint" aria-hidden="true">
+      <span>Lanjut</span>
+      <div class="hint-line"></div>
+    </div>
+  </section>
+
+  <!-- ============== MARQUEE 1 ============== -->
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee-track">
+      <span>Rempah Makassar <em class="sep">/</em> Slow-cooked 12 jam <em class="sep">/</em> Bistro Coffee Cheers <em class="sep">/</em> Open 10 till midnight <em class="sep">/</em></span>
+      <span>Rempah Makassar <em class="sep">/</em> Slow-cooked 12 jam <em class="sep">/</em> Bistro Coffee Cheers <em class="sep">/</em> Open 10 till midnight <em class="sep">/</em></span>
+    </div>
+  </div>
+
+  <!-- ============== STATEMENT ============== -->
+  <section id="story" class="statement">
+    <div class="wrap statement-grid">
+      <aside class="statement-tag">
+        <div class="num">01</div>
+        <span class="lbl">Cerita</span>
+      </aside>
+      <div class="statement-body">
+        Kami masak <em>pelan</em>. Dua belas jam dalam panggangan tertutup,
+        dengan rempah Makassar utuh sampai bumbu meresap ke serat daging.
+        <small>
+          Kopi kami diseduh fresh setiap pesanan, dari biji single-origin yang
+          dipilih per minggu. Bir dingin selalu siap, mulai Anker sampai
+          Guinness Stout, buat menutup malam bersama teman.
+        </small>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============== SIGNATURE ============== -->
+  <section id="signature" class="signature paper">
+    <div class="wrap sig-grid">
+      <div class="sig-photo-frame">
+        <img src="img/nasi-brisket.jpg" alt="Sepiring Nasi Brisket Sayur Ubi, signature Ghriil" loading="lazy">
+        <div class="price-stamp" aria-hidden="true">
+          <span class="rp">Rp</span>
+          <span class="nominal">45rb</span>
+          <span class="small">/ porsi</span>
+        </div>
+      </div>
+
+      <div class="sig-text">
+        <div class="sig-eyebrow">
+          <span class="dash"></span>
+          Yang dicari pelanggan
+        </div>
+        <h2>
+          Nasi <span class="accent">Brisket</span><br>
+          Sayur Ubi
+        </h2>
+        <p>
+          Brisket diasap berbumbu rempah, gurih dengan sedikit manis dan hint pedas
+          ringan. Aroma smoky meresap ke serat daging. Disandingkan tumis daun ubi
+          dan bunga pepaya, ditemani nasi putih hangat.
+        </p>
+        <ul class="sig-meta">
+          <li>Slow-cooked 12 jam</li>
+          <li>Rempah Makassar</li>
+          <li>Smoky &amp; gurih</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============== MENU GRID ============== -->
+  <section id="menu" class="menu paper">
+    <div class="wrap">
+      <div class="menu-head">
+        <h2>Sisanya<br>di <em>menu</em>.</h2>
+        <p>Enam dari sekian banyak. Yang lengkap tersedia di PDF di bawah, beserta semua kopi, teh, dan minuman keras.</p>
+      </div>
+
+      <div class="menu-grid">
+
+        <article class="dish dish-1">
+          <div class="dish-photo"><img src="img/bebek-kuning.jpg" alt="Bebek Kuning Kacang Kenari di piring lonjong" loading="lazy"></div>
+          <div class="dish-body">
+            <h3>Bebek Kuning Kacang Kenari</h3>
+            <p class="desc">Dipanggang pelan lima jam dalam panggangan tertutup. Bumbu kuning kaya rempah, saus kacang kenari creamy yang hangat.</p>
+            <div class="footer-row">
+              <span class="price">95rb</span>
+              <span class="tag">Signature Bakar</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="dish dish-2">
+          <div class="dish-photo"><img src="img/bakso-ghriil.jpg" alt="Bakso Daging Ghriil, kuah gravy kental" loading="lazy"></div>
+          <div class="dish-body">
+            <h3>Bakso Daging Ghriil</h3>
+            <p class="desc">Bakso daging wagyu, dibuat fresh saat order (±40 menit). Kuah gravy kental gurih, wortel, dan bawang bombay.</p>
+            <div class="footer-row">
+              <span class="price">145rb</span>
+              <span class="tag">House Special</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="dish dish-3">
+          <div class="dish-photo"><img src="img/tuna-sambal-matah.jpg" alt="Tuna Sambal Matah di atas daun pisang" loading="lazy"></div>
+          <div class="dish-body">
+            <h3>Tuna Sambal Matah</h3>
+            <p class="desc">Tuna asap smoky, pedas berani, sentuhan citrus dari sambal matah, bawang merah, dan serai harum.</p>
+            <div class="footer-row">
+              <span class="price">55rb</span>
+              <span class="tag">Bakar</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="dish dish-4">
+          <div class="dish-photo"><img src="img/udang-bakar.jpg" alt="Empat ekor udang tiger prawn bakar, saus kemangi" loading="lazy"></div>
+          <div class="dish-body">
+            <h3>Udang Bakar Saus Kemangi</h3>
+            <p class="desc">Tiger prawn pilihan, dibakar harum. Saus kemangi aromatik, gurih segar dengan pedas yang terasa.</p>
+            <div class="footer-row">
+              <span class="price">120rb</span>
+              <span class="tag">Bakar</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="dish dish-5">
+          <div class="dish-photo"><img src="img/pesto-ijo.jpg" alt="Pesto Ijo Roti Panggang, brisket dan french fries" loading="lazy"></div>
+          <div class="dish-body">
+            <h3>Pesto Ijo Roti Panggang</h3>
+            <p class="desc">Beef brisket juicy, pesto kemangi, mozzarella di dalam sourdough renyah. Ghriil Signature Sauce dan french fries.</p>
+            <div class="footer-row">
+              <span class="price">55rb</span>
+              <span class="tag">Starter</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="dish dish-6">
+          <div class="dish-photo"><img src="img/nasi-ayam.jpg" alt="Nasi Ayam Barbekiu dengan daun ubi" loading="lazy"></div>
+          <div class="dish-body">
+            <h3>Nasi Ayam Barbekiu</h3>
+            <p class="desc">Ayam suwir dengan saus barbeque spesial. Manis gurih, smoky, sedikit pedas. Daun ubi, nasi putih hangat.</p>
+            <div class="footer-row">
+              <span class="price">35rb</span>
+              <span class="tag">Rumah Rasa</span>
+            </div>
+          </div>
+        </article>
+
+      </div>
+
+      <div class="menu-actions">
+        <a class="btn btn-solid" href="menu.pdf" download>
+          Download menu lengkap (PDF) <span class="arrow">↓</span>
+        </a>
+        <span class="note">Berisi semua hidangan, kopi, teh, minuman keras, dan harga.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============== MARQUEE 2 ============== -->
+  <div class="marquee alt" aria-hidden="true">
+    <div class="marquee-track">
+      <span>Reservasi via WhatsApp <em class="sep">·</em> Pemesanan grup welcome <em class="sep">·</em> Live music akhir pekan <em class="sep">·</em> See you tonight <em class="sep">·</em></span>
+      <span>Reservasi via WhatsApp <em class="sep">·</em> Pemesanan grup welcome <em class="sep">·</em> Live music akhir pekan <em class="sep">·</em> See you tonight <em class="sep">·</em></span>
+    </div>
+  </div>
+
+  <!-- ============== CONTACT ============== -->
+  <section id="contact" class="contact">
+    <div class="wrap contact-grid">
+      <div>
+        <h2>Mampir, kami <span class="ember">tunggu</span>.</h2>
+        <p class="contact-lede">
+          Datang langsung untuk meja, atau chat WhatsApp untuk booking,
+          pemesanan grup, dan tanya menu apapun.
+        </p>
+
+        <dl class="info-stack">
+          <div class="info-row">
+            <dt class="k">Alamat</dt>
+            <dd class="v">
+              Jl. Chairil Anwar No. 8<br>
+              <a href="https://maps.google.com/?q=Jl+Chairil+Anwar+No+8+Makassar" target="_blank" rel="noopener">Buka di Google Maps</a>
+            </dd>
+          </div>
+          <div class="info-row">
+            <dt class="k">Telepon</dt>
+            <dd class="v"><a href="tel:+628123456789">+62 812-3456-789</a></dd>
+          </div>
+          <div class="info-row">
+            <dt class="k">Email</dt>
+            <dd class="v"><a href="mailto:ghriilsay@gmail.com">ghriilsay@gmail.com</a></dd>
+          </div>
+          <div class="info-row">
+            <dt class="k">Instagram</dt>
+            <dd class="v"><a href="https://instagram.com/ghriil" target="_blank" rel="noopener">@ghriil</a></dd>
+          </div>
+        </dl>
+      </div>
+
+      <aside>
+        <div class="hours-plate">
+          <div class="plate-title">We're open</div>
+          <div class="days">Setiap hari, tanpa libur.</div>
+          <div class="time">10:00 – 24:00</div>
+          <div class="wita">Waktu Indonesia Tengah (WITA)</div>
+        </div>
+
+        <a class="wa-pill" href="https://wa.me/628123456789?text=Halo%20Ghriil,%20saya%20mau%20reservasi" target="_blank" rel="noopener" aria-label="Chat di WhatsApp untuk reservasi">
+          <span class="wa-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="#fff" xmlns="http://www.w3.org/2000/svg"><path d="M17.5 14.4c-.3-.1-1.8-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.7 1-.9 1.2-.2.2-.3.2-.6.1-1.7-.9-2.9-1.6-4-3.5-.3-.5.3-.5.8-1.5.1-.2 0-.3 0-.5 0-.1-.7-1.6-.9-2.2-.2-.5-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1.1 1-1.1 2.6 0 1.5 1.1 3 1.3 3.2.2.2 2.2 3.4 5.4 4.7.7.3 1.3.5 1.8.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.5.3-.7.3-1.4.2-1.5 0-.1-.2-.2-.4-.3zM12 22h0c-1.7 0-3.3-.4-4.8-1.3l-3.4.9.9-3.3c-.9-1.5-1.4-3.3-1.4-5C3.3 8.1 7.2 4 12 4c2.3 0 4.5.9 6.2 2.5 1.7 1.7 2.6 3.9 2.6 6.3 0 4.8-4.1 8.7-8.8 8.7z"/></svg>
+          </span>
+          <div class="wa-body">
+            <strong>WhatsApp</strong>
+            <span>Reservasi & pertanyaan menu</span>
+          </div>
+          <span class="wa-go">→</span>
+        </a>
+      </aside>
+    </div>
+  </section>
+
+  <!-- ============== FOOTER ============== -->
+  <footer class="foot">
+    <div class="wrap">
+      <div class="foot-grid">
+        <div>
+          <a href="#" class="wordmark">ghriil<span class="dot">.</span></a>
+          <p class="foot-tag">Bistro, coffee, cheers. Panggangan rempah Makassar, kopi sore, bir hingga tengah malam.</p>
+        </div>
+        <div class="foot-col">
+          <h4>Jelajahi</h4>
+          <a href="#story">Cerita</a>
+          <a href="#signature">Andalan</a>
+          <a href="#menu">Menu</a>
+          <a href="#contact">Mampir</a>
+        </div>
+        <div class="foot-col">
+          <h4>Sosial</h4>
+          <a href="https://instagram.com/ghriil" target="_blank" rel="noopener">Instagram</a>
+          <a href="https://tiktok.com/@ghriil" target="_blank" rel="noopener">TikTok</a>
+          <a href="https://maps.google.com/?q=Jl+Chairil+Anwar+No+8+Makassar" target="_blank" rel="noopener">Google Maps</a>
+        </div>
+        <div class="foot-col">
+          <h4>Internal</h4>
+          <a href="absensi.html">Absensi karyawan</a>
+        </div>
+      </div>
+      <div class="foot-bot">
+        <span>© 2026 Ghriil. Semua hak dilindungi.</span>
+        <span>Jl. Chairil Anwar No. 8 · WITA 10–24</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- floating WA -->
+  <a class="wa-float" href="https://wa.me/628123456789?text=Halo%20Ghriil" target="_blank" rel="noopener" aria-label="Chat WhatsApp Ghriil">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.5 14.4c-.3-.1-1.8-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.7 1-.9 1.2-.2.2-.3.2-.6.1-1.7-.9-2.9-1.6-4-3.5-.3-.5.3-.5.8-1.5.1-.2 0-.3 0-.5 0-.1-.7-1.6-.9-2.2-.2-.5-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1.1 1-1.1 2.6 0 1.5 1.1 3 1.3 3.2.2.2 2.2 3.4 5.4 4.7.7.3 1.3.5 1.8.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.5.3-.7.3-1.4.2-1.5 0-.1-.2-.2-.4-.3zM12 22h0c-1.7 0-3.3-.4-4.8-1.3l-3.4.9.9-3.3c-.9-1.5-1.4-3.3-1.4-5C3.3 8.1 7.2 4 12 4c2.3 0 4.5.9 6.2 2.5 1.7 1.7 2.6 3.9 2.6 6.3 0 4.8-4.1 8.7-8.8 8.7z"/></svg>
+  </a>
+
+</body>
+</html>
