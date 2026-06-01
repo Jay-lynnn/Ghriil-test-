@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="id">
 <head>
   <meta charset="UTF-8" />
@@ -22,8 +22,8 @@
     html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
     body {
       font-family: 'Familjen Grotesk', system-ui, sans-serif;
-      background: #140c08;
-      color: #f3e2c4;
+      background: #FBF8F2;
+      color: #2A1F18;
       line-height: 1.55;
       overflow-x: hidden;
       font-feature-settings: 'ss01', 'cv11';
@@ -33,19 +33,34 @@
     button { font: inherit; cursor: pointer; border: 0; background: none; color: inherit; }
 
     :root {
-      --coffee-900: #0e0805;
-      --coffee-800: #140c08;
-      --coffee-700: #1f130c;
-      --coffee-600: #2a1a13;
-      --brown-500:  #6b3410;
-      --tan-400:    #c89968;
-      --tan-300:    #e0b985;
-      --cream-100:  #f5e8d8;
-      --cream-50:   #fbf3e3;
-      --ink:        #1d100a;
-      --ink-soft:   #4a2f1f;
-      --ember:      #ff5b1f;
+      /* ===== Brand palette (from logo & menu) ===== */
+      --red:           #C8102E;   /* logo, buttons, primary CTA */
+      --warm-white:    #FBF8F2;   /* main page background */
+      --cream:         #F3E7D3;   /* section bands, menu cards */
+      --beige:         #E2D2B2;   /* borders, dividers, hover fills */
+      --amber:         #D98E2B;   /* highlights, prices, badges */
+      --burgundy:      #6E1F2A;   /* headers, footer, rich blocks */
+      --espresso:      #2A1F18;   /* body text, warmer than black */
+      --sage:          #6E7A4F;   /* optional, fresh / vegetarian */
+      --red-deep:      #9c0c23;
+      --burgundy-deep: #4f1620;
+      --espresso-soft: #574036;
 
+      /* ===== Legacy aliases (old rules keep working) ===== */
+      --coffee-900:    #2A1F18;   /* now espresso */
+      --coffee-800:    #2A1F18;
+      --coffee-700:    #4f3324;
+      --coffee-600:    #2A1F18;
+      --brown-500:     #6E1F2A;   /* now burgundy */
+      --tan-400:       #D98E2B;   /* now amber */
+      --tan-300:       #D98E2B;
+      --cream-100:     #F3E7D3;
+      --cream-50:      #FBF8F2;
+      --ink:           #2A1F18;
+      --ink-soft:      #574036;
+      --ember:         #C8102E;   /* now brand red */
+
+      /* type scale, 1.333 ratio */
       --t-step-0: clamp(0.95rem, 0.9rem + 0.25vw, 1.05rem);
       --t-step-1: clamp(1.1rem,  1rem + 0.5vw,   1.35rem);
       --t-step-2: clamp(1.4rem,  1.2rem + 1vw,   1.85rem);
@@ -53,6 +68,7 @@
       --t-step-4: clamp(2.6rem,  2rem + 3vw,     4.2rem);
       --t-step-5: clamp(4rem,    3rem + 7vw,     8.5rem);
 
+      /* z-index scale */
       --z-rail: 5;
       --z-sticky: 30;
       --z-overlay: 50;
@@ -61,6 +77,7 @@
 
     .wrap { width: min(1240px, 92%); margin-inline: auto; }
 
+    /* ===== type primitives ===== */
     .display {
       font-family: 'Big Shoulders Display', 'Familjen Grotesk', sans-serif;
       font-weight: 900;
@@ -79,6 +96,7 @@
       font-size: 0.78rem;
     }
 
+    /* ===== paper texture, SVG noise inline ===== */
     .paper {
       background-color: var(--cream-100);
       color: var(--ink);
@@ -92,7 +110,8 @@
     ============================================================ */
     .topbar {
       position: sticky; top: 0; z-index: var(--z-sticky);
-      background: var(--coffee-900);
+      background: var(--espresso);
+      color: var(--warm-white);
       border-bottom: 1px solid rgba(243,226,196,0.08);
     }
     .topbar-inner {
@@ -119,13 +138,13 @@
     .topbar nav a:hover { color: var(--cream-50); }
     .topbar .nav-cta {
       padding: 0.55rem 1.1rem;
-      border: 1px solid var(--tan-400);
-      color: var(--cream-50);
+      background: var(--red);
+      color: var(--warm-white);
       border-radius: 999px;
       font-size: 0.85rem; font-weight: 600;
-      transition: background 240ms ease, color 240ms ease;
+      transition: background 240ms ease;
     }
-    .topbar .nav-cta:hover { background: var(--tan-400); color: var(--coffee-900); }
+    .topbar .nav-cta:hover { background: var(--red-deep); }
 
     .nav-toggle { display: none; font-size: 1.4rem; padding: 0.3rem 0.5rem; }
 
@@ -148,7 +167,7 @@
     .hero {
       position: relative;
       min-height: min(92vh, 820px);
-      background: var(--coffee-800) url('img/hero-poster.jpg') center/cover no-repeat;
+      background: var(--coffee-800) url('nasi-brisket.jpg') center/cover no-repeat;
       color: var(--cream-50);
       overflow: hidden;
       isolation: isolate;
@@ -164,24 +183,30 @@
       z-index: -2;
     }
 
+    /* layered scrim for text legibility */
     .hero-scrim {
       position: absolute; inset: 0;
       background:
+        /* heavy bottom darkness where text lives */
         linear-gradient(180deg,
-          rgba(14,8,5,0.55) 0%,
-          rgba(14,8,5,0) 28%,
-          rgba(14,8,5,0) 52%,
-          rgba(14,8,5,0.92) 100%
+          rgba(14,8,5,0.7)  0%,
+          rgba(14,8,5,0.25) 22%,
+          rgba(14,8,5,0.15) 40%,
+          rgba(14,8,5,0.75) 65%,
+          rgba(14,8,5,0.97) 100%
         ),
+        /* left-side dark column for headline contrast */
         linear-gradient(90deg,
-          rgba(14,8,5,0.55) 0%,
-          rgba(14,8,5,0.15) 45%,
-          rgba(14,8,5,0) 70%
+          rgba(14,8,5,0.78) 0%,
+          rgba(14,8,5,0.45) 30%,
+          rgba(14,8,5,0.1)  60%,
+          rgba(14,8,5,0)    80%
         );
       z-index: -1;
       pointer-events: none;
     }
 
+    /* paper grain noise over the video, subtle */
     .hero::after {
       content: '';
       position: absolute; inset: 0;
@@ -215,32 +240,43 @@
     }
     .hero-meta .pin {
       width: 6px; height: 6px; border-radius: 50%;
-      background: var(--ember);
-      box-shadow: 0 0 0 4px rgba(255,91,31,0.18);
+      background: var(--red);
+      box-shadow: 0 0 0 4px rgba(200,16,46,0.22);
       animation: pulse 2.4s cubic-bezier(0.165,0.84,0.44,1) infinite;
     }
     @keyframes pulse {
-      0%, 100% { box-shadow: 0 0 0 4px rgba(255,91,31,0.18); }
-      50%      { box-shadow: 0 0 0 10px rgba(255,91,31,0.04); }
+      0%, 100% { box-shadow: 0 0 0 4px rgba(200,16,46,0.22); }
+      50%      { box-shadow: 0 0 0 10px rgba(200,16,46,0.05); }
     }
 
     .hero h1 {
       font-size: var(--t-step-5);
       margin-bottom: 1.8rem;
-      text-shadow: 0 6px 40px rgba(0,0,0,0.45);
+      color: var(--warm-white);
+      text-shadow:
+        0 4px 24px rgba(0,0,0,0.85),
+        0 2px 8px rgba(0,0,0,0.7),
+        0 0 60px rgba(0,0,0,0.5);
     }
     .hero h1 .line { display: block; }
     .hero h1 .line + .line { margin-top: -0.06em; }
 
     .hero-lede {
-      max-width: 40ch;
+      max-width: 44ch;
       font-size: var(--t-step-1);
-      color: rgba(243,226,196,0.92);
+      color: var(--warm-white);
       margin-bottom: 2.2rem;
-      line-height: 1.45;
+      line-height: 1.5;
+      font-weight: 500;
       text-wrap: pretty;
-      text-shadow: 0 2px 18px rgba(0,0,0,0.5);
+      padding: 1rem 1.4rem 1.05rem;
+      background: rgba(14,8,5,0.55);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-left: 3px solid var(--red);
+      display: inline-block;
     }
+    .hero-lede strong { color: var(--amber); font-weight: 700; }
 
     .hero-cta { display: flex; flex-wrap: wrap; gap: 0.8rem; }
     .btn {
@@ -253,12 +289,12 @@
                   background 240ms ease, color 240ms ease, border-color 240ms ease;
     }
     .btn-solid {
-      background: var(--ember);
-      color: var(--coffee-900);
+      background: var(--red);
+      color: var(--warm-white);
       clip-path: polygon(8px 0, 100% 0, calc(100% - 8px) 100%, 0 100%);
       padding-inline: 1.7rem;
     }
-    .btn-solid:hover { transform: translate(2px, -2px); }
+    .btn-solid:hover { transform: translate(2px, -2px); background: var(--red-deep); }
     .btn-ghost {
       background: rgba(14,8,5,0.35);
       backdrop-filter: blur(8px);
@@ -269,6 +305,7 @@
     .btn .arrow { transition: transform 280ms cubic-bezier(0.165,0.84,0.44,1); }
     .btn:hover .arrow { transform: translateX(4px); }
 
+    /* vertical rail showing opening hours, on top of video */
     .hero-rail {
       position: absolute;
       top: 50%; right: 1.5%;
@@ -286,6 +323,7 @@
     }
     @media (max-width: 980px) { .hero-rail { display: none; } }
 
+    /* scroll hint */
     .scroll-hint {
       position: absolute;
       bottom: 1.6rem;
@@ -320,11 +358,11 @@
        MARQUEE TICKER
     ============================================================ */
     .marquee {
-      background: var(--ember);
-      color: var(--coffee-900);
+      background: var(--red);
+      color: var(--warm-white);
       padding: 0.85rem 0;
       overflow: hidden;
-      border-block: 1px solid var(--coffee-900);
+      border-block: 1px solid rgba(0,0,0,0.18);
     }
     .marquee-track {
       display: flex;
@@ -339,7 +377,7 @@
       width: max-content;
     }
     .marquee-track span { display: inline-flex; align-items: center; gap: 3.2rem; }
-    .marquee-track .sep { color: rgba(20,12,8,0.5); }
+    .marquee-track .sep { color: rgba(255,255,255,0.55); }
 
     .marquee.alt { background: var(--coffee-900); color: var(--cream-100); border-color: rgba(243,226,196,0.08); }
     .marquee.alt .sep { color: var(--ember); }
@@ -351,10 +389,10 @@
     .marquee:hover .marquee-track { animation-play-state: paused; }
 
     /* ============================================================
-       STATEMENT block
+       STATEMENT block, replaces the 3-card about
     ============================================================ */
     .statement {
-      background: var(--coffee-900);
+      background: var(--burgundy);
       padding: clamp(5rem, 12vh, 9rem) 0;
       position: relative;
       overflow: hidden;
@@ -393,7 +431,7 @@
     }
     .statement-body em {
       font-style: normal;
-      color: var(--ember);
+      color: var(--amber);
       font-weight: 600;
     }
     .statement-body small {
@@ -411,7 +449,7 @@
     }
 
     /* ============================================================
-       SIGNATURE
+       SIGNATURE, full bleed cream paper
     ============================================================ */
     .signature {
       position: relative;
@@ -436,13 +474,14 @@
         0 0 0 10px var(--cream-50),
         0 0 0 11px rgba(46,28,12,0.15);
     }
+    /* hand-stamped price tag */
     .price-stamp {
       position: absolute;
       top: -1rem; right: -1rem;
       width: clamp(100px, 14vw, 150px); height: clamp(100px, 14vw, 150px);
       border-radius: 50%;
-      background: var(--ember);
-      color: var(--coffee-900);
+      background: var(--amber);
+      color: var(--espresso);
       display: grid; place-items: center;
       transform: rotate(8deg);
       box-shadow: 0 12px 30px rgba(0,0,0,0.18);
@@ -509,6 +548,8 @@
        MENU, asymmetric grid
     ============================================================ */
     .menu {
+      background: var(--cream);
+      color: var(--espresso);
       padding: clamp(4rem, 10vh, 7rem) 0 clamp(5rem, 12vh, 8rem);
       position: relative;
     }
@@ -545,12 +586,14 @@
     }
     .dish {
       position: relative;
-      background: var(--cream-50);
-      border: 1px solid rgba(29,16,10,0.12);
+      background: var(--warm-white);
+      border: 1px solid var(--beige);
       overflow: hidden;
       display: flex; flex-direction: column;
-      transition: transform 360ms cubic-bezier(0.165,0.84,0.44,1);
+      transition: transform 360ms cubic-bezier(0.165,0.84,0.44,1), box-shadow 360ms cubic-bezier(0.165,0.84,0.44,1);
+      box-shadow: 0 2px 8px rgba(46,28,12,0.04);
     }
+    .dish:hover { box-shadow: 0 14px 30px rgba(46,28,12,0.12); }
     .dish:hover { transform: translateY(-4px); }
     .dish .dish-photo {
       position: relative;
@@ -585,13 +628,13 @@
     .dish .footer-row {
       display: flex; justify-content: space-between; align-items: baseline;
       margin-top: auto; padding-top: 0.6rem;
-      border-top: 1px dashed rgba(29,16,10,0.18);
+      border-top: 1px dashed var(--beige);
     }
     .dish .price {
       font-family: 'Big Shoulders Display', sans-serif;
       font-weight: 900;
       font-size: 1.4rem;
-      color: var(--brown-500);
+      color: var(--amber);
       letter-spacing: -0.01em;
     }
     .dish .tag {
@@ -602,10 +645,11 @@
       color: var(--ink-soft);
     }
 
-    .dish-1 { grid-column: span 4; }
+    /* asymmetric spans, 3 rows of 6 cols */
+    .dish-1 { grid-column: span 4; }  /* signature, wide */
     .dish-2 { grid-column: span 2; }
     .dish-3 { grid-column: span 2; }
-    .dish-4 { grid-column: span 4; }
+    .dish-4 { grid-column: span 4; }  /* premium, wide */
     .dish-5 { grid-column: span 3; }
     .dish-6 { grid-column: span 3; }
 
@@ -619,23 +663,22 @@
       .dish-1, .dish-2 { grid-column: span 1; }
     }
 
+    /* menu PDF button row */
     .menu-actions {
       margin-top: clamp(2.5rem, 5vw, 4rem);
       display: flex; gap: 1rem; flex-wrap: wrap;
       align-items: center; justify-content: center;
     }
-    .menu-actions .btn-solid { background: var(--coffee-900); color: var(--cream-50); }
-    .menu-actions .btn-solid:hover { background: var(--brown-500); }
     .menu-actions .note {
       font-size: 0.85rem; color: var(--ink-soft); max-width: 24ch;
     }
 
     /* ============================================================
-       CONTACT
+       CONTACT, dark coffee again
     ============================================================ */
     .contact {
-      background: var(--coffee-900);
-      color: var(--cream-50);
+      background: var(--burgundy);
+      color: var(--warm-white);
       padding: clamp(5rem, 12vh, 9rem) 0;
       position: relative;
       overflow: hidden;
@@ -643,7 +686,7 @@
     .contact::before {
       content: '';
       position: absolute; inset: 0;
-      background: radial-gradient(800px 400px at 80% 20%, rgba(255,91,31,0.08), transparent 60%);
+      background: radial-gradient(800px 400px at 80% 20%, rgba(217,142,43,0.14), transparent 60%);
       pointer-events: none;
     }
     .contact-grid {
@@ -663,7 +706,7 @@
       text-wrap: balance;
       margin-bottom: 1.5rem;
     }
-    .contact h2 .ember { color: var(--ember); }
+    .contact h2 .ember { color: var(--amber); }
     .contact-lede {
       font-size: var(--t-step-1);
       color: rgba(243,226,196,0.75);
@@ -691,9 +734,10 @@
       color: var(--tan-300);
     }
     .info-row .v { font-size: 1.05rem; line-height: 1.45; }
-    .info-row .v a { color: var(--cream-50); border-bottom: 1px solid var(--ember); padding-bottom: 1px; }
-    .info-row .v a:hover { color: var(--ember); }
+    .info-row .v a { color: var(--warm-white); border-bottom: 1px solid var(--amber); padding-bottom: 1px; }
+    .info-row .v a:hover { color: var(--amber); }
 
+    /* hours plate, mock door sign */
     .hours-plate {
       background: var(--cream-100);
       color: var(--ink);
@@ -832,6 +876,326 @@
     .wa-float svg { width: 26px; height: 26px; fill: #fff; }
 
     /* ============================================================
+       LIVE STATUS pill
+    ============================================================ */
+    .live-pill {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.35rem 0.85rem;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.12);
+      font-size: 0.75rem; font-weight: 600;
+      letter-spacing: 0.04em;
+      color: var(--warm-white);
+      white-space: nowrap;
+    }
+    .live-pill .dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: #2ecc71;
+      box-shadow: 0 0 0 4px rgba(46,204,113,0.2);
+      animation: livePulse 2s cubic-bezier(0.45,0.05,0.55,0.95) infinite;
+    }
+    .live-pill.is-closed .dot {
+      background: #aa3a3a;
+      box-shadow: 0 0 0 4px rgba(170,58,58,0.2);
+      animation: none;
+    }
+    .live-pill.is-closed { background: rgba(170,58,58,0.15); border-color: rgba(170,58,58,0.3); }
+    @keyframes livePulse {
+      0%, 100% { box-shadow: 0 0 0 4px rgba(46,204,113,0.2); }
+      50%      { box-shadow: 0 0 0 9px rgba(46,204,113,0.05); }
+    }
+    .live-pill .live-time { color: var(--amber); font-weight: 700; }
+
+    /* topbar live pill placement */
+    .topbar-brand { display: flex; align-items: center; gap: 1rem; }
+    @media (max-width: 540px) {
+      .live-pill .live-text { display: none; }
+      .topbar-brand { gap: 0.6rem; }
+    }
+
+    /* ============================================================
+       HERO DISH PEEK - floating signature card overlay
+    ============================================================ */
+    .hero-dish-peek {
+      position: absolute;
+      bottom: clamp(5rem, 10vh, 9rem);
+      right: clamp(2rem, 5vw, 5rem);
+      width: clamp(190px, 22vw, 290px);
+      transform: rotate(-3deg);
+      z-index: 1;
+      transition: transform 500ms cubic-bezier(0.165,0.84,0.44,1);
+    }
+    .hero-dish-peek:hover { transform: rotate(0deg) scale(1.03); }
+    .hero-dish-peek img {
+      width: 100%; aspect-ratio: 1/1; object-fit: cover;
+      border: 10px solid var(--warm-white);
+      box-shadow: 0 24px 60px rgba(0,0,0,0.5);
+    }
+    .hero-dish-peek .peek-label {
+      position: absolute;
+      bottom: -1.2rem; left: 50%;
+      transform: translateX(-50%) rotate(3deg);
+      background: var(--amber);
+      color: var(--espresso);
+      padding: 0.55rem 1rem 0.5rem;
+      font-family: 'Big Shoulders Display', sans-serif;
+      font-weight: 900;
+      white-space: nowrap;
+      display: flex; gap: 0.7rem; align-items: baseline;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .peek-label .peek-name { font-size: 0.85rem; }
+    .peek-label .peek-price { font-size: 1.05rem; color: var(--red); }
+    .hero-dish-peek .peek-arrow {
+      position: absolute;
+      top: -2rem; left: -2.5rem;
+      width: 60px; height: 60px;
+      color: var(--amber);
+      transform: rotate(-30deg);
+      opacity: 0.85;
+    }
+    .hero-dish-peek .peek-caption {
+      position: absolute;
+      top: -3rem; left: -8rem;
+      font-family: 'Big Shoulders Display', sans-serif;
+      font-weight: 800;
+      font-size: 0.85rem;
+      color: var(--amber);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      white-space: nowrap;
+      text-shadow: 0 2px 12px rgba(0,0,0,0.6);
+    }
+    @media (max-width: 880px) {
+      .hero-dish-peek { display: none; }
+    }
+
+    /* ============================================================
+       APPETITE TRIPTYCH (replaces statement)
+    ============================================================ */
+    .appetite {
+      background: var(--burgundy);
+      color: var(--warm-white);
+      padding: clamp(4rem, 10vh, 7rem) 0;
+      position: relative;
+    }
+    .appetite-head {
+      text-align: center;
+      margin-bottom: clamp(2rem, 5vw, 3.5rem);
+    }
+    .appetite-head h2 {
+      font-family: 'Big Shoulders Display', sans-serif;
+      font-weight: 900;
+      font-size: clamp(2.4rem, 5vw, 4rem);
+      line-height: 0.9;
+      letter-spacing: -0.02em;
+      text-transform: uppercase;
+      color: var(--warm-white);
+    }
+    .appetite-head h2 em {
+      font-style: italic; color: var(--amber); font-weight: 900;
+    }
+    .appetite-head p {
+      max-width: 50ch; margin: 1rem auto 0;
+      color: rgba(251,248,242,0.75);
+      font-size: var(--t-step-1);
+    }
+
+    .appetite-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: clamp(1rem, 2vw, 1.8rem);
+    }
+    .appetite-card {
+      position: relative;
+      aspect-ratio: 3/4;
+      overflow: hidden;
+      cursor: default;
+      transform: translateY(0);
+      transition: transform 500ms cubic-bezier(0.165,0.84,0.44,1);
+    }
+    .appetite-card:hover { transform: translateY(-6px); }
+    .appetite-card img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform 800ms cubic-bezier(0.165,0.84,0.44,1);
+    }
+    .appetite-card:hover img { transform: scale(1.08); }
+    .appetite-card::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(180deg,
+        rgba(42,31,24,0) 30%,
+        rgba(42,31,24,0.45) 55%,
+        rgba(42,31,24,0.95) 100%);
+      pointer-events: none;
+    }
+    .appetite-card .ac-overlay {
+      position: absolute; inset: auto 1.2rem 1.2rem;
+      z-index: 2;
+      color: var(--warm-white);
+    }
+    .ac-overlay .ac-num {
+      font-family: 'Big Shoulders Display', sans-serif;
+      font-weight: 900;
+      font-size: clamp(3rem, 6vw, 4.5rem);
+      line-height: 0.85;
+      color: var(--amber);
+      letter-spacing: -0.02em;
+    }
+    .ac-overlay .ac-lbl {
+      font-family: 'Big Shoulders Display', sans-serif;
+      font-weight: 800;
+      font-size: 0.95rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-top: 0.3rem;
+      color: var(--warm-white);
+    }
+    .ac-overlay p {
+      margin-top: 0.6rem;
+      font-size: 0.92rem;
+      line-height: 1.4;
+      color: rgba(251,248,242,0.85);
+      max-width: 28ch;
+    }
+    @media (max-width: 760px) {
+      .appetite-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ============================================================
+       DISH BADGES & MINI CTA on menu cards
+    ============================================================ */
+    .dish .dish-photo .badges {
+      position: absolute; top: 0.7rem; left: 0.7rem;
+      display: flex; flex-direction: column; gap: 0.35rem;
+      z-index: 2;
+      pointer-events: none;
+    }
+    .badge {
+      display: inline-flex; align-items: center; gap: 0.35rem;
+      padding: 0.28rem 0.55rem;
+      font-family: 'Big Shoulders Display', sans-serif;
+      font-weight: 800;
+      font-size: 0.7rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      white-space: nowrap;
+    }
+    .badge-signature { background: var(--red);      color: var(--warm-white); }
+    .badge-bestseller{ background: var(--amber);    color: var(--espresso); }
+    .badge-spicy     { background: #d94a26;          color: var(--warm-white); }
+    .badge-premium   { background: var(--burgundy); color: var(--warm-white); }
+    .badge-budget    { background: var(--sage);     color: var(--warm-white); }
+    .badge-new       { background: var(--espresso); color: var(--amber); }
+
+    .dish .dish-cta {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      margin-top: 0.7rem;
+      padding: 0.55rem 0.9rem;
+      background: var(--red);
+      color: var(--warm-white);
+      font-family: 'Big Shoulders Display', sans-serif;
+      font-weight: 800;
+      font-size: 0.8rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      transition: background 240ms ease, transform 240ms cubic-bezier(0.165,0.84,0.44,1);
+      width: 100%;
+      justify-content: center;
+    }
+    .dish .dish-cta:hover { background: var(--red-deep); transform: translateY(-2px); }
+    .dish .dish-cta .arrow-r { transition: transform 240ms cubic-bezier(0.165,0.84,0.44,1); }
+    .dish:hover .dish-cta .arrow-r { transform: translateX(3px); }
+
+    /* ============================================================
+       SIGNATURE CTA & social proof
+    ============================================================ */
+    .sig-social {
+      display: flex; flex-wrap: wrap; gap: 0.8rem; align-items: center;
+      margin: 1.5rem 0;
+      padding: 0.9rem 1rem;
+      background: var(--cream);
+      border-left: 4px solid var(--amber);
+    }
+    .sig-social .stars {
+      color: var(--amber);
+      font-size: 1rem;
+      letter-spacing: 0.1em;
+    }
+    .sig-social .text {
+      font-size: 0.9rem;
+      color: var(--ink-soft);
+    }
+    .sig-social .text strong { color: var(--espresso); }
+
+    .sig-cta-row { display: flex; flex-wrap: wrap; gap: 0.8rem; margin-top: 1.4rem; }
+    .sig-cta-row .btn-solid {
+      font-size: 1.05rem;
+      padding-block: 1.1rem;
+    }
+
+    /* spice indicator pill */
+    .spice {
+      display: inline-flex; align-items: center; gap: 0.3rem;
+      font-size: 0.85rem;
+      color: var(--ink-soft);
+      padding: 0.25rem 0.6rem;
+      background: rgba(217,74,38,0.1);
+      border-radius: 999px;
+    }
+    .spice .chilis { letter-spacing: -0.1em; filter: saturate(1.3); }
+
+    /* ============================================================
+       STICKY ORDER BAR (mobile)
+    ============================================================ */
+    .order-bar {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      z-index: var(--z-overlay);
+      background: var(--espresso);
+      color: var(--warm-white);
+      padding: 0.75rem 1rem;
+      display: none;
+      align-items: center; gap: 0.8rem;
+      box-shadow: 0 -10px 30px rgba(0,0,0,0.25);
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+    .order-bar .ob-info { flex: 1; display: flex; flex-direction: column; gap: 0.1rem; }
+    .order-bar .ob-status {
+      font-size: 0.85rem; font-weight: 700;
+      display: inline-flex; align-items: center; gap: 0.45rem;
+    }
+    .order-bar .ob-status .ob-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: #2ecc71;
+      animation: livePulse 2s cubic-bezier(0.45,0.05,0.55,0.95) infinite;
+    }
+    .order-bar .ob-meta { font-size: 0.75rem; color: rgba(251,248,242,0.65); }
+    .order-bar .ob-cta {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: var(--red);
+      color: var(--warm-white);
+      padding: 0.8rem 1.2rem;
+      font-family: 'Big Shoulders Display', sans-serif;
+      font-weight: 900;
+      font-size: 0.95rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      box-shadow: 0 8px 20px rgba(200,16,46,0.4);
+    }
+    .order-bar .ob-cta:hover { background: var(--red-deep); }
+
+    @media (max-width: 760px) {
+      .order-bar { display: flex; }
+      body { padding-bottom: 5rem; }
+      .wa-float { bottom: 5.5rem; }
+    }
+
+    /* ============================================================
        Reduced motion
     ============================================================ */
     @media (prefers-reduced-motion: reduce) {
@@ -841,7 +1205,7 @@
         transition-duration: 0.001ms !important;
         scroll-behavior: auto !important;
       }
-      .hero-video { display: none; }
+      .hero-video { display: none; }   /* poster background tetap terlihat */
       .marquee-track { animation: none; }
       .scroll-hint { display: none; }
     }
@@ -852,16 +1216,23 @@
   <!-- ============== NAVBAR ============== -->
   <header class="topbar">
     <div class="wrap topbar-inner">
-      <a href="#" class="wordmark">ghriil<span class="dot">.</span></a>
+      <div class="topbar-brand">
+        <a href="#" class="wordmark">ghriil<span class="dot">.</span></a>
+        <span class="live-pill" data-live-status>
+          <span class="dot"></span>
+          <span class="live-text">Buka sekarang</span>
+          <span class="live-time" data-live-time>—</span>
+        </span>
+      </div>
       <nav id="primary-nav">
         <button class="nav-toggle wordmark" aria-label="Buka menu" aria-expanded="false"
                 onclick="const n=this.parentElement;n.classList.toggle('open');this.setAttribute('aria-expanded',n.classList.contains('open'))">≡</button>
         <ul>
-          <li><a href="#story">Cerita</a></li>
+          <li><a href="#why">Kenapa</a></li>
           <li><a href="#signature">Andalan</a></li>
           <li><a href="#menu">Menu</a></li>
           <li><a href="#contact">Mampir</a></li>
-          <li><a class="nav-cta" href="https://wa.me/628123456789?text=Halo%20Ghriil,%20saya%20mau%20reservasi" target="_blank" rel="noopener">Reservasi</a></li>
+          <li><a class="nav-cta" href="https://wa.me/628123456789?text=Halo%20Ghriil,%20saya%20mau%20reservasi%20meja" target="_blank" rel="noopener">Reservasi</a></li>
         </ul>
       </nav>
     </div>
@@ -872,9 +1243,9 @@
     <video class="hero-video"
            autoplay muted loop playsinline
            preload="metadata"
-           poster="img/hero-poster.jpg"
+           poster="nasi-brisket.jpg"
            aria-hidden="true">
-      <source src="video/hero-web.mp4" type="video/mp4">
+      <source src="hero-web.mp4" type="video/mp4">
     </video>
     <div class="hero-scrim" aria-hidden="true"></div>
     <div class="hero-rail" aria-hidden="true">Buka 10:00 – 24:00 WITA</div>
@@ -892,17 +1263,16 @@
       </h1>
 
       <p class="hero-lede">
-        Panggangan rempah Makassar, dimasak dua belas jam.
-        Kopi diseduh untuk menemani sore.
-        Bir dingin sampai tengah malam.
+        Rempah Makassar, dimasak pelan. Bistro modern yang buka
+        hingga tengah malam. <strong>Reservasi meja untuk merasakan langsung.</strong>
       </p>
 
       <div class="hero-cta">
-        <a class="btn btn-solid" href="menu.pdf" download>
-          Bawa pulang menu <span class="arrow">↓</span>
+        <a class="btn btn-solid" href="https://wa.me/628123456789?text=Halo%20Ghriil,%20saya%20mau%20reservasi%20meja" target="_blank" rel="noopener">
+          Reservasi meja <span class="arrow">→</span>
         </a>
-        <a class="btn btn-ghost" href="#signature">
-          Lihat andalan <span class="arrow">→</span>
+        <a class="btn btn-ghost" href="#menu">
+          Lihat menu <span class="arrow">↓</span>
         </a>
       </div>
     </div>
@@ -921,21 +1291,42 @@
     </div>
   </div>
 
-  <!-- ============== STATEMENT ============== -->
-  <section id="story" class="statement">
-    <div class="wrap statement-grid">
-      <aside class="statement-tag">
-        <div class="num">01</div>
-        <span class="lbl">Cerita</span>
-      </aside>
-      <div class="statement-body">
-        Kami masak <em>pelan</em>. Dua belas jam dalam panggangan tertutup,
-        dengan rempah Makassar utuh sampai bumbu meresap ke serat daging.
-        <small>
-          Kopi kami diseduh fresh setiap pesanan, dari biji single-origin yang
-          dipilih per minggu. Bir dingin selalu siap, mulai Anker sampai
-          Guinness Stout, buat menutup malam bersama teman.
-        </small>
+  <!-- ============== APPETITE TRIPTYCH (replaces story) ============== -->
+  <section id="why" class="appetite">
+    <div class="wrap">
+      <div class="appetite-head">
+        <h2>Yang membedakan <em>Ghriil.</em></h2>
+        <p>Tiga prinsip dapur kami. Yang membuat pelanggan kembali, dan datang lagi membawa teman.</p>
+      </div>
+      <div class="appetite-grid">
+
+        <article class="appetite-card">
+          <img src="nasi-brisket.jpg" alt="Brisket dimasak 12 jam">
+          <div class="ac-overlay">
+            <div class="ac-num">12<span style="font-size:0.5em;">jam</span></div>
+            <div class="ac-lbl">Slow-cooked</div>
+            <p>Brisket diasap pelan. Empuk sampai serat terakhir. Bumbu meresap penuh.</p>
+          </div>
+        </article>
+
+        <article class="appetite-card">
+          <img src="tuna-sambal-matah.jpg" alt="Rempah Makassar utuh">
+          <div class="ac-overlay">
+            <div class="ac-num">100<span style="font-size:0.5em;">%</span></div>
+            <div class="ac-lbl">Rempah Makassar</div>
+            <p>Bumbu utuh dari kebun. Cita rasa yang bikin kangen kalau lama gak balik.</p>
+          </div>
+        </article>
+
+        <article class="appetite-card">
+          <img src="bakso-ghriil.jpg" alt="Bakso wagyu fresh tiap order">
+          <div class="ac-overlay">
+            <div class="ac-num">40<span style="font-size:0.5em;">menit</span></div>
+            <div class="ac-lbl">Fresh per order</div>
+            <p>Bakso wagyu dibuat saat Anda pesan. Tidak ada yang menginap di kulkas.</p>
+          </div>
+        </article>
+
       </div>
     </div>
   </section>
@@ -944,7 +1335,7 @@
   <section id="signature" class="signature paper">
     <div class="wrap sig-grid">
       <div class="sig-photo-frame">
-        <img src="img/nasi-brisket.jpg" alt="Sepiring Nasi Brisket Sayur Ubi, signature Ghriil" loading="lazy">
+        <img src="nasi-brisket.jpg" alt="Sepiring Nasi Brisket Sayur Ubi, signature Ghriil" loading="lazy">
         <div class="price-stamp" aria-hidden="true">
           <span class="rp">Rp</span>
           <span class="nominal">45rb</span>
@@ -955,41 +1346,58 @@
       <div class="sig-text">
         <div class="sig-eyebrow">
           <span class="dash"></span>
-          Yang dicari pelanggan
+          ★ #1 Best Seller
         </div>
         <h2>
           Nasi <span class="accent">Brisket</span><br>
           Sayur Ubi
         </h2>
         <p>
-          Brisket diasap berbumbu rempah, gurih dengan sedikit manis dan hint pedas
-          ringan. Aroma smoky meresap ke serat daging. Disandingkan tumis daun ubi
-          dan bunga pepaya, ditemani nasi putih hangat.
+          Brisket asap yang lumer di mulut, dengan smoky gurih dan hint pedas yang pas.
+          Disandingkan tumis daun ubi dan bunga pepaya, ditemani nasi putih hangat dan
+          sambal yang nendang.
         </p>
         <ul class="sig-meta">
           <li>Slow-cooked 12 jam</li>
-          <li>Rempah Makassar</li>
-          <li>Smoky &amp; gurih</li>
+          <li>Porsi mengenyangkan</li>
+          <li><span class="spice"><span class="chilis">🌶🌶</span> Pedas sedang</span></li>
         </ul>
+
+        <div class="sig-social">
+          <span class="stars">★★★★★</span>
+          <span class="text"><strong>Hidangan andalan</strong> · Yang paling sering dipesan kembali.</span>
+        </div>
+
+        <div class="sig-cta-row">
+          <a class="btn btn-solid" href="https://wa.me/628123456789?text=Halo%20Ghriil,%20saya%20mau%20reservasi%20meja%20untuk%20mencoba%20Nasi%20Brisket" target="_blank" rel="noopener">
+            Reservasi untuk mencoba <span class="arrow">→</span>
+          </a>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- ============== MENU GRID ============== -->
-  <section id="menu" class="menu paper">
+  <section id="menu" class="menu">
     <div class="wrap">
       <div class="menu-head">
-        <h2>Sisanya<br>di <em>menu</em>.</h2>
-        <p>Enam dari sekian banyak. Yang lengkap tersedia di PDF di bawah, beserta semua kopi, teh, dan minuman keras.</p>
+        <h2>Hidangan <em>pilihan.</em></h2>
+        <p>Enam dari menu kami. Pemesanan dilakukan langsung di restoran — gunakan halaman ini sebagai panduan, lalu reservasi meja untuk datang.</p>
       </div>
 
       <div class="menu-grid">
 
         <article class="dish dish-1">
-          <div class="dish-photo"><img src="img/bebek-kuning.jpg" alt="Bebek Kuning Kacang Kenari di piring lonjong" loading="lazy"></div>
+          <div class="dish-photo">
+            <div class="badges">
+              <span class="badge badge-signature">★ Signature</span>
+              <span class="badge badge-bestseller">Slow 5 jam</span>
+            </div>
+            <img src="bebek-kuning.jpg" alt="Bebek Kuning Kacang Kenari di piring lonjong" loading="lazy">
+          </div>
           <div class="dish-body">
             <h3>Bebek Kuning Kacang Kenari</h3>
-            <p class="desc">Dipanggang pelan lima jam dalam panggangan tertutup. Bumbu kuning kaya rempah, saus kacang kenari creamy yang hangat.</p>
+            <p class="desc">Bebek slow-cooked 5 jam sampai empuk. Bumbu kuning kaya rempah, saus kacang kenari creamy yang hangat aromatik.</p>
             <div class="footer-row">
               <span class="price">95rb</span>
               <span class="tag">Signature Bakar</span>
@@ -998,10 +1406,16 @@
         </article>
 
         <article class="dish dish-2">
-          <div class="dish-photo"><img src="img/bakso-ghriil.jpg" alt="Bakso Daging Ghriil, kuah gravy kental" loading="lazy"></div>
+          <div class="dish-photo">
+            <div class="badges">
+              <span class="badge badge-premium">Premium</span>
+              <span class="badge badge-bestseller">Wagyu</span>
+            </div>
+            <img src="bakso-ghriil.jpg" alt="Bakso Daging Ghriil, kuah gravy kental" loading="lazy">
+          </div>
           <div class="dish-body">
             <h3>Bakso Daging Ghriil</h3>
-            <p class="desc">Bakso daging wagyu, dibuat fresh saat order (±40 menit). Kuah gravy kental gurih, wortel, dan bawang bombay.</p>
+            <p class="desc">Bakso wagyu dibuat fresh saat order (±40 menit). Kuah gravy kental gurih, hangat rempah.</p>
             <div class="footer-row">
               <span class="price">145rb</span>
               <span class="tag">House Special</span>
@@ -1010,10 +1424,15 @@
         </article>
 
         <article class="dish dish-3">
-          <div class="dish-photo"><img src="img/tuna-sambal-matah.jpg" alt="Tuna Sambal Matah di atas daun pisang" loading="lazy"></div>
+          <div class="dish-photo">
+            <div class="badges">
+              <span class="badge badge-spicy">🌶🌶 Pedas</span>
+            </div>
+            <img src="tuna-sambal-matah.jpg" alt="Tuna Sambal Matah di atas daun pisang" loading="lazy">
+          </div>
           <div class="dish-body">
             <h3>Tuna Sambal Matah</h3>
-            <p class="desc">Tuna asap smoky, pedas berani, sentuhan citrus dari sambal matah, bawang merah, dan serai harum.</p>
+            <p class="desc">Tuna asap smoky gurih, pedas berani. Citrus segar dari sambal matah, bawang merah, dan serai harum.</p>
             <div class="footer-row">
               <span class="price">55rb</span>
               <span class="tag">Bakar</span>
@@ -1022,10 +1441,16 @@
         </article>
 
         <article class="dish dish-4">
-          <div class="dish-photo"><img src="img/udang-bakar.jpg" alt="Empat ekor udang tiger prawn bakar, saus kemangi" loading="lazy"></div>
+          <div class="dish-photo">
+            <div class="badges">
+              <span class="badge badge-premium">Tiger Prawn</span>
+              <span class="badge badge-spicy">🌶 Pedas ringan</span>
+            </div>
+            <img src="udang-bakar.jpg" alt="Empat ekor udang tiger prawn bakar, saus kemangi" loading="lazy">
+          </div>
           <div class="dish-body">
             <h3>Udang Bakar Saus Kemangi</h3>
-            <p class="desc">Tiger prawn pilihan, dibakar harum. Saus kemangi aromatik, gurih segar dengan pedas yang terasa.</p>
+            <p class="desc">Tiger prawn pilihan dibakar harum. Saus kemangi aromatik, gurih segar, pedas yang pas.</p>
             <div class="footer-row">
               <span class="price">120rb</span>
               <span class="tag">Bakar</span>
@@ -1034,10 +1459,15 @@
         </article>
 
         <article class="dish dish-5">
-          <div class="dish-photo"><img src="img/pesto-ijo.jpg" alt="Pesto Ijo Roti Panggang, brisket dan french fries" loading="lazy"></div>
+          <div class="dish-photo">
+            <div class="badges">
+              <span class="badge badge-bestseller">Populer</span>
+            </div>
+            <img src="pesto-ijo.jpg" alt="Pesto Ijo Roti Panggang, brisket dan french fries" loading="lazy">
+          </div>
           <div class="dish-body">
             <h3>Pesto Ijo Roti Panggang</h3>
-            <p class="desc">Beef brisket juicy, pesto kemangi, mozzarella di dalam sourdough renyah. Ghriil Signature Sauce dan french fries.</p>
+            <p class="desc">Beef brisket juicy, pesto kemangi, mozzarella di sourdough renyah. Plus Ghriil Signature Sauce & french fries.</p>
             <div class="footer-row">
               <span class="price">55rb</span>
               <span class="tag">Starter</span>
@@ -1046,10 +1476,16 @@
         </article>
 
         <article class="dish dish-6">
-          <div class="dish-photo"><img src="img/nasi-ayam.jpg" alt="Nasi Ayam Barbekiu dengan daun ubi" loading="lazy"></div>
+          <div class="dish-photo">
+            <div class="badges">
+              <span class="badge badge-budget">Hemat</span>
+              <span class="badge badge-spicy">🌶 Mild</span>
+            </div>
+            <img src="nasi-ayam.jpg" alt="Nasi Ayam Barbekiu dengan daun ubi" loading="lazy">
+          </div>
           <div class="dish-body">
             <h3>Nasi Ayam Barbekiu</h3>
-            <p class="desc">Ayam suwir dengan saus barbeque spesial. Manis gurih, smoky, sedikit pedas. Daun ubi, nasi putih hangat.</p>
+            <p class="desc">Ayam suwir dengan saus barbeque spesial. Manis gurih, smoky, dengan sayur daun ubi & nasi hangat.</p>
             <div class="footer-row">
               <span class="price">35rb</span>
               <span class="tag">Rumah Rasa</span>
@@ -1060,10 +1496,13 @@
       </div>
 
       <div class="menu-actions">
-        <a class="btn btn-solid" href="menu.pdf" download>
-          Download menu lengkap (PDF) <span class="arrow">↓</span>
+        <a class="btn btn-solid" href="https://wa.me/628123456789?text=Halo%20Ghriil,%20saya%20mau%20reservasi%20meja" target="_blank" rel="noopener">
+          Reservasi meja <span class="arrow">→</span>
         </a>
-        <span class="note">Berisi semua hidangan, kopi, teh, minuman keras, dan harga.</span>
+        <a class="btn btn-ghost" href="menu.pdf" download>
+          Download menu PDF <span class="arrow">↓</span>
+        </a>
+        <span class="note">Pemesanan hanya di tempat. Reservasi via WhatsApp untuk memastikan meja tersedia.</span>
       </div>
     </div>
   </section>
@@ -1141,7 +1580,7 @@
         </div>
         <div class="foot-col">
           <h4>Jelajahi</h4>
-          <a href="#story">Cerita</a>
+          <a href="#why">Kenapa Ghriil</a>
           <a href="#signature">Andalan</a>
           <a href="#menu">Menu</a>
           <a href="#contact">Mampir</a>
@@ -1168,6 +1607,45 @@
   <a class="wa-float" href="https://wa.me/628123456789?text=Halo%20Ghriil" target="_blank" rel="noopener" aria-label="Chat WhatsApp Ghriil">
     <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.5 14.4c-.3-.1-1.8-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.7 1-.9 1.2-.2.2-.3.2-.6.1-1.7-.9-2.9-1.6-4-3.5-.3-.5.3-.5.8-1.5.1-.2 0-.3 0-.5 0-.1-.7-1.6-.9-2.2-.2-.5-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1.1 1-1.1 2.6 0 1.5 1.1 3 1.3 3.2.2.2 2.2 3.4 5.4 4.7.7.3 1.3.5 1.8.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.5.3-.7.3-1.4.2-1.5 0-.1-.2-.2-.4-.3zM12 22h0c-1.7 0-3.3-.4-4.8-1.3l-3.4.9.9-3.3c-.9-1.5-1.4-3.3-1.4-5C3.3 8.1 7.2 4 12 4c2.3 0 4.5.9 6.2 2.5 1.7 1.7 2.6 3.9 2.6 6.3 0 4.8-4.1 8.7-8.8 8.7z"/></svg>
   </a>
+
+  <!-- ============== STICKY RESERVATION BAR (mobile only) ============== -->
+  <div class="order-bar" data-live-status>
+    <div class="ob-info">
+      <span class="ob-status"><span class="ob-dot"></span> <span class="ob-status-text">Buka sekarang</span></span>
+      <span class="ob-meta">Tutup 24:00 WITA · <span data-live-time>—</span></span>
+    </div>
+    <a class="ob-cta" href="https://wa.me/628123456789?text=Halo%20Ghriil,%20saya%20mau%20reservasi%20meja" target="_blank" rel="noopener">
+      Reservasi →
+    </a>
+  </div>
+
+  <script>
+    /* ===== Live "buka sekarang" status & jam (WITA / UTC+8) =====
+       Membaca semua [data-live-status] dan [data-live-time].
+       Open: 10:00–24:00 WITA. */
+    (function () {
+      function update() {
+        const now = new Date();
+        // UTC+8 (Asia/Makassar / WITA)
+        const witaH = (now.getUTCHours() + 8) % 24;
+        const witaM = now.getUTCMinutes();
+        const isOpen = witaH >= 10 && witaH < 24;
+        const timeStr = String(witaH).padStart(2, '0') + ':' + String(witaM).padStart(2, '0');
+
+        document.querySelectorAll('[data-live-status]').forEach(function (el) {
+          el.classList.toggle('is-open', isOpen);
+          el.classList.toggle('is-closed', !isOpen);
+          const txt = el.querySelector('.live-text, .ob-status-text');
+          if (txt) txt.textContent = isOpen ? 'Buka sekarang' : 'Tutup sekarang';
+        });
+        document.querySelectorAll('[data-live-time]').forEach(function (el) {
+          el.textContent = timeStr + ' WITA';
+        });
+      }
+      update();
+      setInterval(update, 30000);
+    })();
+  </script>
 
 </body>
 </html>
