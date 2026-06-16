@@ -6,6 +6,11 @@
   <title>Ghriil — Bistro, Coffee, Cheers</title>
   <meta name="description" content="Ghriil. Panggangan rempah Makassar, dimasak dua belas jam. Kopi sore. Bir hingga tengah malam. Jl. Chairil Anwar No. 8." />
 
+  <!-- Favicon (mascot Ghriil) -->
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="apple-touch-icon" href="favicon.png">
+  <meta name="theme-color" content="#F4501C">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800;900&family=Familjen+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -1656,6 +1661,146 @@
       }
       update();
       setInterval(update, 30000);
+    })();
+  </script>
+
+  <!-- ====== GSAP animations ====== -->
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollToPlugin.min.js"></script>
+  <script>
+    (function () {
+      // Respect reduced motion. If GSAP fails to load, the page already has
+      // visible defaults — gsap.from() snap-hides then animates back in.
+      if (!window.gsap) return;
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+
+      // === Hero entrance timeline ===
+      // Cascade: navbar → meta → headline lines → lede → CTAs
+      const heroIn = gsap.timeline({ defaults: { ease: 'expo.out' } });
+      heroIn
+        .from('.topbar-brand .wordmark', { y: -16, opacity: 0, duration: 0.55 })
+        .from('.live-pill', { y: -16, opacity: 0, duration: 0.45 }, '-=0.35')
+        .from('.topbar nav ul > li', { y: -14, opacity: 0, duration: 0.4, stagger: 0.05 }, '-=0.35')
+        .from('.hero-meta', { y: 24, opacity: 0, duration: 0.65 }, '+=0.05')
+        .from('.hero h1 .line', { y: 56, opacity: 0, duration: 0.85, stagger: 0.13 }, '-=0.35')
+        .from('.hero-lede', { y: 24, opacity: 0, duration: 0.7 }, '-=0.45')
+        .from('.hero-cta .btn', { y: 24, opacity: 0, duration: 0.6, stagger: 0.09 }, '-=0.45')
+        .from('.scroll-hint', { opacity: 0, duration: 0.6 }, '-=0.2');
+
+      // === Section heads, scrub-once on enter (4 distinct intros, not uniform) ===
+      // Appetite: slide from left, h2 + p stagger
+      gsap.from('.appetite-head h2', {
+        x: -40, opacity: 0, duration: 0.95, ease: 'expo.out',
+        scrollTrigger: { trigger: '.appetite-head', start: 'top 82%', once: true }
+      });
+      gsap.from('.appetite-head p', {
+        y: 20, opacity: 0, duration: 0.7, delay: 0.25, ease: 'expo.out',
+        scrollTrigger: { trigger: '.appetite-head', start: 'top 82%', once: true }
+      });
+
+      // Signature: photo zooms in from 1.08 scale, text slides up
+      gsap.from('.sig-photo-frame img', {
+        scale: 1.12, opacity: 0, duration: 1.1, ease: 'expo.out',
+        scrollTrigger: { trigger: '.sig-grid', start: 'top 78%', once: true }
+      });
+      gsap.from('.sig-eyebrow, .sig-text h2, .sig-text p, .sig-meta, .sig-social, .sig-cta-row', {
+        y: 26, opacity: 0, duration: 0.75, stagger: 0.1, ease: 'expo.out',
+        scrollTrigger: { trigger: '.sig-text', start: 'top 78%', once: true }
+      });
+      // Price stamp pops with rotation
+      gsap.from('.price-stamp', {
+        scale: 0, rotate: -45, opacity: 0, duration: 0.7, ease: 'expo.out', delay: 0.4,
+        scrollTrigger: { trigger: '.sig-grid', start: 'top 78%', once: true }
+      });
+
+      // Menu head: subtle right-slide, contrasts with appetite left-slide
+      gsap.from('.menu-head h2', {
+        x: 30, opacity: 0, duration: 0.85, ease: 'expo.out',
+        scrollTrigger: { trigger: '.menu-head', start: 'top 82%', once: true }
+      });
+
+      // Contact: text scale-in (different again)
+      gsap.from('.contact h2', {
+        scale: 0.92, opacity: 0, duration: 0.95, ease: 'expo.out',
+        scrollTrigger: { trigger: '.contact', start: 'top 78%', once: true }
+      });
+      gsap.from('.contact-lede, .info-stack', {
+        y: 30, opacity: 0, duration: 0.7, stagger: 0.12, ease: 'expo.out',
+        scrollTrigger: { trigger: '.contact', start: 'top 70%', once: true }
+      });
+      gsap.from('.hours-plate, .wa-pill', {
+        y: 40, opacity: 0, duration: 0.75, stagger: 0.18, ease: 'expo.out',
+        scrollTrigger: { trigger: '.hours-plate', start: 'top 80%', once: true }
+      });
+
+      // === Appetite cards stagger entrance ===
+      gsap.from('.appetite-card', {
+        y: 60, opacity: 0, duration: 0.85, stagger: 0.16, ease: 'expo.out',
+        scrollTrigger: { trigger: '.appetite-grid', start: 'top 78%', once: true }
+      });
+
+      // === Number counters in appetite (12, 100, 40) ===
+      document.querySelectorAll('.ac-num').forEach(function (numEl) {
+        const inner = numEl.firstChild;
+        if (!inner || inner.nodeType !== Node.TEXT_NODE) return;
+        const raw = inner.textContent.trim();
+        const m = raw.match(/^(\d+)/);
+        if (!m) return;
+        const targetNum = parseInt(m[1], 10);
+        const counter = { n: 0 };
+        gsap.to(counter, {
+          n: targetNum,
+          duration: 1.4,
+          ease: 'power2.out',
+          onUpdate: function () { inner.textContent = String(Math.round(counter.n)); },
+          scrollTrigger: { trigger: numEl, start: 'top 85%', once: true }
+        });
+      });
+
+      // === Menu cards, mild stagger by row ===
+      gsap.from('.dish', {
+        y: 36, opacity: 0, duration: 0.65, stagger: 0.07, ease: 'expo.out',
+        scrollTrigger: { trigger: '.menu-grid', start: 'top 80%', once: true }
+      });
+
+      // === Foot subtle ===
+      gsap.from('.foot-grid > *', {
+        y: 18, opacity: 0, duration: 0.55, stagger: 0.08, ease: 'expo.out',
+        scrollTrigger: { trigger: 'footer.foot', start: 'top 85%', once: true }
+      });
+
+      // === Smooth anchor scrolls ===
+      document.querySelectorAll('a[href^="#"]').forEach(function (link) {
+        link.addEventListener('click', function (e) {
+          const id = link.getAttribute('href');
+          if (id.length < 2) return;
+          const target = document.querySelector(id);
+          if (!target) return;
+          e.preventDefault();
+          gsap.to(window, {
+            duration: 0.95,
+            scrollTo: { y: target, offsetY: 70 },
+            ease: 'expo.inOut'
+          });
+        });
+      });
+
+      // === Floating WhatsApp gentle idle wiggle (subtle attention) ===
+      gsap.to('.wa-float', {
+        rotate: 8,
+        duration: 0.35,
+        ease: 'sine.inOut',
+        yoyo: true,
+        repeat: 1,
+        repeatDelay: 0.05,
+        delay: 4,
+        onComplete: function () { gsap.set('.wa-float', { rotate: 0 }); }
+      });
+
+      // === Hero meta pin: subtle continuous pulse handled via CSS already ===
+
     })();
   </script>
 
