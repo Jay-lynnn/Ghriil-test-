@@ -1,0 +1,1291 @@
+﻿<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Menu Lengkap — Ghriil</title>
+  <meta name="description" content="Menu lengkap Ghriil: Signature Bakar, Yakitori, Rumah Rasa, Coffee, Beer. Bistro modern di Jl. Chairil Anwar No. 8, Makassar." />
+
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon.png?v=2">
+  <link rel="icon" type="image/png" sizes="192x192" href="favicon.png?v=2">
+  <link rel="apple-touch-icon" sizes="180x180" href="favicon.png?v=2">
+  <meta name="theme-color" content="#F4501C">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800;900&family=Familjen+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* ============================================================
+       MENU LENGKAP · Ghriil
+       Style mengikuti landing page (warm cream + orange + brown)
+    ============================================================ */
+
+    *,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+    body {
+      font-family: 'Familjen Grotesk', system-ui, sans-serif;
+      background: #FFF6E9;
+      color: #3D2817;
+      line-height: 1.55;
+      overflow-x: hidden;
+      font-feature-settings: 'ss01', 'cv11';
+    }
+    img, svg { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; cursor: pointer; border: 0; background: none; color: inherit; }
+
+    :root {
+      --cream-bg:        #FFF6E9;
+      --cream-soft:      #FFFAEF;
+      --cream-band:      #FFF1DD;
+      --peach:           #FFD8B5;
+      --peach-deep:      #FFB873;
+      --orange:          #F4501C;
+      --orange-deep:     #D03E0C;
+      --terracotta:      #E89B5F;
+      --terracotta-deep: #C66B3D;
+      --saffron:         #F4A93C;
+      --honey:           #E89B26;
+      --brown-warm:      #8B4F26;
+      --brown-deep:      #5C3A21;
+      --brown-cocoa:     #6B4423;
+      --ink:             #3D2817;
+      --ink-soft:        #5C4634;
+      --beige:           #F0DEC1;
+      --sage:            #7C8A4F;
+      --warm-white:      #FFF6E9;
+
+      --t-step-0: clamp(0.95rem, 0.9rem + 0.25vw, 1.05rem);
+      --t-step-1: clamp(1.1rem, 1rem + 0.5vw, 1.35rem);
+      --t-step-2: clamp(1.4rem, 1.2rem + 1vw, 1.85rem);
+      --t-step-3: clamp(1.9rem, 1.5rem + 2vw, 2.7rem);
+      --t-step-4: clamp(2.6rem, 2rem + 3vw, 4.2rem);
+      --t-step-5: clamp(3.5rem, 3rem + 5vw, 6.5rem);
+    }
+
+    .wrap { width: min(1240px, 92%); margin-inline: auto; }
+
+    /* ============ TOPBAR (same as landing) ============ */
+    .topbar {
+      position: sticky; top: 0; z-index: 30;
+      background: var(--brown-deep);
+      color: var(--cream-bg);
+      border-bottom: 1px solid rgba(255,246,233,0.08);
+    }
+    .topbar-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0.85rem 0;
+      gap: 1rem;
+    }
+    .topbar-brand { display: flex; align-items: center; gap: 1rem; }
+    .wordmark {
+      font-family: 'Big Shoulders Display', sans-serif;
+      font-weight: 900; font-size: 1.55rem; letter-spacing: -0.02em;
+      color: var(--cream-soft);
+      display: inline-flex; align-items: center; gap: 0.55rem; line-height: 1;
+    }
+    .wordmark .logo-mark {
+      width: 38px; height: 38px; object-fit: contain; flex-shrink: 0;
+      transition: transform 360ms cubic-bezier(0.165,0.84,0.44,1);
+    }
+    .wordmark:hover .logo-mark { transform: rotate(-8deg) scale(1.06); }
+    .wordmark .word { display: inline-flex; align-items: baseline; gap: 0.05em; }
+    .wordmark .dot { color: var(--orange); font-size: 1.4em; line-height: 0; }
+
+    .live-pill {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.35rem 0.85rem;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.12);
+      font-size: 0.75rem; font-weight: 600;
+      letter-spacing: 0.04em; color: var(--cream-soft);
+      white-space: nowrap;
+    }
+    .live-pill .dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: #2ecc71;
+      box-shadow: 0 0 0 4px rgba(46,204,113,0.2);
+      animation: livePulse 2s cubic-bezier(0.45,0.05,0.55,0.95) infinite;
+    }
+    .live-pill.is-closed .dot { background: #aa3a3a; animation: none; box-shadow: 0 0 0 4px rgba(170,58,58,0.2); }
+    .live-pill.is-closed { background: rgba(170,58,58,0.15); border-color: rgba(170,58,58,0.3); }
+    @keyframes livePulse {
+      0%,100% { box-shadow: 0 0 0 4px rgba(46,204,113,0.2); }
+      50%     { box-shadow: 0 0 0 9px rgba(46,204,113,0.05); }
+    }
+    .live-pill .live-time { color: var(--saffron); font-weight: 700; }
+    @media (max-width: 540px) {
+      .wordmark .logo-mark { width: 32px; height: 32px; }
+      .wordmark { font-size: 1.35rem; gap: 0.45rem; }
+      .live-pill .live-text { display: none; }
+      .topbar-brand { gap: 0.6rem; }
+    }
+
+    .topbar nav ul { display: flex; gap: 1.4rem; list-style: none; align-items: center; }
+    .topbar nav a {
+      font-size: 0.92rem; color: rgba(255,246,233,0.78);
+      transition: color 240ms cubic-bezier(0.165,0.84,0.44,1);
+    }
+    .topbar nav a:hover { color: var(--cream-soft); }
+    .topbar .nav-back {
+      display: inline-flex; align-items: center; gap: 0.3rem;
+      color: var(--saffron); font-weight: 600;
+    }
+    .topbar .nav-cta {
+      padding: 0.55rem 1.1rem;
+      background: var(--orange);
+      color: var(--cream-soft);
+      border-radius: 999px;
+      font-size: 0.85rem; font-weight: 600;
+      transition: background 240ms ease;
+    }
+    .topbar .nav-cta:hover { background: var(--orange-deep); }
+
+    @media (max-width: 720px) {
+      .topbar nav ul { gap: 0.8rem; }
+      .topbar .nav-back span { display: none; }
+      .topbar .nav-back::before { content: '←'; font-size: 1.2rem; }
+    }
+
+    /* ============ MENU HERO ============ */
+    .menu-hero {
+      background:
+        radial-gradient(800px 400px at 90% 20%, rgba(244,169,60,0.18), transparent 60%),
+        radial-gradient(700px 350px at 10% 80%, rgba(244,80,28,0.10), transparent 60%),
+        var(--cream-band);
+      padding: clamp(3rem, 8vh, 5rem) 0 clamp(2rem, 5vh, 3.5rem);
+      position: relative;
+      overflow: hidden;
+    }
+    .menu-hero::before {
+      content: '';
+      position: absolute; right: -80px; top: 20%;
+      width: 320px; height: 320px;
+      background: url('favicon.png') no-repeat center/contain;
+      opacity: 0.06;
+      transform: rotate(-12deg);
+      pointer-events: none;
+    }
+    .menu-hero .crumb {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      font-family: 'Big Shoulders Display', sans-serif;
+      font-weight: 700; font-size: 0.85rem;
+      letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--brown-warm);
+      margin-bottom: 1rem;
+    }
+    .menu-hero h1 {
+      font-family: 'Big Shoulders Display', sans-serif;
+      font-weight: 900;
+      font-size: clamp(3rem, 7vw, 5.2rem);
+      line-height: 0.9;
+      letter-spacing: -0.02em;
+      text-transform: uppercase;
+      color: var(--ink);
+      text-wrap: balance;
+      max-width: 18ch;
+    }
+    .menu-hero h1 em {
+      font-style: italic; color: var(--orange); font-weight: 900;
+    }
+    .menu-hero .lede {
+      max-width: 50ch;
+      margin-top: 1rem;
+      font-size: var(--t-step-1);
+      color: var(--ink-soft);
+      line-height: 1.5;
+    }
+    .menu-hero .lede strong { color: var(--orange-deep); font-weight: 700; }
+
+    /* Quick jump nav */
+    .quick-jump {
+      margin-top: 2.2rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .quick-jump a {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.5rem 0.95rem;
+      background: var(--cream-soft);
+      border: 1px solid var(--beige);
+      border-radius: 999px;
+      font-family: 'Big Shoulders Display', sans-serif;
+      font-weight: 700; font-size: 0.85rem;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      color: var(--brown-deep);
+      transition: background 200ms ease, color 200ms ease, transform 220ms cubic-bezier(0.165,0.84,0.44,1);
+    }
+    .quick-jump a:hover {
+      background: var(--brown-deep);
+      color: var(--cream-soft);
+      transform: translateY(-2px);
+    }
+
+    /* ============ CATEGORY SECTIONS ============ */
+    .cat {
+      padding: clamp(3rem, 7vh, 5rem) 0;
+    }
+    .cat:nth-child(odd) { background: var(--cream-bg); }
+    .cat:nth-child(even) { background: var(--cream-band); }
+
+    .cat-head {
+      margin-bottom: clamp(1.6rem, 3vw, 2.4rem);
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      flex-wrap: wrap;
+      gap: 1rem 2rem;
+    }
+    .cat-head .left h2 {
+      font-family: 'Big Shoulders Display', sans-serif;
+      font-weight: 900;
+      font-size: clamp(2.2rem, 4.5vw, 3.4rem);
+      line-height: 0.9;
+      letter-spacing: -0.02em;
+      text-transform: uppercase;
+      color: var(--brown-deep);
+      text-wrap: balance;
+    }
+    .cat-head .left h2 em {
+      font-style: italic; color: var(--terracotta-deep); font-weight: 900;
+    }
+    .cat-head .tagline {
+      margin-top: 0.45rem;
+      color: var(--ink-soft);
+      max-width: 50ch;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+    .cat-head .batch-price {
+      display: inline-flex; flex-direction: column;
+      align-items: flex-end;
+    }
+    .cat-head .batch-price .lbl {
+      font-family: 'Big Shoulders Display', sans-serif;
+      font-weight: 700; font-size: 0.75rem;
+      letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--brown-warm);
+    }
+    .cat-head .batch-price .val {
+      font-family: 'Big Shoulders Display', sans-serif;
+      font-weight: 900; font-size: 1.8rem;
+      color: var(--orange);
+      line-height: 1;
+    }
+
+    /* ============ DISH CARDS (showcase, with photo) ============ */
+    .cat-grid {
+      display: grid;
+      gap: clamp(1rem, 2vw, 1.6rem);
+    }
+    .cat-grid.cols-2 { grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); }
+    .cat-grid.cols-3 { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+
+    .dish {
+      position: relative;
+      background: var(--cream-soft);
+      border: 1px solid var(--beige);
+      overflow: hidden;
+      display: flex; flex-direction: column;
+      transition: transform 360ms cubic-bezier(0.165,0.84,0.44,1), box-shadow 360ms cubic-bezier(0.165,0.84,0.44,1);
+      box-shadow: 0 2px 8px rgba(46,28,12,0.04);
+    }
+    .dish:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 14px 30px rgba(46,28,12,0.12);
+    }
+    .dish .dish-photo {
+      position: relative;
+      overflow: hidden;
+      aspect-ratio: 4/3;
+      background: var(--cream-band);
+    }
+    .dish .dish-photo img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform 700ms cubic-bezier(0.165,0.84,0.44,1);
+    }
+    .dish:hover .dish-photo img { transform: scale(1.05); }
+
+    /* Placeholder photo for dishes without image */
+    .dish-photo.placeholder {
+      display: grid; place-items: center;
+      position: relative;
+    }
+    .dish-photo.placeholder::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image: url('favicon.png');
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: 38%;
+      opacity: 0.12;
+    }
+    .dish-photo.placeholder .ph-cat {
+      position: relative;
+      z-index: 1;
+      font-family: 'Big Shoulders Display', sans-serif;
+      font-weight: 900;
+      font-size: 1.2rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(255,246,233,0.8);
+    }
+    .dish-photo.placeholder.bg-terracotta { background: var(--terracotta-deep); }
+    .dish-photo.placeholder.bg-brown      { background: var(--brown-warm); }
+    .dish-photo.placeholder.bg-honey      { background: var(--honey); }
+    .dish-photo.placeholder.bg-sage       { background: var(--sage); }
+    .dish-photo.placeholder.bg-orange     { background: var(--orange); }
+    .dish-photo.placeholder.bg-peach      { background: var(--peach-deep); color: var(--brown-deep); }
+    .dish-photo.placeholder.bg-peach .ph-cat { color: rgba(61,40,23,0.65); }
+
+    .badges {
+      position: absolute; top: 0.7rem; left: 0.7rem;
+      display: flex; flex-direction: column; gap: 0.35rem;
+      z-index: 2; pointer-events: none;
+    }
+    .badge {
+      display: inline-flex; align-items: center; gap: 0.35rem;
+      padding: 0.28rem 0.55rem;
+      font-family: 'Big Shoulders Display', sans-serif;
+      font-weight: 800; font-size: 0.7rem;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2); white-space: nowrap;
+    }
+    .badge-signature { background: var(--orange);          color: var(--cream-soft); }
+    .badge-bestseller{ background: var(--saffron);         color: var(--ink); }
+    .badge-spicy     { background: #d94a26;                 color: var(--cream-soft); }
+    .badge-premium   { background: var(--terracotta-deep); color: var(--cream-soft); }
+    .badge-budget    { background: var(--sage);            color: var(--cream-soft); }
+    .badge-new       { background: var(--brown-deep);      color: var(--saffron); }
+
+    .dish .dish-body {
+      padding: 1.1rem 1.2rem 1.4rem;
+      display: flex; flex-direction: column; gap: 0.5rem;
+      flex: 1;
+    }
+    .dish h3 {
+      font-family: 'Big Shoulders Display', sans-serif;
+      font-weight: 800; font-size: 1.2rem;
+      letter-spacing: -0.005em; text-transform: uppercase;
+      line-height: 1.05; color: var(--ink);
+    }
+    .dish .desc {
+      font-size: 0.88rem;
+      color: var(--ink-soft);
+      line-height: 1.5;
+    }
+    .dish .footer-row {
+      display: flex; justify-content: space-between; align-items: baseline;
+      margin-top: auto; padding-top: 0.6rem;
+      border-top: 1px dashed var(--beige);
+    }
+    .dish .price {
+      font-family: 'Big Shoulders Display', sans-serif;
+      font-weight: 900; font-size: 1.4rem;
+      color: var(--saffron);
+      letter-spacing: -0.01em;
+    }
+    .dish .tag {
+      font-family: 'Big Shoulders Display', sans-serif;
+      font-weight: 700; font-size: 0.7rem;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--ink-soft);
+    }
+
+    /* ============ MINI CARDS (drinks compact) ============ */
+    .mini-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 0.8rem;
+    }
+    .mini {
+      background: var(--cream-soft);
+      border: 1px solid var(--beige);
+      padding: 0.85rem 1rem 0.95rem;
+      transition: transform 220ms cubic-bezier(0.165,0.84,0.44,1), border-color 220ms ease;
+      display: flex; flex-direction: column; gap: 0.3rem;
+    }
+    .mini:hover { transform: translateY(-2px); border-color: var(--terracotta-deep); }
+    .mini h4 {
+      font-family: 'Big Shoulders Display', sans-serif;
+      font-weight: 800; font-size: 1rem;
+      letter-spacing: -0.005em; text-transform: uppercase;
+      color: var(--ink); line-height: 1.1;
+    }
+    .mini .meta {
+      display: flex; justify-content: space-between; align-items: baseline;
+      margin-top: auto;
+      padding-top: 0.4rem;
+      border-top: 1px dashed var(--beige);
+    }
+    .mini .mini-price {
+      font-family: 'Big Shoulders Display', sans-serif;
+      font-weight: 900; font-size: 1rem;
+      color: var(--saffron);
+      letter-spacing: -0.01em;
+    }
+    .mini .mini-vol {
+      font-family: 'Big Shoulders Display', sans-serif;
+      font-weight: 700; font-size: 0.7rem;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--ink-soft);
+    }
+
+    /* When the whole batch shares a price */
+    .mini.batched { background: var(--cream-soft); padding: 0.9rem 1rem; }
+    .mini.batched .meta { display: none; }
+    .mini.batched h4 { font-size: 1.05rem; }
+
+    /* ============ END CTA ============ */
+    .end-cta {
+      background: var(--brown-deep);
+      color: var(--cream-soft);
+      padding: clamp(4rem, 10vh, 6rem) 0;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .end-cta::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(700px 350px at 50% 0%, rgba(244,169,60,0.15), transparent 60%);
+      pointer-events: none;
+    }
+    .end-cta .inner { position: relative; }
+    .end-cta h2 {
+      font-family: 'Big Shoulders Display', sans-serif;
+      font-weight: 900;
+      font-size: clamp(2.4rem, 5vw, 3.6rem);
+      line-height: 0.9;
+      letter-spacing: -0.02em;
+      text-transform: uppercase;
+      text-wrap: balance;
+      margin-bottom: 1rem;
+      color: var(--cream-soft);
+    }
+    .end-cta h2 em { font-style: italic; color: var(--saffron); font-weight: 900; }
+    .end-cta p {
+      color: rgba(255,246,233,0.78);
+      max-width: 45ch; margin: 0 auto 2rem;
+      font-size: var(--t-step-1);
+    }
+    .end-cta .actions {
+      display: flex; gap: 0.8rem; justify-content: center; flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex; align-items: center; gap: 0.55rem;
+      padding: 0.95rem 1.6rem;
+      font-weight: 600; font-size: 0.95rem;
+      border: 1px solid transparent;
+      transition: transform 280ms cubic-bezier(0.165,0.84,0.44,1), background 240ms ease;
+    }
+    .btn-solid {
+      background: var(--orange);
+      color: var(--cream-soft);
+      clip-path: polygon(8px 0, 100% 0, calc(100% - 8px) 100%, 0 100%);
+      padding-inline: 1.8rem;
+    }
+    .btn-solid:hover { transform: translate(2px, -2px); background: var(--orange-deep); }
+    .btn-ghost {
+      background: transparent; color: var(--cream-soft);
+      border: 1px solid rgba(255,246,233,0.4);
+    }
+    .btn-ghost:hover { border-color: var(--cream-soft); background: rgba(255,246,233,0.1); }
+    .btn .arrow { transition: transform 240ms cubic-bezier(0.165,0.84,0.44,1); }
+    .btn:hover .arrow { transform: translateX(3px); }
+
+    /* ============ FOOTER (matches landing) ============ */
+    footer.foot {
+      background: var(--brown-deep);
+      color: rgba(255,246,233,0.72);
+      padding: 2.5rem 0 1.5rem;
+      border-top: 1px solid rgba(255,246,233,0.08);
+    }
+    .foot-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+      gap: 2rem;
+      margin-bottom: 1.6rem;
+    }
+    .foot-grid .wordmark { color: var(--cream-soft); }
+    .foot-tag {
+      margin-top: 0.6rem; font-size: 0.9rem; max-width: 32ch;
+      color: rgba(255,246,233,0.6);
+    }
+    .foot-col h4 {
+      font-family: 'Big Shoulders Display', sans-serif;
+      letter-spacing: 0.16em; text-transform: uppercase;
+      font-size: 0.78rem; color: var(--saffron);
+      margin-bottom: 0.6rem;
+    }
+    .foot-col a {
+      display: block; font-size: 0.9rem;
+      color: rgba(255,246,233,0.7);
+      padding: 0.2rem 0;
+      transition: color 200ms ease;
+    }
+    .foot-col a:hover { color: var(--orange); }
+    .foot-bot {
+      border-top: 1px solid rgba(255,246,233,0.08);
+      padding-top: 1.2rem;
+      display: flex; justify-content: space-between; gap: 1rem;
+      flex-wrap: wrap;
+      font-size: 0.82rem;
+      color: rgba(255,246,233,0.5);
+    }
+    @media (max-width: 720px) {
+      .foot-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ============ BACK TO TOP ============ */
+    .back-top {
+      position: fixed; bottom: 20px; right: 20px;
+      width: 48px; height: 48px;
+      background: var(--brown-deep);
+      color: var(--cream-soft);
+      border-radius: 50%;
+      display: grid; place-items: center;
+      font-family: 'Big Shoulders Display', sans-serif;
+      font-weight: 900; font-size: 1.2rem;
+      box-shadow: 0 14px 32px rgba(92,58,33,0.45);
+      opacity: 0; visibility: hidden;
+      transform: translateY(10px);
+      transition: opacity 280ms ease, transform 280ms ease, visibility 280ms;
+      z-index: 50;
+    }
+    .back-top.visible { opacity: 1; visibility: visible; transform: translateY(0); }
+    .back-top:hover { background: var(--orange); }
+
+    .wa-float {
+      position: fixed; bottom: 80px; right: 20px;
+      width: 56px; height: 56px;
+      background: #25D366;
+      border-radius: 50%;
+      display: grid; place-items: center;
+      box-shadow: 0 14px 32px rgba(37,211,102,0.45);
+      z-index: 50;
+      transition: transform 280ms cubic-bezier(0.165,0.84,0.44,1);
+    }
+    .wa-float:hover { transform: scale(1.08); }
+    .wa-float svg { width: 26px; height: 26px; fill: #fff; }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.001ms !important;
+        transition-duration: 0.001ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TOPBAR -->
+  <header class="topbar">
+    <div class="wrap topbar-inner">
+      <div class="topbar-brand">
+        <a href="index.html" class="wordmark" aria-label="Ghriil home">
+          <img src="favicon.png" class="logo-mark" alt="">
+          <span class="word">ghriil<span class="dot">.</span></span>
+        </a>
+        <span class="live-pill" data-live-status>
+          <span class="dot"></span>
+          <span class="live-text">Buka sekarang</span>
+          <span class="live-time" data-live-time>—</span>
+        </span>
+      </div>
+      <nav>
+        <ul>
+          <li><a class="nav-back" href="index.html"><span>← Beranda</span></a></li>
+          <li><a class="nav-cta" href="https://wa.me/628123456789?text=Halo%20Ghriil,%20saya%20mau%20reservasi%20meja" target="_blank" rel="noopener">Reservasi</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- MENU HERO -->
+  <section class="menu-hero">
+    <div class="wrap">
+      <div class="crumb">Beranda → Menu Lengkap</div>
+      <h1>Menu <em>lengkap.</em></h1>
+      <p class="lede">
+        Semua hidangan, kopi, teh, dan minuman keras yang kami sajikan.
+        Susunan kategori mengikuti printed menu kami.
+        <strong>Pemesanan dilakukan di tempat.</strong>
+      </p>
+
+      <nav class="quick-jump" aria-label="Loncat ke kategori">
+        <a href="#starters">Starters</a>
+        <a href="#berkuah">Gurih Berkuah</a>
+        <a href="#rumah-rasa">Rumah Rasa</a>
+        <a href="#signature-bakar">Signature Bakar</a>
+        <a href="#yakitori">Yakitori</a>
+        <a href="#sides">Sides</a>
+        <a href="#dessert">Dessert</a>
+        <a href="#coffee">Coffee</a>
+        <a href="#black">Black Series</a>
+        <a href="#tea">Tea</a>
+        <a href="#creamy">Creamy</a>
+        <a href="#juice">Juice</a>
+        <a href="#refresh">Refreshment</a>
+        <a href="#beer">Beer</a>
+        <a href="#essentials">Essentials</a>
+      </nav>
+    </div>
+  </section>
+
+  <!-- ============ GHRIIL STARTERS ============ -->
+  <section id="starters" class="cat">
+    <div class="wrap">
+      <div class="cat-head">
+        <div class="left">
+          <h2>Ghriil <em>Starters</em></h2>
+          <p class="tagline">Awal yang kuat untuk meja Anda. Diracik penuh rasa dan sempurna untuk berbagi.</p>
+        </div>
+      </div>
+      <div class="cat-grid cols-2">
+
+        <article class="dish">
+          <div class="dish-photo">
+            <div class="badges"><span class="badge badge-bestseller">Populer</span></div>
+            <img src="pesto-ijo.jpg" alt="Pesto Ijo Roti Panggang" loading="lazy">
+          </div>
+          <div class="dish-body">
+            <h3>Pesto Ijo Roti Panggang</h3>
+            <p class="desc">Beef brisket juicy, pesto ijo aromatik kemangi, lelehan mozzarella di dalam sourdough renyah. Disajikan dengan Ghriil Signature Sauce & french fries.</p>
+            <div class="footer-row"><span class="price">55rb</span><span class="tag">Starter</span></div>
+          </div>
+        </article>
+
+        <article class="dish">
+          <div class="dish-photo placeholder bg-terracotta" aria-hidden="true">
+            <span class="ph-cat">Starter</span>
+          </div>
+          <div class="dish-body">
+            <h3>Bebek Suwir Asinan</h3>
+            <p class="desc">Bebek panggang suwir gurih dengan asinan sayur segar bercita rasa asam menyegarkan. Iris bawang dan cabai, plus sourdough krispi yang menambah tekstur.</p>
+            <div class="footer-row"><span class="price">35rb</span><span class="tag">Starter</span></div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ GURIH BERKUAH ============ -->
+  <section id="berkuah" class="cat">
+    <div class="wrap">
+      <div class="cat-head">
+        <div class="left">
+          <h2>Gurih <em>Berkuah</em></h2>
+          <p class="tagline">Hangat, kaya rempah. Seperti kuah legenda Makassar.</p>
+        </div>
+      </div>
+      <div class="cat-grid cols-2">
+
+        <article class="dish">
+          <div class="dish-photo placeholder bg-orange" aria-hidden="true">
+            <span class="ph-cat">Berkuah</span>
+          </div>
+          <div class="dish-body">
+            <h3>Sop Ikan Cabe Merah</h3>
+            <p class="desc">Kaldu segar dengan perpaduan rasa asam, gurih, dan menyegarkan. Dimasak bersama potongan ikan kakap, tomat, wortel, dan bawang bombay, diperkaya aroma rempah yang hangat.</p>
+            <div class="footer-row"><span class="price">75rb</span><span class="tag">Kuah</span></div>
+          </div>
+        </article>
+
+        <article class="dish">
+          <div class="dish-photo placeholder bg-brown" aria-hidden="true">
+            <span class="ph-cat">Berkuah</span>
+          </div>
+          <div class="dish-body">
+            <h3>Semur Daging Kapulaga</h3>
+            <p class="desc">Semur daging dengan paduan kapulaga, sapi pilihan yang dimasak perlahan dalam kuah rempah penuh, menghadirkan kelezatan empuk dan rasa hangat yang khas.</p>
+            <div class="footer-row"><span class="price">75rb</span><span class="tag">Kuah</span></div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ RUMAH RASA ============ -->
+  <section id="rumah-rasa" class="cat">
+    <div class="wrap">
+      <div class="cat-head">
+        <div class="left">
+          <h2>Rumah <em>Rasa</em></h2>
+          <p class="tagline">Lengkap, hangat, seperti masakan rumah.</p>
+        </div>
+      </div>
+      <div class="cat-grid cols-3">
+
+        <article class="dish">
+          <div class="dish-photo">
+            <div class="badges">
+              <span class="badge badge-signature">★ Andalan</span>
+              <span class="badge badge-bestseller">Best seller</span>
+            </div>
+            <img src="nasi-brisket.jpg" alt="Nasi Brisket Sayur Ubi" loading="lazy">
+          </div>
+          <div class="dish-body">
+            <h3>Nasi Brisket Sayur Ubi</h3>
+            <p class="desc">Brisket asap berbumbu rempah, gurih dengan sedikit manis dan hint pedas ringan. Aroma smoky yang khas, tumis daun ubi, bunga pepaya lembut, nasi putih hangat.</p>
+            <div class="footer-row"><span class="price">45rb</span><span class="tag">Rumah Rasa</span></div>
+          </div>
+        </article>
+
+        <article class="dish">
+          <div class="dish-photo">
+            <div class="badges"><span class="badge badge-budget">Hemat</span></div>
+            <img src="nasi-ayam.jpg" alt="Nasi Ayam Barbekiu" loading="lazy">
+          </div>
+          <div class="dish-body">
+            <h3>Nasi Ayam Barbekiu</h3>
+            <p class="desc">Ayam suwir dimasak dengan saus barbeque spesial bercita rasa manis gurih, smoky, dan pedas. Dipadukan sayur daun ubi & nasi putih hangat.</p>
+            <div class="footer-row"><span class="price">35rb</span><span class="tag">Rumah Rasa</span></div>
+          </div>
+        </article>
+
+        <article class="dish">
+          <div class="dish-photo placeholder bg-sage" aria-hidden="true">
+            <span class="ph-cat">Rumah Rasa</span>
+          </div>
+          <div class="dish-body">
+            <h3>Pepes Tuna Daun Ubi Bakar</h3>
+            <p class="desc">Pepes bakar tuna dengan rasa gurih asap, pedas segar, dan kaya rempah. Dipadukan daun ubi dan taburan kelapa parut, diperkaya minyak kenari yang memberi sentuhan gurih hangat.</p>
+            <div class="footer-row"><span class="price">45rb</span><span class="tag">Rumah Rasa</span></div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SIGNATURE BAKAR GHRIIL ============ -->
+  <section id="signature-bakar" class="cat">
+    <div class="wrap">
+      <div class="cat-head">
+        <div class="left">
+          <h2>Signature <em>Bakar Ghriil</em></h2>
+          <p class="tagline">Primadona dengan rempah Makassar utuh.</p>
+        </div>
+      </div>
+      <div class="cat-grid cols-3">
+
+        <article class="dish">
+          <div class="dish-photo">
+            <div class="badges"><span class="badge badge-spicy">🌶🌶 Pedas</span></div>
+            <img src="tuna-sambal-matah.jpg" alt="Tuna Sambal Matah" loading="lazy">
+          </div>
+          <div class="dish-body">
+            <h3>Tuna Sambal Matah</h3>
+            <p class="desc">Tuna asap smoky gurih, pedas berani, sentuhan citrus segar dari sambal matah. Bawang merah dan serai harum menciptakan sensasi kaya rasa.</p>
+            <div class="footer-row"><span class="price">55rb</span><span class="tag">Bakar</span></div>
+          </div>
+        </article>
+
+        <article class="dish">
+          <div class="dish-photo">
+            <div class="badges">
+              <span class="badge badge-premium">Tiger Prawn</span>
+              <span class="badge badge-spicy">🌶 Pedas</span>
+            </div>
+            <img src="udang-bakar.jpg" alt="Udang Bakar Saus Kemangi" loading="lazy">
+          </div>
+          <div class="dish-body">
+            <h3>Udang Bakar Saus Kemangi</h3>
+            <p class="desc">Tiger prawn pilihan dibakar hingga harum. Saus kemangi aromatik dengan cita rasa gurih segar dan pedas yang cukup terasa. Perpaduan rempah dan aroma smoky kaya.</p>
+            <div class="footer-row"><span class="price">120rb</span><span class="tag">Bakar</span></div>
+          </div>
+        </article>
+
+        <article class="dish">
+          <div class="dish-photo">
+            <div class="badges">
+              <span class="badge badge-signature">★ Signature</span>
+              <span class="badge badge-bestseller">Slow 5 jam</span>
+            </div>
+            <img src="bebek-kuning.jpg" alt="Bebek Kuning Kacang Kenari" loading="lazy">
+          </div>
+          <div class="dish-body">
+            <h3>Bebek Kuning Kacang Kenari</h3>
+            <p class="desc">Dipanggang perlahan 5 jam dalam panggangan tertutup hingga empuk. Bumbu kuning kaya rempah dan saus kacang kenari creamy bercita rasa manis gurih dan hangat.</p>
+            <div class="footer-row"><span class="price">95rb</span><span class="tag">Signature Bakar</span></div>
+          </div>
+        </article>
+
+        <article class="dish">
+          <div class="dish-photo">
+            <div class="badges">
+              <span class="badge badge-premium">House Special</span>
+              <span class="badge badge-bestseller">Wagyu</span>
+            </div>
+            <img src="bakso-ghriil.jpg" alt="Bakso Daging Ghriil" loading="lazy">
+          </div>
+          <div class="dish-body">
+            <h3>Bakso Daging Ghriil</h3>
+            <p class="desc">Bakso daging wagyu fresh dibuat saat order. Waktu penyajian ±40 menit untuk hasil terbaik. Kuah gravy kental gurih dan hangat rempah, berisi wortel dan bawang bombay.</p>
+            <div class="footer-row"><span class="price">145rb</span><span class="tag">House Special</span></div>
+          </div>
+        </article>
+
+        <article class="dish">
+          <div class="dish-photo placeholder bg-honey" aria-hidden="true">
+            <span class="ph-cat">Bakar</span>
+          </div>
+          <div class="dish-body">
+            <h3>Ayam Panggang Pelepah Palem</h3>
+            <p class="desc">Ayam panggang rempah dimasak perlahan 5 jam dalam panggangan tertutup hingga bumbu meresap sempurna. Tekstur empuk, aroma smoky khas, gurih hangat kaya rempah.</p>
+            <div class="footer-row"><span class="price">85rb</span><span class="tag">Bakar</span></div>
+          </div>
+        </article>
+
+        <article class="dish">
+          <div class="dish-photo placeholder bg-brown" aria-hidden="true">
+            <span class="ph-cat">Steak</span>
+          </div>
+          <div class="dish-body">
+            <h3>D-Rump Steak Cabe Garam</h3>
+            <p class="desc">D-Rump Angus ±150gr (potongan daging premium langka, padat namun juicy). Pilih medium rare, medium, medium well, atau well done. Kopi Toraja & lada hitam memberi karakter rasa unik.</p>
+            <div class="footer-row"><span class="price">185rb</span><span class="tag">Premium</span></div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ YAKITORI ============ -->
+  <section id="yakitori" class="cat">
+    <div class="wrap">
+      <div class="cat-head">
+        <div class="left">
+          <h2><em>Yakitori</em></h2>
+          <p class="tagline">Koleksi yakitori pilihan, dipanggang dengan presisi untuk menghasilkan tekstur juicy dan lapisan rasa umami yang kaya di setiap tusuknya.</p>
+        </div>
+        <div class="batch-price">
+          <span class="lbl">Per tusuk</span>
+          <span class="val">55rb</span>
+        </div>
+      </div>
+      <div class="mini-grid">
+        <article class="mini batched">
+          <h4>Yakitori Tuna Glaze Kopi Toraja</h4>
+        </article>
+        <article class="mini batched">
+          <h4>Yakitori Ayam Daun Bawang</h4>
+        </article>
+        <article class="mini batched">
+          <h4>Yakitori Brisket Kopi Toraja</h4>
+        </article>
+        <article class="mini batched">
+          <h4>Yakitori Sayap Daun Bawang</h4>
+        </article>
+        <article class="mini batched">
+          <h4>Yakitori Bakso Lilit Wagyu</h4>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SIDES ============ -->
+  <section id="sides" class="cat">
+    <div class="wrap">
+      <div class="cat-head">
+        <div class="left">
+          <h2><em>Sides</em></h2>
+          <p class="tagline">Pelengkap pas untuk hidangan utama Anda.</p>
+        </div>
+      </div>
+      <div class="mini-grid">
+        <article class="mini">
+          <h4>Ayam Suwir Barbekiu</h4>
+          <div class="meta"><span class="mini-price">25rb</span><span class="mini-vol">Side</span></div>
+        </article>
+        <article class="mini">
+          <h4>Brisket Sapi Angus</h4>
+          <div class="meta"><span class="mini-price">35rb</span><span class="mini-vol">Side</span></div>
+        </article>
+        <article class="mini">
+          <h4>French Fries</h4>
+          <div class="meta"><span class="mini-price">20rb</span><span class="mini-vol">Side</span></div>
+        </article>
+        <article class="mini">
+          <h4>Baby Buncis Bawang Putih</h4>
+          <div class="meta"><span class="mini-price">20rb</span><span class="mini-vol">Sayur</span></div>
+        </article>
+        <article class="mini">
+          <h4>Daun Ubi Bunga Pepaya</h4>
+          <div class="meta"><span class="mini-price">20rb</span><span class="mini-vol">Sayur</span></div>
+        </article>
+        <article class="mini">
+          <h4>Telur</h4>
+          <div class="meta"><span class="mini-price">8rb</span><span class="mini-vol">Per butir</span></div>
+        </article>
+        <article class="mini">
+          <h4>Nasi Putih</h4>
+          <div class="meta"><span class="mini-price">10rb</span><span class="mini-vol">Per porsi</span></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ DESSERT ============ -->
+  <section id="dessert" class="cat">
+    <div class="wrap">
+      <div class="cat-head">
+        <div class="left">
+          <h2><em>Dessert</em></h2>
+          <p class="tagline">Penutup yang manis. Sederhana namun memikat.</p>
+        </div>
+      </div>
+      <div class="cat-grid cols-2">
+
+        <article class="dish">
+          <div class="dish-photo placeholder bg-peach" aria-hidden="true">
+            <span class="ph-cat">Dessert</span>
+          </div>
+          <div class="dish-body">
+            <h3>Affogato Classic</h3>
+            <p class="desc">Tutup pengalamanmu di Ghriil dengan sajian klasik yang sederhana namun selalu memikat. Lembutnya vanilla ice cream dipadukan dengan hangat dan bold-nya espresso shot.</p>
+            <div class="footer-row"><span class="price">45rb</span><span class="tag">Dessert</span></div>
+          </div>
+        </article>
+
+        <article class="dish">
+          <div class="dish-photo placeholder bg-peach" aria-hidden="true">
+            <span class="ph-cat">Dessert</span>
+          </div>
+          <div class="dish-body">
+            <h3>Dragon Bowl Ice Cream</h3>
+            <p class="desc">Bowl es krim dengan paduan buah naga segar, granola crispy, dan topping pilihan. Tropis, dingin, menyegarkan untuk siang yang panas.</p>
+            <div class="footer-row"><span class="price">45rb</span><span class="tag">Dessert</span></div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CRAFTED COFFEE ============ -->
+  <section id="coffee" class="cat">
+    <div class="wrap">
+      <div class="cat-head">
+        <div class="left">
+          <h2>Crafted <em>Coffee</em></h2>
+          <p class="tagline">Diseduh fresh dari biji single-origin pilihan setiap pesanan.</p>
+        </div>
+        <div class="batch-price">
+          <span class="lbl">Semua</span>
+          <span class="val">32rb</span>
+        </div>
+      </div>
+      <div class="mini-grid">
+        <article class="mini batched"><h4>Iced Café Latte</h4></article>
+        <article class="mini batched"><h4>Pukis Pandan Latte</h4></article>
+        <article class="mini batched"><h4>Hazelnut Silk Coffee</h4></article>
+        <article class="mini batched"><h4>Biscuit Dream Coffee</h4></article>
+        <article class="mini batched"><h4>Butterscotch Melt Coffee</h4></article>
+        <article class="mini batched"><h4>Tiramisu Velvet Coffee</h4></article>
+        <article class="mini batched"><h4>Salted Caramel Latte</h4></article>
+        <article class="mini batched"><h4>Oldtown Classic</h4></article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ BLACK SERIES ============ -->
+  <section id="black" class="cat">
+    <div class="wrap">
+      <div class="cat-head">
+        <div class="left">
+          <h2>Black <em>Series</em></h2>
+          <p class="tagline">Untuk pencinta kopi tanpa susu. Karakter biji utuh, infused.</p>
+        </div>
+        <div class="batch-price">
+          <span class="lbl">Semua</span>
+          <span class="val">28rb</span>
+        </div>
+      </div>
+      <div class="mini-grid">
+        <article class="mini batched"><h4>Americano / Long Black</h4></article>
+        <article class="mini batched"><h4>Peach Black</h4></article>
+        <article class="mini batched"><h4>Honey Berry Americano</h4></article>
+        <article class="mini batched"><h4>Rose Noir Americano</h4></article>
+        <article class="mini batched"><h4>Red Ginger Americano</h4></article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ TEA SERIES ============ -->
+  <section id="tea" class="cat">
+    <div class="wrap">
+      <div class="cat-head">
+        <div class="left">
+          <h2>Tea <em>Series</em></h2>
+          <p class="tagline">Teh seduh dengan fruity twist. Menyegarkan, tidak terlalu manis.</p>
+        </div>
+        <div class="batch-price">
+          <span class="lbl">Semua</span>
+          <span class="val">28rb</span>
+        </div>
+      </div>
+      <div class="mini-grid">
+        <article class="mini batched"><h4>Citrus Passion Tea</h4></article>
+        <article class="mini batched"><h4>Ginger Lemon Tea</h4></article>
+        <article class="mini batched"><h4>Lychee Candy Tea</h4></article>
+        <article class="mini batched"><h4>Yuzu Honey Tea</h4></article>
+        <article class="mini batched"><h4>Peach Garden Tea</h4></article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CREAMY SERIES ============ -->
+  <section id="creamy" class="cat">
+    <div class="wrap">
+      <div class="cat-head">
+        <div class="left">
+          <h2>Creamy <em>Series</em></h2>
+          <p class="tagline">Dessert in a cup. Manis lembut, cocok pasangan kopi pahit atau snack gurih.</p>
+        </div>
+        <div class="batch-price">
+          <span class="lbl">Semua</span>
+          <span class="val">32rb</span>
+        </div>
+      </div>
+      <div class="mini-grid">
+        <article class="mini batched"><h4>Classic Matcha Latte</h4></article>
+        <article class="mini batched"><h4>Blueberry Cheesecake</h4></article>
+        <article class="mini batched"><h4>Classic Chocolate</h4></article>
+        <article class="mini batched"><h4>Strawberry Matcha</h4></article>
+        <article class="mini batched"><h4>Choco Banana Cream</h4></article>
+        <article class="mini batched"><h4>Choco Fudgy Brownie</h4></article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FRESH & NATURAL (JUICE) ============ -->
+  <section id="juice" class="cat">
+    <div class="wrap">
+      <div class="cat-head">
+        <div class="left">
+          <h2>Fresh &amp; <em>Natural</em></h2>
+          <p class="tagline">Jus buah segar, tanpa pemanis tambahan.</p>
+        </div>
+        <div class="batch-price">
+          <span class="lbl">Semua</span>
+          <span class="val">38rb</span>
+        </div>
+      </div>
+      <div class="mini-grid">
+        <article class="mini batched"><h4>Dragon Fruit Juice</h4></article>
+        <article class="mini batched"><h4>Mango Juice</h4></article>
+        <article class="mini batched"><h4>Soursop Juice</h4></article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ REFRESHMENTS ============ -->
+  <section id="refresh" class="cat">
+    <div class="wrap">
+      <div class="cat-head">
+        <div class="left">
+          <h2><em>Refreshments</em></h2>
+          <p class="tagline">Untuk siang panjang. Mocktail dan lemonade, tanpa alkohol.</p>
+        </div>
+        <div class="batch-price">
+          <span class="lbl">Semua</span>
+          <span class="val">32rb</span>
+        </div>
+      </div>
+      <div class="mini-grid">
+        <article class="mini batched"><h4>Lychee Mojito</h4></article>
+        <article class="mini batched"><h4>Thai Mango Coconut</h4></article>
+        <article class="mini batched"><h4>Blue Sky Lemonade</h4></article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ COLD BEER ============ -->
+  <section id="beer" class="cat">
+    <div class="wrap">
+      <div class="cat-head">
+        <div class="left">
+          <h2>Cold <em>Beer</em></h2>
+          <p class="tagline">Bir dingin untuk menutup malam. Hanya untuk usia 21+.</p>
+        </div>
+      </div>
+      <div class="mini-grid">
+        <article class="mini">
+          <h4>Anker</h4>
+          <div class="meta"><span class="mini-price">35rb</span><span class="mini-vol">320ml</span></div>
+        </article>
+        <article class="mini">
+          <h4>Draft Beer</h4>
+          <div class="meta"><span class="mini-price">50rb</span><span class="mini-vol">500ml</span></div>
+        </article>
+        <article class="mini">
+          <h4>Heineken</h4>
+          <div class="meta"><span class="mini-price">50rb</span><span class="mini-vol">320ml</span></div>
+        </article>
+        <article class="mini">
+          <h4>Guinness Stout</h4>
+          <div class="meta"><span class="mini-price">50rb</span><span class="mini-vol">320ml</span></div>
+        </article>
+        <article class="mini">
+          <h4>Guinness MD</h4>
+          <div class="meta"><span class="mini-price">90rb</span><span class="mini-vol">558ml</span></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ESSENTIALS ============ -->
+  <section id="essentials" class="cat">
+    <div class="wrap">
+      <div class="cat-head">
+        <div class="left">
+          <h2><em>Essentials</em></h2>
+          <p class="tagline">Yang dasar, untuk pelengkap meja.</p>
+        </div>
+      </div>
+      <div class="mini-grid">
+        <article class="mini">
+          <h4>Es Teh Tawar</h4>
+          <div class="meta"><span class="mini-price">10rb</span><span class="mini-vol">Per gelas</span></div>
+        </article>
+        <article class="mini">
+          <h4>Es Teh Manis</h4>
+          <div class="meta"><span class="mini-price">12rb</span><span class="mini-vol">Per gelas</span></div>
+        </article>
+        <article class="mini">
+          <h4>Air Mineral</h4>
+          <div class="meta"><span class="mini-price">10rb</span><span class="mini-vol">Botol</span></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ END CTA ============ -->
+  <section class="end-cta">
+    <div class="wrap inner">
+      <h2>Tertarik <em>mencoba?</em></h2>
+      <p>
+        Reservasi meja via WhatsApp, lalu mampir.
+        Pemesanan langsung dilayani saat Anda tiba.
+      </p>
+      <div class="actions">
+        <a class="btn btn-solid" href="https://wa.me/628123456789?text=Halo%20Ghriil,%20saya%20mau%20reservasi%20meja" target="_blank" rel="noopener">
+          Reservasi meja <span class="arrow">→</span>
+        </a>
+        <a class="btn btn-ghost" href="index.html">
+          ← Kembali ke beranda
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="foot">
+    <div class="wrap">
+      <div class="foot-grid">
+        <div>
+          <a href="index.html" class="wordmark" aria-label="Ghriil home">
+            <img src="favicon.png" class="logo-mark" alt="">
+            <span class="word">ghriil<span class="dot">.</span></span>
+          </a>
+          <p class="foot-tag">Bistro, coffee, cheers. Panggangan rempah Makassar, kopi sore, bir hingga tengah malam.</p>
+        </div>
+        <div class="foot-col">
+          <h4>Tautan</h4>
+          <a href="index.html">Beranda</a>
+          <a href="index.html#why">Yang membedakan</a>
+          <a href="index.html#signature">Andalan</a>
+          <a href="index.html#contact">Mampir</a>
+        </div>
+      </div>
+      <div class="foot-bot">
+        <span>© 2026 Ghriil. Jl. Chairil Anwar No. 8, Makassar.</span>
+        <span>Buka setiap hari 10:00 – 24:00 WITA</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Back to top -->
+  <a href="#" class="back-top" id="backTop" aria-label="Kembali ke atas">↑</a>
+
+  <!-- Floating WA -->
+  <a class="wa-float" href="https://wa.me/628123456789?text=Halo%20Ghriil" target="_blank" rel="noopener" aria-label="Chat WhatsApp Ghriil">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.5 14.4c-.3-.1-1.8-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.7 1-.9 1.2-.2.2-.3.2-.6.1-1.7-.9-2.9-1.6-4-3.5-.3-.5.3-.5.8-1.5.1-.2 0-.3 0-.5 0-.1-.7-1.6-.9-2.2-.2-.5-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1.1 1-1.1 2.6 0 1.5 1.1 3 1.3 3.2.2.2 2.2 3.4 5.4 4.7.7.3 1.3.5 1.8.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.5.3-.7.3-1.4.2-1.5 0-.1-.2-.2-.4-.3zM12 22h0c-1.7 0-3.3-.4-4.8-1.3l-3.4.9.9-3.3c-.9-1.5-1.4-3.3-1.4-5C3.3 8.1 7.2 4 12 4c2.3 0 4.5.9 6.2 2.5 1.7 1.7 2.6 3.9 2.6 6.3 0 4.8-4.1 8.7-8.8 8.7z"/></svg>
+  </a>
+
+  <script>
+    /* Live "buka sekarang" (WITA / UTC+8) */
+    (function () {
+      function update() {
+        const now = new Date();
+        const witaH = (now.getUTCHours() + 8) % 24;
+        const witaM = now.getUTCMinutes();
+        const isOpen = witaH >= 10 && witaH < 24;
+        const timeStr = String(witaH).padStart(2, '0') + ':' + String(witaM).padStart(2, '0');
+        document.querySelectorAll('[data-live-status]').forEach(function (el) {
+          el.classList.toggle('is-open', isOpen);
+          el.classList.toggle('is-closed', !isOpen);
+          const txt = el.querySelector('.live-text');
+          if (txt) txt.textContent = isOpen ? 'Buka sekarang' : 'Tutup sekarang';
+        });
+        document.querySelectorAll('[data-live-time]').forEach(function (el) {
+          el.textContent = timeStr + ' WITA';
+        });
+      }
+      update();
+      setInterval(update, 30000);
+    })();
+
+    /* Back-to-top visibility */
+    (function () {
+      const btn = document.getElementById('backTop');
+      window.addEventListener('scroll', function () {
+        if (window.scrollY > 500) btn.classList.add('visible');
+        else btn.classList.remove('visible');
+      });
+      btn.addEventListener('click', function (e) {
+        e.preventDefault();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    })();
+  </script>
+
+  <!-- GSAP subtle entrance for cards (only when ready) -->
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+  <script>
+    (function () {
+      if (!window.gsap) return;
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      gsap.registerPlugin(ScrollTrigger);
+
+      gsap.from('.menu-hero .crumb, .menu-hero h1, .menu-hero .lede, .quick-jump', {
+        y: 24, opacity: 0, duration: 0.7, ease: 'expo.out', stagger: 0.1
+      });
+
+      document.querySelectorAll('.cat').forEach(function (cat) {
+        gsap.from(cat.querySelectorAll('.cat-head h2, .cat-head .tagline'), {
+          y: 20, opacity: 0, duration: 0.7, stagger: 0.08, ease: 'expo.out',
+          scrollTrigger: { trigger: cat, start: 'top 82%', once: true }
+        });
+        gsap.from(cat.querySelectorAll('.dish, .mini'), {
+          y: 26, opacity: 0, duration: 0.55, stagger: 0.05, ease: 'expo.out',
+          scrollTrigger: { trigger: cat, start: 'top 75%', once: true }
+        });
+      });
+    })();
+  </script>
+
+</body>
+</html>
