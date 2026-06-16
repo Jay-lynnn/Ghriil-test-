@@ -337,6 +337,22 @@
       border-color: rgba(255,246,233,0.45);
     }
     .btn-ghost:hover { border-color: var(--cream-bg); background: rgba(255,246,233,0.12); }
+
+    /* Show-all-menu CTA, terracotta to distinguish from primary orange */
+    .btn-allmenu {
+      display: inline-flex; align-items: center; gap: 0.55rem;
+      padding: 0.95rem 1.7rem;
+      background: var(--terracotta-deep);
+      color: var(--cream-bg);
+      font-weight: 600; font-size: 0.95rem;
+      clip-path: polygon(8px 0, 100% 0, calc(100% - 8px) 100%, 0 100%);
+      border: 1px solid transparent;
+      transition: transform 280ms cubic-bezier(0.165,0.84,0.44,1), background 240ms ease;
+      font-family: 'Inter', 'Familjen Grotesk', sans-serif;
+    }
+    .btn-allmenu:hover { transform: translate(2px, -2px); background: var(--brown-warm); }
+    .btn-allmenu .arrow { transition: transform 240ms cubic-bezier(0.165,0.84,0.44,1); }
+    .btn-allmenu:hover .arrow { transform: translateX(3px); }
     .btn .arrow { transition: transform 280ms cubic-bezier(0.165,0.84,0.44,1); }
     .btn:hover .arrow { transform: translateX(4px); }
 
@@ -1536,8 +1552,8 @@
         <a class="btn btn-solid" href="https://wa.me/628123456789?text=Halo%20Ghriil,%20saya%20mau%20reservasi%20meja" target="_blank" rel="noopener">
           Reservasi meja <span class="arrow">→</span>
         </a>
-        <a class="btn btn-ghost" href="menu.pdf" download>
-          Download menu PDF <span class="arrow">↓</span>
+        <a class="btn btn-allmenu" href="menu.html">
+          Lihat semua menu <span class="arrow">→</span>
         </a>
         <span class="note">Pemesanan hanya di tempat. Reservasi via WhatsApp untuk memastikan meja tersedia.</span>
       </div>
