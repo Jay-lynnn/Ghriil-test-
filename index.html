@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+﻿﻿<!DOCTYPE html>
 <html lang="id">
 <head>
   <meta charset="UTF-8" />
@@ -16,7 +16,6 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800;900&family=Familjen+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/darkroomengineering/lenis@1.1.13/dist/lenis.css">
 
   <style>
     /* ============================================================
@@ -467,150 +466,6 @@
 
     @media (prefers-reduced-motion: reduce) {
       .neon-sign { animation: none; }
-    }
-
-    /* ============================================================
-       CINEMATIC HERO — actual WebGL 3D scene (Three.js)
-    ============================================================ */
-    .cinema-hero {
-      position: relative;
-      height: 340vh; /* scroll length for 3D dolly */
-      background: #0a0500;
-    }
-    .cinema-stage {
-      position: sticky;
-      top: 0;
-      height: 100vh;
-      overflow: hidden;
-      background: #0a0500;
-    }
-    #cinema-canvas {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 1;
-      display: block;
-    }
-    .cinema-loader {
-      position: absolute;
-      inset: 0;
-      background: #0a0500;
-      display: grid; place-items: center;
-      z-index: 6;
-      transition: opacity 600ms ease, visibility 600ms;
-    }
-    .cinema-loader.ready { opacity: 0; visibility: hidden; }
-    .cinema-loader .load-text {
-      font-family: 'Big Shoulders Display', sans-serif;
-      font-weight: 800;
-      color: var(--saffron);
-      font-size: 0.9rem;
-      letter-spacing: 0.3em;
-      text-transform: uppercase;
-      animation: loaderPulse 1.4s ease-in-out infinite;
-    }
-    @keyframes loaderPulse {
-      0%, 100% { opacity: 0.5; }
-      50%      { opacity: 1; }
-    }
-
-    /* Text overlays inside stage */
-    .cinema-text {
-      position: absolute;
-      z-index: 5;
-      color: var(--cream-soft);
-      pointer-events: none;
-    }
-    .cinema-text.top-meta {
-      top: clamp(6rem, 12vh, 9rem); left: 50%;
-      transform: translateX(-50%);
-      text-align: center;
-      pointer-events: auto;
-    }
-    .cinema-text.bottom-hero {
-      bottom: clamp(4rem, 10vh, 6rem);
-      left: 0; right: 0;
-      padding-inline: clamp(1.5rem, 5vw, 4rem);
-      max-width: 780px;
-      margin-inline: auto;
-      pointer-events: auto;
-    }
-    .cinema-text .stage-headline {
-      font-family: 'Big Shoulders Display', sans-serif;
-      font-weight: 900;
-      font-size: clamp(2.4rem, 6vw, 4.4rem);
-      line-height: 0.9;
-      letter-spacing: -0.02em;
-      text-transform: uppercase;
-      text-shadow: 0 4px 20px rgba(0,0,0,0.85), 0 2px 6px rgba(0,0,0,0.7);
-      margin-bottom: 1rem;
-    }
-    .cinema-text .stage-headline em {
-      font-style: italic; color: var(--saffron); font-weight: 900;
-    }
-    .cinema-text .stage-lede {
-      font-size: var(--t-step-1);
-      max-width: 46ch;
-      line-height: 1.5;
-      color: rgba(255,246,233,0.92);
-      text-shadow: 0 2px 12px rgba(0,0,0,0.7);
-      margin-bottom: 1.6rem;
-    }
-    .cinema-text .stage-cta {
-      display: flex; gap: 0.7rem; flex-wrap: wrap;
-    }
-
-    /* Scroll progress hint */
-    .cinema-progress {
-      position: absolute;
-      bottom: 1.2rem; left: 50%;
-      transform: translateX(-50%);
-      z-index: 10;
-      display: flex; gap: 0.4rem;
-      pointer-events: none;
-    }
-    .cinema-progress .dot {
-      width: 24px; height: 3px;
-      background: rgba(255,246,233,0.3);
-      border-radius: 2px;
-      transition: background 300ms ease;
-    }
-    .cinema-progress .dot.active { background: var(--saffron); }
-
-    /* Location pill inside stage */
-    .cinema-meta-pill {
-      display: inline-flex; align-items: center; gap: 0.55rem;
-      padding: 0.45rem 0.9rem;
-      font-size: 0.78rem;
-      color: var(--peach-deep);
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      background: rgba(14,7,0,0.55);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255,246,233,0.15);
-      border-radius: 999px;
-    }
-    .cinema-meta-pill .pin {
-      width: 6px; height: 6px; border-radius: 50%;
-      background: var(--orange);
-      box-shadow: 0 0 0 4px rgba(244,80,28,0.22);
-      animation: pulse 2.4s cubic-bezier(0.165,0.84,0.44,1) infinite;
-    }
-
-    /* Mobile: reduce parallax, just show static hero */
-    @media (max-width: 760px) {
-      .cinema-hero { height: 100vh; }
-      .cinema-stage { position: relative; }
-      .cinema-scene { opacity: 0 !important; }
-      .cinema-scene.mobile-final { opacity: 1 !important; }
-      .cinema-progress { display: none; }
-    }
-    @media (prefers-reduced-motion: reduce) {
-      .cinema-hero { height: 100vh; }
-      .cinema-stage { position: relative; }
-      .cinema-scene { opacity: 0; transition: none; }
-      .cinema-scene.first { opacity: 1; }
     }
 
     /* ============================================================
@@ -1715,53 +1570,53 @@
     </div>
   </header>
 
-  <!-- ============== CINEMATIC HERO — actual 3D WebGL scene ============== -->
-  <div class="cinema-hero" id="cinema" aria-label="Berjalan masuk ke Ghriil, 3D">
-    <div class="cinema-stage">
+  <!-- ============== HERO ============== -->
+  <section class="hero">
+    <video class="hero-video"
+           autoplay muted loop playsinline
+           preload="metadata"
+           aria-hidden="true">
+      <source src="hero-web.mp4" type="video/mp4">
+    </video>
+    <div class="hero-scrim" aria-hidden="true"></div>
+    <div class="hero-rail" aria-hidden="true">Buka 10:00 – 24:00 WITA</div>
 
-      <!-- Three.js render target -->
-      <canvas id="cinema-canvas" aria-hidden="true"></canvas>
-
-      <!-- Loading indicator (fades out when 3D scene ready) -->
-      <div class="cinema-loader" id="cinema-loader">
-        <span class="load-text">Loading 3D scene...</span>
+    <div class="wrap hero-content">
+      <div class="hero-meta">
+        <span class="pin" aria-hidden="true"></span>
+        Jl. Chairil Anwar No. 8, Makassar
       </div>
 
-      <!-- Location meta, top center -->
-      <div class="cinema-text top-meta" data-scene-text="0,1">
-        <span class="cinema-meta-pill">
-          <span class="pin" aria-hidden="true"></span>
-          Jl. Chairil Anwar No. 8, Makassar
-        </span>
+      <h1 class="neon-heading" aria-label="Ghriil, grilling in progress">
+        <span class="neon-sign">G.H.R.I.I.L <span class="neon-dot">-</span> ING ON PROGRESS</span>
+      </h1>
+
+      <div class="hero-taglines" aria-hidden="true">
+        <span class="line">Dapur nyala.</span>
+        <span class="line"><span class="accent">Meja hangat.</span></span>
       </div>
 
-      <!-- Main headline & CTAs, bottom -->
-      <div class="cinema-text bottom-hero" data-scene-text="2">
-        <h1 class="stage-headline">Dapur nyala.<br><em>Meja hangat.</em></h1>
-        <p class="stage-lede">
-          Meja kayu tebal, lampu hangat. Rempah Makassar dimasak dua belas jam.
-          Kopi diseduh baru, bir dingin selalu ada.
-          <strong>Mampir sampai tengah malam.</strong>
-        </p>
-        <div class="stage-cta">
-          <a class="btn btn-solid" href="https://wa.me/628988822208?text=Halo%20Ghriil,%20saya%20mau%20reservasi%20meja" target="_blank" rel="noopener">
-            Reservasi meja <span class="arrow">→</span>
-          </a>
-          <a class="btn btn-ghost" href="#menu">
-            Lihat menu <span class="arrow">↓</span>
-          </a>
-        </div>
-      </div>
+      <p class="hero-lede">
+        Meja kayu tebal, lampu hangat. Rempah Makassar dimasak dua belas jam.
+        Kopi diseduh baru, bir dingin selalu ada.
+        <strong>Mampir sampai tengah malam.</strong>
+      </p>
 
-      <!-- Scene progress dots -->
-      <div class="cinema-progress" aria-hidden="true">
-        <span class="dot active" data-dot="0"></span>
-        <span class="dot" data-dot="1"></span>
-        <span class="dot" data-dot="2"></span>
+      <div class="hero-cta">
+        <a class="btn btn-solid" href="https://wa.me/628988822208?text=Halo%20Ghriil,%20saya%20mau%20reservasi%20meja" target="_blank" rel="noopener">
+          Reservasi meja <span class="arrow">→</span>
+        </a>
+        <a class="btn btn-ghost" href="#menu">
+          Lihat menu <span class="arrow">↓</span>
+        </a>
       </div>
-
     </div>
-  </div>
+
+    <div class="scroll-hint" aria-hidden="true">
+      <span>Lanjut</span>
+      <div class="hint-line"></div>
+    </div>
+  </section>
 
   <!-- Caution stripe — signature dekorasi Ghriil (kayak di tembok resto) -->
   <div class="caution-stripe" aria-hidden="true"></div>
@@ -2203,359 +2058,30 @@
     })();
   </script>
 
-  <!-- ====== Three.js importmap (for WebGL 3D scene) ====== -->
-  <script type="importmap">
-    {
-      "imports": {
-        "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js"
-      }
-    }
-  </script>
-
-  <!-- ====== Three.js cinematic 3D scene ====== -->
-  <script type="module">
-    import * as THREE from 'three';
-
-    const canvas = document.getElementById('cinema-canvas');
-    const cinema = document.getElementById('cinema');
-    const loader = document.getElementById('cinema-loader');
-    const topMeta = cinema && cinema.querySelector('[data-scene-text="0,1"]');
-    const bottomHero = cinema && cinema.querySelector('[data-scene-text="2"]');
-    const dots = cinema ? cinema.querySelectorAll('.cinema-progress .dot') : [];
-
-    if (canvas && cinema && !window.matchMedia('(prefers-reduced-motion: reduce)').matches
-        && !window.matchMedia('(max-width: 760px)').matches) {
-
-      const scene = new THREE.Scene();
-      scene.background = new THREE.Color(0x8fb8d4); // afternoon sky
-      scene.fog = new THREE.Fog(0x8fb8d4, 55, 120);
-
-      const camera = new THREE.PerspectiveCamera(52, window.innerWidth / window.innerHeight, 0.1, 500);
-      camera.position.set(0, 2, 55);
-      camera.lookAt(0, 4, 0);
-
-      const renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
-      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-      renderer.setSize(window.innerWidth, window.innerHeight);
-      renderer.outputColorSpace = THREE.SRGBColorSpace;
-
-      // ===== Lights =====
-      const sunLight = new THREE.DirectionalLight(0xffeecc, 1.1);
-      sunLight.position.set(30, 50, 25);
-      scene.add(sunLight);
-      const ambient = new THREE.AmbientLight(0xa8c4d4, 0.55);
-      scene.add(ambient);
-
-      // ===== Texture loader with progress =====
-      const texLoader = new THREE.TextureLoader();
-      const loadTex = (url) => new Promise((resolve) => {
-        texLoader.load(url, (tex) => {
-          tex.colorSpace = THREE.SRGBColorSpace;
-          tex.anisotropy = renderer.capabilities.getMaxAnisotropy();
-          resolve(tex);
-        }, undefined, () => resolve(null));
-      });
-
-      Promise.all([
-        loadTex('resto-facade-day.jpg'),
-        loadTex('resto-entrance-night.jpg'),
-        loadTex('resto-gallery-wall.jpg'),
-        loadTex('resto-interior-day.jpg'),
-        loadTex('resto-interior-industrial.jpg'),
-        loadTex('resto-table-morning.jpg'),
-        loadTex('resto-menu-booklet.jpg'),
-      ]).then(([texFacade, texEntrance, texGallery, texInteriorDay, texIndustrial, texTable, texMenu]) => {
-
-        // ===== OUTDOOR GROUP: building + ground + entourage =====
-        const outdoor = new THREE.Group();
-
-        // Ground (dark cobblestone-ish)
-        const ground = new THREE.Mesh(
-          new THREE.PlaneGeometry(300, 300),
-          new THREE.MeshLambertMaterial({ color: 0x3d2817 })
-        );
-        ground.rotation.x = -Math.PI / 2;
-        ground.position.y = -3;
-        outdoor.add(ground);
-
-        // Building — box with facade texture on front
-        const building = new THREE.Group();
-        const bW = 24, bH = 14, bD = 18;
-        const faceMat  = texFacade  ? new THREE.MeshLambertMaterial({ map: texFacade, color: 0xffffff })  : new THREE.MeshLambertMaterial({ color: 0xa76a3a });
-        const wallMat  = new THREE.MeshLambertMaterial({ color: 0x8B4F26 });
-        const roofMat  = new THREE.MeshLambertMaterial({ color: 0x2a1a13 });
-        const backMat  = new THREE.MeshLambertMaterial({ color: 0x5C3A21 });
-        const box = new THREE.Mesh(
-          new THREE.BoxGeometry(bW, bH, bD),
-          [wallMat, wallMat, roofMat, backMat, faceMat, backMat]
-        );
-        box.position.y = bH / 2 - 3;
-        building.add(box);
-
-        // Neon sign panel above door (front of building)
-        const neonGeo = new THREE.PlaneGeometry(9, 1.4);
-        const neonMat = new THREE.MeshBasicMaterial({ color: 0xffe066, transparent: true, opacity: 0.9 });
-        const neonMesh = new THREE.Mesh(neonGeo, neonMat);
-        neonMesh.position.set(0, 7.5, bD / 2 + 0.05);
-        building.add(neonMesh);
-
-        outdoor.add(building);
-
-        // Plants foreground (dark blobs to imply depth)
-        const plantMat = new THREE.MeshLambertMaterial({ color: 0x1e2510 });
-        for (let i = 0; i < 6; i++) {
-          const plant = new THREE.Mesh(
-            new THREE.SphereGeometry(1.2 + Math.random() * 0.6, 8, 8),
-            plantMat
-          );
-          plant.position.set(
-            (Math.random() - 0.5) * 30,
-            -2 + Math.random() * 0.6,
-            18 + Math.random() * 10
-          );
-          outdoor.add(plant);
-        }
-
-        scene.add(outdoor);
-
-        // ===== INDOOR GROUP: hidden by default =====
-        const indoor = new THREE.Group();
-        indoor.visible = false;
-        indoor.position.set(0, 0, -200); // far away initially
-
-        // Floor (wood)
-        indoor.add(new THREE.Mesh(
-          new THREE.PlaneGeometry(20, 14),
-          new THREE.MeshLambertMaterial({ color: 0x5c3a21 })
-        )).rotation.x = -Math.PI / 2;
-        const floor = indoor.children[0];
-        floor.position.y = -1.6;
-
-        // Back wall: gallery wall photo
-        const backWall = new THREE.Mesh(
-          new THREE.PlaneGeometry(18, 6),
-          texGallery ? new THREE.MeshBasicMaterial({ map: texGallery, color: 0xffffff }) : new THREE.MeshBasicMaterial({ color: 0x2a1a13 })
-        );
-        backWall.position.set(0, 1.5, -6);
-        indoor.add(backWall);
-
-        // Left wall: interior day photo
-        const leftWall = new THREE.Mesh(
-          new THREE.PlaneGeometry(12, 6),
-          texInteriorDay ? new THREE.MeshBasicMaterial({ map: texInteriorDay, color: 0xffffff }) : new THREE.MeshBasicMaterial({ color: 0x8B4F26 })
-        );
-        leftWall.position.set(-9, 1.5, 0);
-        leftWall.rotation.y = Math.PI / 2;
-        indoor.add(leftWall);
-
-        // Right wall: industrial photo
-        const rightWall = new THREE.Mesh(
-          new THREE.PlaneGeometry(12, 6),
-          texIndustrial ? new THREE.MeshBasicMaterial({ map: texIndustrial, color: 0xffffff }) : new THREE.MeshBasicMaterial({ color: 0x6B4423 })
-        );
-        rightWall.position.set(9, 1.5, 0);
-        rightWall.rotation.y = -Math.PI / 2;
-        indoor.add(rightWall);
-
-        // Ceiling
-        const ceiling = new THREE.Mesh(
-          new THREE.PlaneGeometry(20, 14),
-          new THREE.MeshLambertMaterial({ color: 0x1a0d05 })
-        );
-        ceiling.rotation.x = Math.PI / 2;
-        ceiling.position.y = 4.5;
-        indoor.add(ceiling);
-
-        // Table (box with wood texture from table-morning photo top)
-        const tableTop = new THREE.Mesh(
-          new THREE.BoxGeometry(5, 0.15, 2.4),
-          texTable ? new THREE.MeshLambertMaterial({ map: texTable, color: 0xffffff }) : new THREE.MeshLambertMaterial({ color: 0x8B4F26 })
-        );
-        tableTop.position.set(0, -0.6, 0);
-        indoor.add(tableTop);
-        // Table legs
-        [[-2.2, -1, -0.9], [2.2, -1, -0.9], [-2.2, -1, 0.9], [2.2, -1, 0.9]].forEach(([x, y, z]) => {
-          const leg = new THREE.Mesh(
-            new THREE.BoxGeometry(0.15, 1.2, 0.15),
-            new THREE.MeshLambertMaterial({ color: 0x2a1a13 })
-          );
-          leg.position.set(x, y, z);
-          indoor.add(leg);
-        });
-
-        // Guinness napkin holder (black box on table)
-        const holder = new THREE.Mesh(
-          new THREE.BoxGeometry(0.55, 0.55, 0.4),
-          new THREE.MeshLambertMaterial({ color: 0x0a0500 })
-        );
-        holder.position.set(0.3, -0.25, 0);
-        indoor.add(holder);
-
-        // Salt shaker (cylinder)
-        const shaker = new THREE.Mesh(
-          new THREE.CylinderGeometry(0.13, 0.13, 0.4, 12),
-          new THREE.MeshLambertMaterial({ color: 0xeeeeee })
-        );
-        shaker.position.set(-0.5, -0.3, 0.2);
-        indoor.add(shaker);
-
-        // Menu booklet (small plane on table)
-        const menuBook = new THREE.Mesh(
-          new THREE.PlaneGeometry(1.4, 0.9),
-          texMenu ? new THREE.MeshBasicMaterial({ map: texMenu, color: 0xffffff }) : new THREE.MeshBasicMaterial({ color: 0xffe4b0 })
-        );
-        menuBook.position.set(-1.5, -0.52, 0.5);
-        menuBook.rotation.x = -Math.PI / 2;
-        menuBook.rotation.z = 0.08;
-        indoor.add(menuBook);
-
-        // Interior warm point light
-        const interiorLight = new THREE.PointLight(0xffcc80, 1.4, 25);
-        interiorLight.position.set(0, 3.5, 0);
-        indoor.add(interiorLight);
-        // Second warm light for depth
-        const backLight = new THREE.PointLight(0xffa040, 0.7, 20);
-        backLight.position.set(0, 2, -4);
-        indoor.add(backLight);
-
-        scene.add(indoor);
-
-        // ===== Fade out loader =====
-        loader.classList.add('ready');
-
-        // ===== SCROLL DRIVEN CAMERA =====
-        let scrollProgress = 0;
-        function updateScroll() {
-          const rect = cinema.getBoundingClientRect();
-          const scrollable = rect.height - window.innerHeight;
-          scrollProgress = Math.max(0, Math.min(1, -rect.top / scrollable));
-          const p = scrollProgress;
-
-          // Progress dots
-          const idx = p < 0.4 ? 0 : (p < 0.7 ? 1 : 2);
-          dots.forEach((d, i) => d.classList.toggle('active', i === idx));
-
-          if (p < 0.55) {
-            // OUTDOOR phase: walk toward building
-            outdoor.visible = true;
-            indoor.visible = false;
-            const q = p / 0.55; // 0..1
-            // Camera dolly from z=55 → z=14 (just outside building), slight y rise
-            camera.position.set(0, 2 + q * 1.5, 55 - q * 41);
-            camera.lookAt(0, 4 + q * 1.2, 0);
-            scene.background = new THREE.Color().lerpColors(
-              new THREE.Color(0x8fb8d4),  // afternoon
-              new THREE.Color(0x1a0d05),  // evening at entrance
-              q
-            );
-            scene.fog.color.copy(scene.background);
-            // Neon brightens as we approach
-            neonMat.opacity = 0.4 + q * 0.6;
-            // Meta pill visible, headline hidden
-            if (topMeta)    topMeta.style.opacity = String(1 - q * 0.5);
-            if (bottomHero) bottomHero.style.opacity = '0';
-          } else {
-            // INDOOR phase: sitting at table
-            outdoor.visible = false;
-            indoor.visible = true;
-            indoor.position.z = 0;
-            const q = (p - 0.55) / 0.45; // 0..1
-            // Camera pulls back from close, orbits slightly to see the table nicely
-            camera.position.set(
-              Math.sin(q * 0.4) * 2.5,
-              1.2 - q * 0.4,
-              6 - q * 3.5
-            );
-            camera.lookAt(0, -0.5, 0);
-            scene.background = new THREE.Color(0x1a0d05);
-            scene.fog.color.copy(scene.background);
-            // Text hand-off
-            if (topMeta)    topMeta.style.opacity = '0';
-            if (bottomHero) {
-              bottomHero.style.opacity = String(Math.min(1, q * 2));
-              bottomHero.style.transform = `translateY(${(1 - Math.min(1, q * 2)) * 30}px)`;
-            }
-          }
-        }
-        window.addEventListener('scroll', updateScroll, { passive: true });
-        updateScroll();
-
-        // ===== Mouse look: subtle camera rotation =====
-        const mouse = { tx: 0, ty: 0, x: 0, y: 0 };
-        window.addEventListener('mousemove', (e) => {
-          mouse.tx = (e.clientX / window.innerWidth  - 0.5) * 2;
-          mouse.ty = (e.clientY / window.innerHeight - 0.5) * 2;
-        }, { passive: true });
-
-        // ===== Render loop =====
-        function animate() {
-          requestAnimationFrame(animate);
-          mouse.x += (mouse.tx - mouse.x) * 0.08;
-          mouse.y += (mouse.ty - mouse.y) * 0.08;
-          // Apply mouse to slight camera offset without breaking lookAt
-          const lookX = mouse.x * 2;
-          const lookY = -mouse.y * 1.2;
-          if (scrollProgress < 0.55) {
-            camera.lookAt(lookX, 4 + lookY, 0);
-          } else {
-            camera.lookAt(lookX * 0.5, -0.5 + lookY * 0.5, 0);
-          }
-          // Subtle neon flicker
-          neonMat.opacity *= 0.995 + Math.random() * 0.01;
-          renderer.render(scene, camera);
-        }
-        animate();
-
-        // ===== Resize =====
-        window.addEventListener('resize', () => {
-          camera.aspect = window.innerWidth / window.innerHeight;
-          camera.updateProjectionMatrix();
-          renderer.setSize(window.innerWidth, window.innerHeight);
-        });
-
-      }).catch((err) => {
-        console.warn('3D scene texture load failed', err);
-        loader.querySelector('.load-text').textContent = 'Fallback view';
-        loader.classList.add('ready');
-      });
-
-    } else if (loader) {
-      // Mobile / reduced motion: hide loader, no 3D
-      loader.classList.add('ready');
-      if (bottomHero) { bottomHero.style.opacity = '1'; bottomHero.style.transform = 'none'; }
-    }
-  </script>
-
-  <!-- ====== Lenis + GSAP for smooth scroll + other section animations ====== -->
-  <script src="https://cdn.jsdelivr.net/gh/darkroomengineering/lenis@1.1.13/dist/lenis.min.js"></script>
+  <!-- ====== GSAP animations ====== -->
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollToPlugin.min.js"></script>
   <script>
     (function () {
+      // Respect reduced motion. If GSAP fails to load, the page already has
+      // visible defaults — gsap.from() snap-hides then animates back in.
       if (!window.gsap) return;
       if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
       gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
-      const isMobile = window.matchMedia('(max-width: 760px)').matches;
 
-      if (window.Lenis && !isMobile) {
-        const lenis = new Lenis({
-          duration: 1.1,
-          easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-          smoothWheel: true,
-          smoothTouch: false
-        });
-        lenis.on('scroll', ScrollTrigger.update);
-        gsap.ticker.add((time) => lenis.raf(time * 1000));
-        gsap.ticker.lagSmoothing(0);
-        window.__lenis = lenis;
-      }
-
-      const introTl = gsap.timeline({ defaults: { ease: 'expo.out' } });
-      introTl
+      // === Hero entrance timeline ===
+      // Cascade: navbar → meta → headline lines → lede → CTAs
+      const heroIn = gsap.timeline({ defaults: { ease: 'expo.out' } });
+      heroIn
         .from('.topbar-brand .wordmark', { y: -16, opacity: 0, duration: 0.55 })
         .from('.live-pill', { y: -16, opacity: 0, duration: 0.45 }, '-=0.35')
-        .from('.topbar nav ul > li', { y: -14, opacity: 0, duration: 0.4, stagger: 0.05 }, '-=0.35');
+        .from('.topbar nav ul > li', { y: -14, opacity: 0, duration: 0.4, stagger: 0.05 }, '-=0.35')
+        .from('.hero-meta', { y: 24, opacity: 0, duration: 0.65 }, '+=0.05')
+        .from('.hero h1 .line', { y: 56, opacity: 0, duration: 0.85, stagger: 0.13 }, '-=0.35')
+        .from('.hero-lede', { y: 24, opacity: 0, duration: 0.7 }, '-=0.45')
+        .from('.hero-cta .btn', { y: 24, opacity: 0, duration: 0.6, stagger: 0.09 }, '-=0.45')
+        .from('.scroll-hint', { opacity: 0, duration: 0.6 }, '-=0.2');
 
       // === Section heads, scrub-once on enter (4 distinct intros, not uniform) ===
       // Appetite: slide from left, h2 + p stagger
