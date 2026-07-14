@@ -469,6 +469,312 @@
     }
 
     /* ============================================================
+       CUSTOM CURSOR — warm glow follower
+    ============================================================ */
+    @media (hover: hover) and (pointer: fine) {
+      body { cursor: none; }
+      a, button, .btn, [role="button"] { cursor: none; }
+    }
+    .cursor-glow {
+      position: fixed;
+      top: 0; left: 0;
+      width: 22px; height: 22px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(244,80,28,0.65) 0%, rgba(244,169,60,0.25) 40%, transparent 75%);
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      z-index: 9998;
+      mix-blend-mode: screen;
+      transition: width 320ms cubic-bezier(0.165,0.84,0.44,1),
+                  height 320ms cubic-bezier(0.165,0.84,0.44,1),
+                  background 320ms ease;
+      will-change: transform;
+    }
+    .cursor-glow.hover {
+      width: 62px; height: 62px;
+      background: radial-gradient(circle, rgba(244,169,60,0.7) 0%, rgba(244,80,28,0.3) 50%, transparent 80%);
+    }
+    .cursor-dot {
+      position: fixed;
+      top: 0; left: 0;
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: var(--saffron);
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      z-index: 9999;
+      will-change: transform;
+    }
+    @media (hover: none), (pointer: coarse), (prefers-reduced-motion: reduce) {
+      body, a, button, .btn, [role="button"] { cursor: auto !important; }
+      .cursor-glow, .cursor-dot { display: none; }
+    }
+
+    /* ============================================================
+       AMBIENT EMBERS — rising sparks in hero
+    ============================================================ */
+    .embers {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 4;
+    }
+    .ember {
+      position: absolute;
+      bottom: -20px;
+      width: 3px; height: 3px;
+      border-radius: 50%;
+      background: #ffb347;
+      box-shadow:
+        0 0 6px #ff7040,
+        0 0 12px rgba(244,80,28,0.6);
+      opacity: 0;
+      animation: emberRise linear infinite;
+      will-change: transform, opacity;
+    }
+    @keyframes emberRise {
+      0%   { transform: translate(0, 0)     scale(0.6); opacity: 0; }
+      8%   { opacity: 0.85; }
+      50%  { transform: translate(15px, -50vh) scale(1); opacity: 0.6; }
+      100% { transform: translate(-10px, -105vh) scale(0.3); opacity: 0; }
+    }
+    @media (prefers-reduced-motion: reduce) { .embers { display: none; } }
+
+    /* ============================================================
+       EDITORIAL MANIFESTO — sticky 3-word reveal
+    ============================================================ */
+    .manifesto {
+      position: relative;
+      height: 300vh;
+      background: #0a0500;
+      overflow: hidden;
+    }
+    .manifesto-stage {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow: hidden;
+      display: grid;
+      place-items: center;
+    }
+    .manifesto-bg {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+    }
+    .manifesto-bg img {
+      width: 100%; height: 100%; object-fit: cover;
+      opacity: 0.35;
+      transform: scale(1.08);
+      filter: saturate(1.1) contrast(1.05);
+      will-change: transform;
+    }
+    .manifesto-bg::after {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 900px 500px at center, transparent 30%, rgba(10,5,0,0.92) 90%),
+        linear-gradient(180deg, rgba(10,5,0,0.6) 0%, rgba(10,5,0,0.3) 40%, rgba(10,5,0,0.85) 100%);
+    }
+    .manifesto-words {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      place-items: center;
+      text-align: center;
+    }
+    .manifesto-word {
+      position: absolute;
+      font-family: 'Big Shoulders Display', sans-serif;
+      font-weight: 900;
+      font-size: clamp(3.5rem, 14vw, 12rem);
+      line-height: 0.9;
+      letter-spacing: -0.03em;
+      color: var(--cream-soft);
+      text-transform: uppercase;
+      opacity: 0;
+      transform: translateY(30px) scale(0.98);
+      transition: opacity 700ms cubic-bezier(0.165,0.84,0.44,1),
+                  transform 900ms cubic-bezier(0.165,0.84,0.44,1);
+      white-space: nowrap;
+      text-shadow: 0 4px 30px rgba(244,80,28,0.35);
+    }
+    .manifesto-word.visible {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+    .manifesto-word .accent { color: var(--saffron); font-style: italic; }
+    .manifesto-hint {
+      position: absolute;
+      bottom: 3rem;
+      left: 50%;
+      transform: translateX(-50%);
+      color: rgba(255,246,233,0.4);
+      font-family: 'Big Shoulders Display', sans-serif;
+      font-weight: 700;
+      font-size: 0.75rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      z-index: 3;
+    }
+    .manifesto-progress {
+      position: absolute;
+      top: 50%; right: 2rem;
+      transform: translateY(-50%);
+      display: flex; flex-direction: column; gap: 0.6rem;
+      z-index: 3;
+    }
+    .manifesto-progress .m-dot {
+      width: 3px; height: 30px;
+      background: rgba(255,246,233,0.15);
+      transition: background 400ms ease;
+    }
+    .manifesto-progress .m-dot.active { background: var(--saffron); }
+    @media (max-width: 760px) {
+      .manifesto-progress { display: none; }
+    }
+
+    /* ============================================================
+       SPLIT-SCREEN STICKY — magazine spread
+    ============================================================ */
+    .split-scene {
+      position: relative;
+      background: var(--cream-band);
+    }
+    .split-scene .split-inner {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      min-height: 100vh;
+      align-items: stretch;
+    }
+    .split-scene .split-visual {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow: hidden;
+    }
+    .split-scene .split-visual img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform 800ms cubic-bezier(0.165,0.84,0.44,1);
+    }
+    .split-scene .split-visual:hover img { transform: scale(1.03); }
+    .split-scene .split-content {
+      padding: clamp(4rem, 10vh, 6rem) clamp(2rem, 5vw, 4rem);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 1.4rem;
+    }
+    .split-scene .split-eyebrow {
+      font-family: 'Big Shoulders Display', sans-serif;
+      font-weight: 800;
+      font-size: 0.85rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--terracotta-deep);
+    }
+    .split-scene .split-title {
+      font-family: 'Big Shoulders Display', sans-serif;
+      font-weight: 900;
+      font-size: clamp(2.4rem, 5vw, 4.2rem);
+      line-height: 0.92;
+      letter-spacing: -0.02em;
+      text-transform: uppercase;
+      text-wrap: balance;
+      color: var(--ink);
+    }
+    .split-scene .split-title em {
+      font-style: italic; color: var(--orange); font-weight: 900;
+    }
+    .split-scene .split-body {
+      font-size: var(--t-step-1);
+      line-height: 1.6;
+      color: var(--ink-soft);
+      max-width: 48ch;
+    }
+    .split-scene .split-body strong { color: var(--brown-warm); }
+    .split-scene .split-list {
+      display: grid; gap: 0.7rem;
+      margin-top: 0.5rem;
+      padding: 0;
+    }
+    .split-scene .split-list li {
+      display: flex; align-items: baseline; gap: 0.8rem;
+      list-style: none;
+      color: var(--ink);
+      font-size: 1rem;
+    }
+    .split-scene .split-list li::before {
+      content: '';
+      display: inline-block;
+      width: 26px; height: 2px;
+      background: var(--orange);
+      flex-shrink: 0;
+      transform: translateY(-4px);
+    }
+    @media (max-width: 880px) {
+      .split-scene .split-inner { grid-template-columns: 1fr; }
+      .split-scene .split-visual { position: relative; height: 60vh; }
+    }
+
+    /* ============================================================
+       CLOSING QUOTE — cinematic ending before contact
+    ============================================================ */
+    .closing-quote {
+      background: #0a0500;
+      color: var(--cream-soft);
+      padding: clamp(6rem, 15vh, 10rem) 0;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .closing-quote::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 800px 400px at 50% 30%, rgba(244,169,60,0.15), transparent 65%),
+        radial-gradient(ellipse 600px 300px at 20% 80%, rgba(244,80,28,0.08), transparent 60%);
+      pointer-events: none;
+    }
+    .closing-quote .quote-line {
+      position: relative;
+      font-family: 'Big Shoulders Display', sans-serif;
+      font-weight: 900;
+      font-size: clamp(2.6rem, 6vw, 5rem);
+      line-height: 1;
+      letter-spacing: -0.02em;
+      text-transform: uppercase;
+      color: var(--cream-soft);
+      max-width: 22ch;
+      margin-inline: auto;
+    }
+    .closing-quote .quote-line .word {
+      display: inline-block;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 700ms cubic-bezier(0.165,0.84,0.44,1),
+                  transform 700ms cubic-bezier(0.165,0.84,0.44,1);
+      margin-right: 0.2em;
+    }
+    .closing-quote .quote-line .word.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .closing-quote .quote-line .word.accent {
+      color: var(--saffron);
+      font-style: italic;
+    }
+    .closing-quote .quote-sub {
+      margin-top: 1.5rem;
+      font-family: 'Big Shoulders Display', sans-serif;
+      letter-spacing: 0.3em;
+      font-size: 0.85rem;
+      color: rgba(255,246,233,0.5);
+      text-transform: uppercase;
+    }
+
+    /* ============================================================
        JOURNEY sections — walking through the restaurant
     ============================================================ */
 
@@ -1581,6 +1887,22 @@
     <div class="hero-scrim" aria-hidden="true"></div>
     <div class="hero-rail" aria-hidden="true">Buka 10:00 – 24:00 WITA</div>
 
+    <!-- Ambient embers rising from the grill -->
+    <div class="embers" aria-hidden="true">
+      <span class="ember" style="left: 8%;  animation-duration: 9s;  animation-delay: 0s;"></span>
+      <span class="ember" style="left: 15%; animation-duration: 11s; animation-delay: 1.4s;"></span>
+      <span class="ember" style="left: 22%; animation-duration: 8s;  animation-delay: 3s;"></span>
+      <span class="ember" style="left: 30%; animation-duration: 10s; animation-delay: 0.8s;"></span>
+      <span class="ember" style="left: 38%; animation-duration: 12s; animation-delay: 2.5s;"></span>
+      <span class="ember" style="left: 46%; animation-duration: 9s;  animation-delay: 4s;"></span>
+      <span class="ember" style="left: 54%; animation-duration: 10s; animation-delay: 1.2s;"></span>
+      <span class="ember" style="left: 62%; animation-duration: 11s; animation-delay: 3.6s;"></span>
+      <span class="ember" style="left: 70%; animation-duration: 8s;  animation-delay: 5s;"></span>
+      <span class="ember" style="left: 78%; animation-duration: 12s; animation-delay: 0.4s;"></span>
+      <span class="ember" style="left: 85%; animation-duration: 9s;  animation-delay: 2.8s;"></span>
+      <span class="ember" style="left: 92%; animation-duration: 10s; animation-delay: 4.4s;"></span>
+    </div>
+
     <div class="wrap hero-content">
       <div class="hero-meta">
         <span class="pin" aria-hidden="true"></span>
@@ -1620,6 +1942,29 @@
 
   <!-- Caution stripe — signature dekorasi Ghriil (kayak di tembok resto) -->
   <div class="caution-stripe" aria-hidden="true"></div>
+
+  <!-- ============== EDITORIAL MANIFESTO — sticky word reveal ============== -->
+  <section class="manifesto" id="manifesto" aria-label="Dimasak dua belas jam">
+    <div class="manifesto-stage">
+      <div class="manifesto-bg" aria-hidden="true">
+        <img src="nasi-brisket.jpg" alt="" loading="lazy">
+      </div>
+
+      <div class="manifesto-progress" aria-hidden="true">
+        <span class="m-dot active" data-m-dot="0"></span>
+        <span class="m-dot" data-m-dot="1"></span>
+        <span class="m-dot" data-m-dot="2"></span>
+      </div>
+
+      <div class="manifesto-words">
+        <div class="manifesto-word visible" data-word="0">Dimasak.</div>
+        <div class="manifesto-word" data-word="1"><span class="accent">Dua belas.</span></div>
+        <div class="manifesto-word" data-word="2">Jam.</div>
+      </div>
+
+      <div class="manifesto-hint" aria-hidden="true">↓ Scroll ↓</div>
+    </div>
+  </section>
 
   <!-- ============== MARQUEE 1 ============== -->
   <div class="marquee" aria-hidden="true">
@@ -1891,6 +2236,30 @@
     </div>
   </section>
 
+  <!-- ============== SPLIT-SCREEN — chef's story ============== -->
+  <section class="split-scene" aria-label="Cerita di dapur">
+    <div class="split-inner">
+      <div class="split-visual">
+        <img src="resto-interior-industrial.jpg" alt="Interior Ghriil, sudut kayu dan dinding hijau" loading="lazy">
+      </div>
+      <div class="split-content">
+        <div class="split-eyebrow">Di dapur</div>
+        <h2 class="split-title">Yang <em>berbeda</em> dari sebelah.</h2>
+        <p class="split-body">
+          Ghriil bukan restoran cepat. Panggangan tidak matikan sampai jam dua belas malam.
+          Bumbu Makassar utuh, bukan pasta. Daging pilih sendiri sebelum masak.
+          <strong>Jadi kalau menunggu 40 menit itu bakso Wagyu, memang begitu.</strong>
+        </p>
+        <ul class="split-list">
+          <li>Rempah dari kebun Sulawesi, kirim per minggu.</li>
+          <li>Daging Angus + Wagyu, bukan sisa freezer.</li>
+          <li>Kopi single-origin, seduh manual per gelas.</li>
+          <li>Bir dingin, disimpan tepat suhu <em>0-4°C</em>.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
   <!-- ============== JOURNEY 3: GALLERY & DETAILS ============== -->
   <section class="gallery-section">
     <div class="wrap">
@@ -1919,6 +2288,18 @@
       <span>Reservasi via WhatsApp <em class="sep">·</em> Pemesanan grup welcome <em class="sep">·</em> Live music akhir pekan <em class="sep">·</em> See you tonight <em class="sep">·</em></span>
     </div>
   </div>
+
+  <!-- ============== CLOSING QUOTE — cinematic before contact ============== -->
+  <section class="closing-quote" aria-label="Sampai jumpa">
+    <div class="wrap">
+      <h2 class="quote-line" id="closing-quote">
+        <span class="word">See</span>
+        <span class="word">you</span>
+        <span class="word accent">tonight.</span>
+      </h2>
+      <div class="quote-sub" aria-hidden="true">Buka sampai tengah malam · WITA 10–24</div>
+    </div>
+  </section>
 
   <!-- ============== CONTACT ============== -->
   <section id="contact" class="contact">
@@ -2015,6 +2396,10 @@
   </footer>
 
   <!-- floating WA -->
+  <!-- Custom cursor (warm glow + dot). Hidden on touch devices via CSS. -->
+  <div class="cursor-glow" aria-hidden="true"></div>
+  <div class="cursor-dot" aria-hidden="true"></div>
+
   <a class="wa-float" href="https://wa.me/628988822208?text=Halo%20Ghriil" target="_blank" rel="noopener" aria-label="Chat WhatsApp Ghriil">
     <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.5 14.4c-.3-.1-1.8-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.7 1-.9 1.2-.2.2-.3.2-.6.1-1.7-.9-2.9-1.6-4-3.5-.3-.5.3-.5.8-1.5.1-.2 0-.3 0-.5 0-.1-.7-1.6-.9-2.2-.2-.5-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1.1 1-1.1 2.6 0 1.5 1.1 3 1.3 3.2.2.2 2.2 3.4 5.4 4.7.7.3 1.3.5 1.8.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.5.3-.7.3-1.4.2-1.5 0-.1-.2-.2-.4-.3zM12 22h0c-1.7 0-3.3-.4-4.8-1.3l-3.4.9.9-3.3c-.9-1.5-1.4-3.3-1.4-5C3.3 8.1 7.2 4 12 4c2.3 0 4.5.9 6.2 2.5 1.7 1.7 2.6 3.9 2.6 6.3 0 4.8-4.1 8.7-8.8 8.7z"/></svg>
   </a>
@@ -2195,6 +2580,105 @@
 
       // === Hero meta pin: subtle continuous pulse handled via CSS already ===
 
+      // ====================================================================
+      // EDITORIAL MANIFESTO — sticky word reveal + background zoom
+      // ====================================================================
+      const manifesto = document.getElementById('manifesto');
+      if (manifesto) {
+        const words = manifesto.querySelectorAll('.manifesto-word');
+        const mDots = manifesto.querySelectorAll('.m-dot');
+        const bgImg = manifesto.querySelector('.manifesto-bg img');
+
+        ScrollTrigger.create({
+          trigger: manifesto,
+          start: 'top top',
+          end: 'bottom bottom',
+          scrub: 0.6,
+          onUpdate: (self) => {
+            const p = self.progress;
+            let active = 0;
+            if (p > 0.35) active = 1;
+            if (p > 0.7)  active = 2;
+            words.forEach((w, i) => w.classList.toggle('visible', i === active));
+            mDots.forEach((d, i) => d.classList.toggle('active', i === active));
+            if (bgImg) {
+              const scale = 1.08 + p * 0.22;         // 1.08 → 1.30
+              const y = -p * 40;                     // slow drift up
+              bgImg.style.transform = `translateY(${y}px) scale(${scale})`;
+            }
+          }
+        });
+      }
+
+      // ====================================================================
+      // CLOSING QUOTE — word-by-word reveal on scroll in
+      // ====================================================================
+      const closing = document.getElementById('closing-quote');
+      if (closing) {
+        const words = closing.querySelectorAll('.word');
+        ScrollTrigger.create({
+          trigger: closing,
+          start: 'top 75%',
+          once: true,
+          onEnter: () => {
+            words.forEach((w, i) => {
+              setTimeout(() => w.classList.add('visible'), i * 260);
+            });
+          }
+        });
+      }
+
+    })();
+  </script>
+
+  <!-- ====== Custom cursor (warm glow follower) ====== -->
+  <script>
+    (function () {
+      // Skip on touch / reduced motion — CSS also hides
+      if (window.matchMedia('(pointer: coarse)').matches) return;
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+      const glow = document.querySelector('.cursor-glow');
+      const dot  = document.querySelector('.cursor-dot');
+      if (!glow || !dot) return;
+
+      let mx = window.innerWidth / 2, my = window.innerHeight / 2;
+      let gx = mx, gy = my, dx = mx, dy = my;
+
+      window.addEventListener('mousemove', (e) => {
+        mx = e.clientX; my = e.clientY;
+      }, { passive: true });
+
+      function loop() {
+        // Dot follows tightly (fast lerp), glow follows loosely (slow lerp)
+        dx += (mx - dx) * 0.6;
+        dy += (my - dy) * 0.6;
+        gx += (mx - gx) * 0.18;
+        gy += (my - gy) * 0.18;
+        dot.style.transform  = `translate(${dx}px, ${dy}px) translate(-50%, -50%)`;
+        glow.style.transform = `translate(${gx}px, ${gy}px) translate(-50%, -50%)`;
+        requestAnimationFrame(loop);
+      }
+      loop();
+
+      // Enlarge glow on interactive elements
+      const interactive = 'a, button, .btn, [role="button"], input, textarea, select, .dish, .appetite-card, .arrival-photo, .dining-photo, .gallery-photo';
+      document.addEventListener('mouseover', (e) => {
+        if (e.target.closest(interactive)) glow.classList.add('hover');
+      });
+      document.addEventListener('mouseout', (e) => {
+        if (e.target.closest(interactive)) glow.classList.remove('hover');
+      });
+
+      // Hide on cursor leave window
+      document.addEventListener('mouseleave', () => {
+        glow.style.opacity = '0';
+        dot.style.opacity  = '0';
+      });
+      document.addEventListener('mouseenter', () => {
+        glow.style.opacity = '1';
+        dot.style.opacity  = '1';
+      });
     })();
   </script>
 
