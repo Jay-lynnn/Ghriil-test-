@@ -467,6 +467,170 @@
     @media (prefers-reduced-motion: reduce) {
       .neon-sign { animation: none; }
     }
+
+    /* ============================================================
+       JOURNEY sections — walking through the restaurant
+    ============================================================ */
+
+    /* Reusable: section header for journey folds */
+    .journey-head {
+      max-width: 640px;
+      margin-bottom: clamp(2rem, 4vw, 3rem);
+    }
+    .journey-head .step {
+      font-family: 'Big Shoulders Display', sans-serif;
+      font-weight: 800;
+      font-size: 0.85rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 0.5rem;
+    }
+    .journey-head h2 {
+      font-family: 'Big Shoulders Display', sans-serif;
+      font-weight: 900;
+      font-size: clamp(2.2rem, 4.5vw, 3.6rem);
+      line-height: 0.95;
+      letter-spacing: -0.02em;
+      text-transform: uppercase;
+      text-wrap: balance;
+      color: inherit;
+    }
+    .journey-head h2 em { font-style: italic; color: var(--saffron); font-weight: 900; }
+    .journey-head p {
+      margin-top: 0.9rem;
+      color: inherit; opacity: 0.85;
+      font-size: var(--t-step-1);
+      line-height: 1.5;
+      max-width: 52ch;
+    }
+
+    /* ARRIVAL: 2-photo asymmetric split (facade day + entrance night) */
+    .arrival {
+      background: var(--brown-deep);
+      color: var(--cream-bg);
+      padding: clamp(4rem, 8vh, 6rem) 0;
+      position: relative;
+    }
+    .arrival::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(700px 400px at 90% 30%, rgba(244,169,60,0.14), transparent 65%);
+      pointer-events: none;
+    }
+    .arrival-grid {
+      position: relative;
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+      gap: clamp(1rem, 2vw, 1.5rem);
+      margin-top: clamp(1.5rem, 3vw, 2rem);
+    }
+    .arrival-photo {
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 20px 50px -10px rgba(0,0,0,0.4);
+    }
+    .arrival-photo.tall  { aspect-ratio: 4/5; }
+    .arrival-photo.wide  { aspect-ratio: 4/3; }
+    .arrival-photo img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform 700ms cubic-bezier(0.165,0.84,0.44,1);
+    }
+    .arrival-photo:hover img { transform: scale(1.05); }
+    .arrival-photo .caption {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      padding: 1.5rem 1.2rem 1rem;
+      background: linear-gradient(to top, rgba(14,7,0,0.85), transparent);
+      color: var(--cream-soft);
+      font-family: 'Big Shoulders Display', sans-serif;
+      font-weight: 800; font-size: 0.85rem;
+      letter-spacing: 0.16em; text-transform: uppercase;
+    }
+    @media (max-width: 760px) {
+      .arrival-grid { grid-template-columns: 1fr; }
+      .arrival-photo.tall, .arrival-photo.wide { aspect-ratio: 4/3; }
+    }
+
+    /* DINING: 3-photo horizontal strip */
+    .dining {
+      background: var(--cream-band);
+      color: var(--ink);
+      padding: clamp(4rem, 8vh, 6rem) 0;
+      overflow: hidden;
+    }
+    .dining .journey-head .step { color: var(--terracotta-deep); }
+    .dining-strip {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: clamp(0.8rem, 1.5vw, 1.3rem);
+      margin-top: clamp(1.5rem, 3vw, 2rem);
+    }
+    .dining-photo {
+      aspect-ratio: 3/4;
+      overflow: hidden;
+      position: relative;
+      box-shadow: 0 14px 30px -10px rgba(46,28,12,0.25);
+    }
+    .dining-photo:nth-child(2) { aspect-ratio: 3/4.4; margin-top: -1.5rem; }
+    .dining-photo img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform 700ms cubic-bezier(0.165,0.84,0.44,1);
+    }
+    .dining-photo:hover img { transform: scale(1.06); }
+    .dining-photo .tag {
+      position: absolute; top: 0.7rem; left: 0.7rem;
+      background: rgba(255,246,233,0.94);
+      color: var(--ink);
+      padding: 0.3rem 0.6rem;
+      font-family: 'Big Shoulders Display', sans-serif;
+      font-weight: 800; font-size: 0.7rem;
+      letter-spacing: 0.14em; text-transform: uppercase;
+    }
+    @media (max-width: 760px) {
+      .dining-strip { grid-template-columns: 1fr; gap: 1rem; }
+      .dining-photo, .dining-photo:nth-child(2) { aspect-ratio: 4/3; margin-top: 0; }
+    }
+
+    /* GALLERY: split photo wall left + menu detail right */
+    .gallery-section {
+      background: var(--warm-white);
+      color: var(--ink);
+      padding: clamp(4rem, 8vh, 6rem) 0;
+    }
+    .gallery-section .journey-head .step { color: var(--brown-warm); }
+    .gallery-split {
+      display: grid;
+      grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+      gap: clamp(1rem, 2vw, 1.8rem);
+      margin-top: clamp(1.5rem, 3vw, 2rem);
+      align-items: stretch;
+    }
+    .gallery-photo {
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 18px 40px -10px rgba(46,28,12,0.22);
+    }
+    .gallery-photo.main { aspect-ratio: 3/4; }
+    .gallery-photo.side { aspect-ratio: 4/5; }
+    .gallery-photo img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform 700ms cubic-bezier(0.165,0.84,0.44,1);
+    }
+    .gallery-photo:hover img { transform: scale(1.06); }
+    .gallery-photo .cap {
+      position: absolute; bottom: 0.9rem; left: 0.9rem; right: 0.9rem;
+      background: rgba(14,7,0,0.8);
+      color: var(--cream-soft);
+      padding: 0.6rem 0.9rem;
+      font-family: 'Big Shoulders Display', sans-serif;
+      font-weight: 800; font-size: 0.78rem;
+      letter-spacing: 0.14em; text-transform: uppercase;
+    }
+    @media (max-width: 760px) {
+      .gallery-split { grid-template-columns: 1fr; }
+      .gallery-photo.main, .gallery-photo.side { aspect-ratio: 4/3; }
+    }
     .btn .arrow { transition: transform 280ms cubic-bezier(0.165,0.84,0.44,1); }
     .btn:hover .arrow { transform: translateX(4px); }
 
@@ -1465,6 +1629,27 @@
     </div>
   </div>
 
+  <!-- ============== JOURNEY 1: ARRIVAL ============== -->
+  <section class="arrival">
+    <div class="wrap">
+      <div class="journey-head">
+        <div class="step">Perjalanan · 01</div>
+        <h2>Belok kiri, cari <em>lampu terang.</em></h2>
+        <p>Kami di Jl. Chairil Anwar No. 8. Kalau sudah gelap, cari yang neon "G.H.R.I.I.L-ING ON PROGRESS"-nya nyala. Pintu masuk ada di balik pohon.</p>
+      </div>
+      <div class="arrival-grid">
+        <figure class="arrival-photo wide">
+          <img src="resto-facade-day.jpg" alt="Ghriil siang hari, facade dengan mascot chibi di atap" loading="lazy">
+          <figcaption class="caption">Siang · Facade Jl. Chairil Anwar</figcaption>
+        </figure>
+        <figure class="arrival-photo tall">
+          <img src="resto-entrance-night.jpg" alt="Pintu masuk Ghriil malam, huruf GHRIIL menyala" loading="lazy">
+          <figcaption class="caption">Malam · Pintu masuk</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
   <!-- ============== APPETITE TRIPTYCH (replaces story) ============== -->
   <section id="why" class="appetite">
     <div class="wrap">
@@ -1547,6 +1732,31 @@
             Reservasi untuk mencoba <span class="arrow">→</span>
           </a>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============== JOURNEY 2: DINING ROOM ============== -->
+  <section class="dining">
+    <div class="wrap">
+      <div class="journey-head">
+        <div class="step">Perjalanan · 02</div>
+        <h2>Meja kayu tebal, <em>lampu hangat.</em></h2>
+        <p>Ada spot untuk siang yang santai, ada sudut yang enak buat malam. Bawang bombay dari dapur kecium sampai meja. Boleh duduk lama, tidak diusir.</p>
+      </div>
+      <div class="dining-strip">
+        <figure class="dining-photo">
+          <img src="resto-table-morning.jpg" alt="Meja kayu pagi dengan Guinness napkin holder dan tanaman kecil" loading="lazy">
+          <span class="tag">Meja pagi</span>
+        </figure>
+        <figure class="dining-photo">
+          <img src="resto-interior-day.jpg" alt="Interior siang, orang-orang sedang makan" loading="lazy">
+          <span class="tag">Suasana siang</span>
+        </figure>
+        <figure class="dining-photo">
+          <img src="resto-interior-industrial.jpg" alt="Interior industrial, dinding hijau dan kursi kayu" loading="lazy">
+          <span class="tag">Sudut malam</span>
+        </figure>
       </div>
     </div>
   </section>
@@ -1677,6 +1887,27 @@
           Lihat semua menu <span class="arrow">→</span>
         </a>
         <span class="note">Pemesanan hanya di tempat. Reservasi via WhatsApp untuk memastikan meja tersedia.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============== JOURNEY 3: GALLERY & DETAILS ============== -->
+  <section class="gallery-section">
+    <div class="wrap">
+      <div class="journey-head">
+        <div class="step">Perjalanan · 03</div>
+        <h2>Sudut foto, <em>menu di pangkuan.</em></h2>
+        <p>Tembok tile hitam di ujung ruangan, foto-foto masakan tergantung rapi. Duduk di bangku besi kayu, buka menu, pilih dulu sebelum staff datang.</p>
+      </div>
+      <div class="gallery-split">
+        <figure class="gallery-photo main">
+          <img src="resto-gallery-wall.jpg" alt="Photo wall gallery di sudut Ghriil, tembok tile hitam dengan foto-foto berbingkai" loading="lazy">
+          <span class="cap">Photo wall · Sudut Timur</span>
+        </figure>
+        <figure class="gallery-photo side">
+          <img src="resto-menu-booklet.jpg" alt="Menu booklet Ghriil terbuka, halaman Rumah Rasa" loading="lazy">
+          <span class="cap">Menu · Rumah Rasa</span>
+        </figure>
       </div>
     </div>
   </section>
