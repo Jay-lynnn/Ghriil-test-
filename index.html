@@ -16,6 +16,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800;900&family=Familjen+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/darkroomengineering/lenis@1.1.13/dist/lenis.css">
 
   <style>
     /* ============================================================
@@ -466,6 +467,198 @@
 
     @media (prefers-reduced-motion: reduce) {
       .neon-sign { animation: none; }
+    }
+
+    /* ============================================================
+       CINEMATIC HERO — 3-scene parallax "walk into restaurant"
+    ============================================================ */
+    .cinema-hero {
+      position: relative;
+      height: 330vh; /* scroll length: 3.3 viewports for the 3-scene story */
+      background: var(--brown-deep);
+    }
+    .cinema-stage {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow: hidden;
+      background: #0a0500;
+    }
+    .cinema-scene {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      will-change: opacity, transform;
+    }
+    .cinema-scene.first { opacity: 1; } /* first scene visible on load */
+    .cinema-scene .layer {
+      position: absolute;
+      inset: 0;
+      background-repeat: no-repeat;
+      background-position: center center;
+      background-size: cover;
+      will-change: transform;
+    }
+
+    /* Scene 1: Facade day */
+    .scene-facade .bg-sky {
+      background: linear-gradient(180deg, #7fb2d4 0%, #d4b899 60%, #b88f5f 100%);
+    }
+    .scene-facade .bg-facade {
+      background-image: url('resto-facade-day.jpg');
+      background-size: cover;
+      background-position: center 60%;
+    }
+    .scene-facade .fg-plants {
+      background:
+        radial-gradient(ellipse 60% 50% at 10% 100%, rgba(30,25,12,0.7), transparent 60%),
+        radial-gradient(ellipse 50% 45% at 90% 100%, rgba(30,25,12,0.6), transparent 60%);
+      pointer-events: none;
+    }
+    .scene-facade .scene-caption-bg {
+      position: absolute;
+      inset: auto 0 0 0;
+      padding: 3rem 0 4rem;
+      background: linear-gradient(to top, rgba(10,5,0,0.9), transparent);
+      color: var(--cream-soft);
+      text-align: center;
+    }
+
+    /* Scene 2: Entrance night with letters */
+    .scene-entrance .bg-entrance {
+      background-image: url('resto-entrance-night.jpg');
+      background-size: cover;
+      background-position: center center;
+    }
+    .scene-entrance .fg-vignette {
+      background: radial-gradient(ellipse at center, transparent 30%, rgba(10,5,0,0.6) 90%);
+      pointer-events: none;
+    }
+    .scene-entrance .neon-overlay {
+      position: absolute;
+      top: 12%; left: 50%;
+      transform: translateX(-50%);
+      z-index: 3;
+      pointer-events: none;
+    }
+
+    /* Scene 3: Interior with table */
+    .scene-interior .bg-interior {
+      background-image: url('resto-interior-day.jpg');
+      background-size: cover;
+      background-position: center center;
+    }
+    .scene-interior .fg-table {
+      background-image: url('resto-table-morning.jpg');
+      background-size: cover;
+      background-position: center 30%;
+      opacity: 0;
+    }
+    .scene-interior .interior-scrim {
+      background: linear-gradient(180deg,
+        rgba(10,5,0,0.55) 0%,
+        rgba(10,5,0,0.15) 30%,
+        rgba(10,5,0,0.1) 55%,
+        rgba(10,5,0,0.85) 100%);
+      pointer-events: none;
+    }
+
+    /* Text overlays inside stage */
+    .cinema-text {
+      position: absolute;
+      z-index: 5;
+      color: var(--cream-soft);
+      pointer-events: none;
+    }
+    .cinema-text.top-meta {
+      top: clamp(6rem, 12vh, 9rem); left: 50%;
+      transform: translateX(-50%);
+      text-align: center;
+      pointer-events: auto;
+    }
+    .cinema-text.bottom-hero {
+      bottom: clamp(4rem, 10vh, 6rem);
+      left: 0; right: 0;
+      padding-inline: clamp(1.5rem, 5vw, 4rem);
+      max-width: 780px;
+      margin-inline: auto;
+      pointer-events: auto;
+    }
+    .cinema-text .stage-headline {
+      font-family: 'Big Shoulders Display', sans-serif;
+      font-weight: 900;
+      font-size: clamp(2.4rem, 6vw, 4.4rem);
+      line-height: 0.9;
+      letter-spacing: -0.02em;
+      text-transform: uppercase;
+      text-shadow: 0 4px 20px rgba(0,0,0,0.85), 0 2px 6px rgba(0,0,0,0.7);
+      margin-bottom: 1rem;
+    }
+    .cinema-text .stage-headline em {
+      font-style: italic; color: var(--saffron); font-weight: 900;
+    }
+    .cinema-text .stage-lede {
+      font-size: var(--t-step-1);
+      max-width: 46ch;
+      line-height: 1.5;
+      color: rgba(255,246,233,0.92);
+      text-shadow: 0 2px 12px rgba(0,0,0,0.7);
+      margin-bottom: 1.6rem;
+    }
+    .cinema-text .stage-cta {
+      display: flex; gap: 0.7rem; flex-wrap: wrap;
+    }
+
+    /* Scroll progress hint */
+    .cinema-progress {
+      position: absolute;
+      bottom: 1.2rem; left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+      display: flex; gap: 0.4rem;
+      pointer-events: none;
+    }
+    .cinema-progress .dot {
+      width: 24px; height: 3px;
+      background: rgba(255,246,233,0.3);
+      border-radius: 2px;
+      transition: background 300ms ease;
+    }
+    .cinema-progress .dot.active { background: var(--saffron); }
+
+    /* Location pill inside stage */
+    .cinema-meta-pill {
+      display: inline-flex; align-items: center; gap: 0.55rem;
+      padding: 0.45rem 0.9rem;
+      font-size: 0.78rem;
+      color: var(--peach-deep);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      background: rgba(14,7,0,0.55);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,246,233,0.15);
+      border-radius: 999px;
+    }
+    .cinema-meta-pill .pin {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--orange);
+      box-shadow: 0 0 0 4px rgba(244,80,28,0.22);
+      animation: pulse 2.4s cubic-bezier(0.165,0.84,0.44,1) infinite;
+    }
+
+    /* Mobile: reduce parallax, just show static hero */
+    @media (max-width: 760px) {
+      .cinema-hero { height: 100vh; }
+      .cinema-stage { position: relative; }
+      .cinema-scene { opacity: 0 !important; }
+      .cinema-scene.mobile-final { opacity: 1 !important; }
+      .cinema-progress { display: none; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .cinema-hero { height: 100vh; }
+      .cinema-stage { position: relative; }
+      .cinema-scene { opacity: 0; transition: none; }
+      .cinema-scene.first { opacity: 1; }
     }
 
     /* ============================================================
@@ -1570,53 +1763,68 @@
     </div>
   </header>
 
-  <!-- ============== HERO ============== -->
-  <section class="hero">
-    <video class="hero-video"
-           autoplay muted loop playsinline
-           preload="metadata"
-           aria-hidden="true">
-      <source src="hero-web.mp4" type="video/mp4">
-    </video>
-    <div class="hero-scrim" aria-hidden="true"></div>
-    <div class="hero-rail" aria-hidden="true">Buka 10:00 – 24:00 WITA</div>
+  <!-- ============== CINEMATIC HERO — walk into the restaurant ============== -->
+  <div class="cinema-hero" id="cinema" aria-label="Berjalan masuk ke Ghriil">
+    <div class="cinema-stage">
 
-    <div class="wrap hero-content">
-      <div class="hero-meta">
-        <span class="pin" aria-hidden="true"></span>
-        Jl. Chairil Anwar No. 8, Makassar
+      <!-- Scene 1: Facade daytime, standing outside -->
+      <div class="cinema-scene scene-facade first mobile-final" data-scene="0">
+        <div class="layer bg-sky" data-parallax="0.1"></div>
+        <div class="layer bg-facade" data-parallax="0.35"></div>
+        <div class="layer fg-plants" data-parallax="0.7"></div>
       </div>
 
-      <h1 class="neon-heading" aria-label="Ghriil, grilling in progress">
-        <span class="neon-sign">G.H.R.I.I.L <span class="neon-dot">-</span> ING ON PROGRESS</span>
-      </h1>
-
-      <div class="hero-taglines" aria-hidden="true">
-        <span class="line">Dapur nyala.</span>
-        <span class="line"><span class="accent">Meja hangat.</span></span>
+      <!-- Scene 2: Entrance night, "GHRIIL" letters glowing -->
+      <div class="cinema-scene scene-entrance" data-scene="1">
+        <div class="layer bg-entrance" data-parallax="0.25"></div>
+        <div class="layer fg-vignette" data-parallax="0.6"></div>
+        <div class="neon-overlay">
+          <span class="neon-sign">G.H.R.I.I.L <span class="neon-dot">-</span> ING ON PROGRESS</span>
+        </div>
       </div>
 
-      <p class="hero-lede">
-        Meja kayu tebal, lampu hangat. Rempah Makassar dimasak dua belas jam.
-        Kopi diseduh baru, bir dingin selalu ada.
-        <strong>Mampir sampai tengah malam.</strong>
-      </p>
-
-      <div class="hero-cta">
-        <a class="btn btn-solid" href="https://wa.me/628988822208?text=Halo%20Ghriil,%20saya%20mau%20reservasi%20meja" target="_blank" rel="noopener">
-          Reservasi meja <span class="arrow">→</span>
-        </a>
-        <a class="btn btn-ghost" href="#menu">
-          Lihat menu <span class="arrow">↓</span>
-        </a>
+      <!-- Scene 3: Interior, sit at the table -->
+      <div class="cinema-scene scene-interior" data-scene="2">
+        <div class="layer bg-interior" data-parallax="0.2"></div>
+        <div class="layer fg-table" data-parallax="0.5"></div>
+        <div class="layer interior-scrim"></div>
       </div>
+
+      <!-- Location meta, top center -->
+      <div class="cinema-text top-meta" data-scene-text="0,1">
+        <span class="cinema-meta-pill">
+          <span class="pin" aria-hidden="true"></span>
+          Jl. Chairil Anwar No. 8, Makassar
+        </span>
+      </div>
+
+      <!-- Main headline & CTAs, bottom -->
+      <div class="cinema-text bottom-hero" data-scene-text="2">
+        <h1 class="stage-headline">Dapur nyala.<br><em>Meja hangat.</em></h1>
+        <p class="stage-lede">
+          Meja kayu tebal, lampu hangat. Rempah Makassar dimasak dua belas jam.
+          Kopi diseduh baru, bir dingin selalu ada.
+          <strong>Mampir sampai tengah malam.</strong>
+        </p>
+        <div class="stage-cta">
+          <a class="btn btn-solid" href="https://wa.me/628988822208?text=Halo%20Ghriil,%20saya%20mau%20reservasi%20meja" target="_blank" rel="noopener">
+            Reservasi meja <span class="arrow">→</span>
+          </a>
+          <a class="btn btn-ghost" href="#menu">
+            Lihat menu <span class="arrow">↓</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Scene progress dots -->
+      <div class="cinema-progress" aria-hidden="true">
+        <span class="dot active" data-dot="0"></span>
+        <span class="dot" data-dot="1"></span>
+        <span class="dot" data-dot="2"></span>
+      </div>
+
     </div>
-
-    <div class="scroll-hint" aria-hidden="true">
-      <span>Lanjut</span>
-      <div class="hint-line"></div>
-    </div>
-  </section>
+  </div>
 
   <!-- Caution stripe — signature dekorasi Ghriil (kayak di tembok resto) -->
   <div class="caution-stripe" aria-hidden="true"></div>
@@ -2058,30 +2266,126 @@
     })();
   </script>
 
-  <!-- ====== GSAP animations ====== -->
+  <!-- ====== Lenis smooth scroll + GSAP cinematic hero ====== -->
+  <script src="https://cdn.jsdelivr.net/gh/darkroomengineering/lenis@1.1.13/dist/lenis.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollToPlugin.min.js"></script>
   <script>
     (function () {
-      // Respect reduced motion. If GSAP fails to load, the page already has
-      // visible defaults — gsap.from() snap-hides then animates back in.
       if (!window.gsap) return;
       if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
       gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
-      // === Hero entrance timeline ===
-      // Cascade: navbar → meta → headline lines → lede → CTAs
-      const heroIn = gsap.timeline({ defaults: { ease: 'expo.out' } });
-      heroIn
+      const isMobile = window.matchMedia('(max-width: 760px)').matches;
+
+      // ===== Lenis buttery smooth scroll (desktop only, mobile native scroll better) =====
+      if (window.Lenis && !isMobile) {
+        const lenis = new Lenis({
+          duration: 1.15,
+          easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+          smoothWheel: true,
+          smoothTouch: false
+        });
+        lenis.on('scroll', ScrollTrigger.update);
+        gsap.ticker.add((time) => lenis.raf(time * 1000));
+        gsap.ticker.lagSmoothing(0);
+        window.__lenis = lenis;
+      }
+
+      // ===== CINEMATIC HERO: 3-scene scroll-scrubbed walk-in =====
+      const cinema = document.getElementById('cinema');
+      if (cinema && !isMobile) {
+        const stage = cinema.querySelector('.cinema-stage');
+        const sceneFacade   = cinema.querySelector('.scene-facade');
+        const sceneEntrance = cinema.querySelector('.scene-entrance');
+        const sceneInterior = cinema.querySelector('.scene-interior');
+        const topMeta       = cinema.querySelector('[data-scene-text="0,1"]');
+        const bottomHero    = cinema.querySelector('[data-scene-text="2"]');
+        const dots          = cinema.querySelectorAll('.cinema-progress .dot');
+
+        // Ensure initial states
+        gsap.set(sceneEntrance, { opacity: 0 });
+        gsap.set(sceneInterior, { opacity: 0 });
+        gsap.set(bottomHero,    { opacity: 0, y: 40 });
+        gsap.set(cinema.querySelectorAll('.scene-facade .layer.bg-facade'),   { scale: 1 });
+        gsap.set(cinema.querySelectorAll('.scene-entrance .layer.bg-entrance'), { scale: 1.02 });
+        gsap.set(cinema.querySelector('.scene-entrance .neon-overlay'),       { opacity: 0, scale: 0.9 });
+        gsap.set(cinema.querySelector('.scene-interior .fg-table'),           { opacity: 0, scale: 1.05 });
+
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: cinema,
+            start: 'top top',
+            end: 'bottom bottom',
+            scrub: 1.2,
+            onUpdate: (self) => {
+              const p = self.progress;
+              const idx = p < 0.33 ? 0 : (p < 0.66 ? 1 : 2);
+              dots.forEach((d, i) => d.classList.toggle('active', i === idx));
+            }
+          }
+        });
+
+        tl
+          // ── Scene 0: Facade (walk forward, plants slide down)
+          .to('.scene-facade .bg-facade', { scale: 1.28, ease: 'none' }, 0)
+          .to('.scene-facade .fg-plants', { yPercent: 40, opacity: 0.4, ease: 'none' }, 0)
+          .to('.scene-facade .bg-sky',    { yPercent: -12, ease: 'none' }, 0)
+
+          // ── Cross-fade: facade → entrance (around 30-40%)
+          .to('.scene-facade',   { opacity: 0, ease: 'power2.inOut' }, 0.30)
+          .to('.scene-entrance', { opacity: 1, ease: 'power2.inOut' }, 0.30)
+
+          // ── Scene 1: Entrance (walk closer to GHRIIL letters)
+          .to('.scene-entrance .bg-entrance', { scale: 1.32, ease: 'none' }, 0.30)
+          .to('.scene-entrance .neon-overlay', { opacity: 1, scale: 1, ease: 'expo.out' }, 0.35)
+
+          // ── Cross-fade: entrance → interior (around 60-70%)
+          .to('.scene-entrance',   { opacity: 0, ease: 'power2.inOut' }, 0.62)
+          .to('.scene-interior',   { opacity: 1, ease: 'power2.inOut' }, 0.62)
+          .to('.scene-entrance .neon-overlay', { opacity: 0, ease: 'none' }, 0.62)
+
+          // ── Scene 2: Interior (settle at the table)
+          .to('.scene-interior .bg-interior', { scale: 1.08, ease: 'none' }, 0.62)
+          .to('.scene-interior .fg-table', { opacity: 0.5, scale: 1, ease: 'power2.out' }, 0.75)
+
+          // ── Text hand-off: top meta out at 55%, bottom hero in at 70%
+          .to(topMeta,    { opacity: 0, y: -20, ease: 'power2.out' }, 0.55)
+          .to(bottomHero, { opacity: 1, y: 0,   ease: 'expo.out'   }, 0.70);
+
+        // ===== Mouse parallax on foreground layers (subtle depth) =====
+        let rafId = null;
+        const target = { x: 0, y: 0 };
+        const current = { x: 0, y: 0 };
+        window.addEventListener('mousemove', (e) => {
+          target.x = (e.clientX / window.innerWidth  - 0.5) * 2;   // -1..1
+          target.y = (e.clientY / window.innerHeight - 0.5) * 2;
+          if (!rafId) rafId = requestAnimationFrame(tickMouse);
+        }, { passive: true });
+        function tickMouse () {
+          current.x += (target.x - current.x) * 0.08;
+          current.y += (target.y - current.y) * 0.08;
+          const layers = cinema.querySelectorAll('.layer[data-parallax]');
+          layers.forEach((el) => {
+            const depth = parseFloat(el.dataset.parallax) || 0;
+            el.style.setProperty('translate',
+              `${current.x * depth * 18}px ${current.y * depth * 12}px`);
+          });
+          if (Math.abs(target.x - current.x) > 0.001 || Math.abs(target.y - current.y) > 0.001) {
+            rafId = requestAnimationFrame(tickMouse);
+          } else {
+            rafId = null;
+          }
+        }
+      }
+
+      // ===== Topbar & body entrance (unchanged) =====
+      const introTl = gsap.timeline({ defaults: { ease: 'expo.out' } });
+      introTl
         .from('.topbar-brand .wordmark', { y: -16, opacity: 0, duration: 0.55 })
         .from('.live-pill', { y: -16, opacity: 0, duration: 0.45 }, '-=0.35')
-        .from('.topbar nav ul > li', { y: -14, opacity: 0, duration: 0.4, stagger: 0.05 }, '-=0.35')
-        .from('.hero-meta', { y: 24, opacity: 0, duration: 0.65 }, '+=0.05')
-        .from('.hero h1 .line', { y: 56, opacity: 0, duration: 0.85, stagger: 0.13 }, '-=0.35')
-        .from('.hero-lede', { y: 24, opacity: 0, duration: 0.7 }, '-=0.45')
-        .from('.hero-cta .btn', { y: 24, opacity: 0, duration: 0.6, stagger: 0.09 }, '-=0.45')
-        .from('.scroll-hint', { opacity: 0, duration: 0.6 }, '-=0.2');
+        .from('.topbar nav ul > li', { y: -14, opacity: 0, duration: 0.4, stagger: 0.05 }, '-=0.35');
 
       // === Section heads, scrub-once on enter (4 distinct intros, not uniform) ===
       // Appetite: slide from left, h2 + p stagger
