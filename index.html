@@ -81,6 +81,14 @@
       --espresso-soft: #8B5A3C;
       --amber:         #F4A93C;
 
+      /* === Identity aids (matching real restaurant) === */
+      --stripe-red:    #D62828;   /* saturated red for caution tape */
+      --stripe-dark:   #1a0d05;   /* near-black warm for tape */
+      --neon-yellow:   #FFF5B8;   /* inside-of-tube color */
+      --neon-glow:     #F4C430;   /* halo color */
+      --glass-mortar:  rgba(30,20,10,0.15);  /* dark grout between glass blocks */
+      --glass-tint:    #3d2c15;   /* warm base color behind blocks */
+
       /* type scale, 1.333 ratio */
       --t-step-0: clamp(0.95rem, 0.9rem + 0.25vw, 1.05rem);
       --t-step-1: clamp(1.1rem,  1rem + 0.5vw,   1.35rem);
@@ -296,6 +304,33 @@
     .hero h1 .line { display: block; }
     .hero h1 .line + .line { margin-top: -0.06em; }
 
+    /* When h1 hosts the neon sign — reset default hero h1 style */
+    .hero h1.neon-heading {
+      font-size: inherit;
+      color: inherit;
+      text-shadow: none;
+      font-family: inherit;
+      font-weight: normal;
+      line-height: 1;
+      margin: 0 0 1.6rem;
+    }
+    .hero-taglines {
+      display: grid; gap: 0.15rem;
+      margin: 0.4rem 0 1.8rem;
+      font-family: 'Big Shoulders Display', sans-serif;
+      font-weight: 900;
+      text-transform: uppercase;
+      color: var(--warm-white);
+      font-size: clamp(2.2rem, 5.5vw, 4rem);
+      line-height: 0.92;
+      letter-spacing: -0.02em;
+      text-shadow:
+        0 4px 22px rgba(0,0,0,0.85),
+        0 2px 8px rgba(0,0,0,0.65);
+    }
+    .hero-taglines .line { display: block; }
+    .hero-taglines .accent { color: var(--saffron); font-style: italic; font-weight: 800; }
+
     .hero-lede {
       max-width: 44ch;
       font-size: var(--t-step-1);
@@ -353,6 +388,85 @@
     .btn-allmenu:hover { transform: translate(2px, -2px); background: var(--brown-warm); }
     .btn-allmenu .arrow { transition: transform 240ms cubic-bezier(0.165,0.84,0.44,1); }
     .btn-allmenu:hover .arrow { transform: translateX(3px); }
+
+    /* ============================================================
+       IDENTITY UTILITIES (matching real restaurant)
+    ============================================================ */
+
+    /* Red-black caution stripe — signature dekorasi Ghriil */
+    .caution-stripe {
+      height: 14px;
+      background: repeating-linear-gradient(
+        -45deg,
+        var(--stripe-red)  0 22px,
+        var(--stripe-dark) 22px 44px
+      );
+      border-block: 1px solid var(--stripe-dark);
+    }
+    .caution-stripe.thick { height: 22px; }
+    .caution-stripe.thin  { height: 8px;  }
+
+    /* Yellow neon "G.H.R.I.I.L-ING ON PROGRESS" sign */
+    .neon-sign {
+      display: inline-block;
+      font-family: 'Big Shoulders Display', sans-serif;
+      font-weight: 900;
+      font-size: clamp(1.05rem, 2.6vw, 1.5rem);
+      letter-spacing: 0.08em;
+      color: var(--neon-yellow);
+      text-transform: uppercase;
+      padding: 0.7rem 1.4rem 0.65rem;
+      border-radius: 999px;
+      background: rgba(20,10,4,0.6);
+      border: 2px solid var(--neon-glow);
+      box-shadow:
+        0 0 12px var(--neon-glow),
+        0 0 24px rgba(244,196,48,0.5),
+        inset 0 0 12px rgba(244,196,48,0.25);
+      text-shadow:
+        0 0 4px var(--neon-yellow),
+        0 0 10px var(--neon-glow),
+        0 0 18px var(--neon-glow);
+      animation: neonBreathe 4.5s cubic-bezier(0.45,0.05,0.55,0.95) infinite;
+    }
+    .neon-sign .neon-dot { color: var(--neon-glow); opacity: 0.85; }
+
+    /* Subtle breathing brightness + very rare flicker */
+    @keyframes neonBreathe {
+      0%, 100% {
+        box-shadow: 0 0 12px var(--neon-glow), 0 0 24px rgba(244,196,48,0.5), inset 0 0 12px rgba(244,196,48,0.25);
+        opacity: 1;
+      }
+      50% {
+        box-shadow: 0 0 8px var(--neon-glow), 0 0 16px rgba(244,196,48,0.35), inset 0 0 10px rgba(244,196,48,0.2);
+        opacity: 0.94;
+      }
+      /* rare flicker frames */
+      82% { opacity: 1; }
+      83% { opacity: 0.55; }
+      84% { opacity: 1; }
+    }
+
+    /* Glass block wall texture — for dark section backgrounds */
+    .glass-block-bg {
+      background:
+        radial-gradient(ellipse 900px 500px at 50% 30%, rgba(244,169,60,0.28) 0%, rgba(232,155,38,0.12) 40%, transparent 70%),
+        repeating-linear-gradient(90deg, transparent 0 39px, var(--glass-mortar) 39px 40px),
+        repeating-linear-gradient(0deg,  transparent 0 27px, var(--glass-mortar) 27px 28px),
+        var(--glass-tint);
+    }
+    /* Softer version for backdrop use behind text */
+    .glass-block-bg.subtle {
+      background:
+        radial-gradient(ellipse 900px 500px at 50% 30%, rgba(244,169,60,0.16) 0%, transparent 65%),
+        repeating-linear-gradient(90deg, transparent 0 39px, rgba(30,20,10,0.08) 39px 40px),
+        repeating-linear-gradient(0deg,  transparent 0 27px, rgba(30,20,10,0.08) 27px 28px),
+        var(--brown-deep);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .neon-sign { animation: none; }
+    }
     .btn .arrow { transition: transform 280ms cubic-bezier(0.165,0.84,0.44,1); }
     .btn:hover .arrow { transform: translateX(4px); }
 
@@ -1309,15 +1423,19 @@
         Jl. Chairil Anwar No. 8, Makassar
       </div>
 
-      <h1 class="display">
-        <span class="line">Bistro<span class="punkt">.</span></span>
-        <span class="line">Coffee<span class="punkt">.</span></span>
-        <span class="line">Cheers<span class="punkt">.</span></span>
+      <h1 class="neon-heading" aria-label="Ghriil, grilling in progress">
+        <span class="neon-sign">G.H.R.I.I.L <span class="neon-dot">-</span> ING ON PROGRESS</span>
       </h1>
 
+      <div class="hero-taglines" aria-hidden="true">
+        <span class="line">Dapur nyala.</span>
+        <span class="line"><span class="accent">Meja hangat.</span></span>
+      </div>
+
       <p class="hero-lede">
-        Rempah Makassar, dimasak pelan. Bistro modern yang buka
-        hingga tengah malam. <strong>Reservasi meja untuk merasakan langsung.</strong>
+        Meja kayu tebal, lampu hangat. Rempah Makassar dimasak dua belas jam.
+        Kopi diseduh baru, bir dingin selalu ada.
+        <strong>Mampir sampai tengah malam.</strong>
       </p>
 
       <div class="hero-cta">
@@ -1335,6 +1453,9 @@
       <div class="hint-line"></div>
     </div>
   </section>
+
+  <!-- Caution stripe — signature dekorasi Ghriil (kayak di tembok resto) -->
+  <div class="caution-stripe" aria-hidden="true"></div>
 
   <!-- ============== MARQUEE 1 ============== -->
   <div class="marquee" aria-hidden="true">
@@ -1622,6 +1743,9 @@
       </aside>
     </div>
   </section>
+
+  <!-- Caution stripe menutup halaman -->
+  <div class="caution-stripe thin" aria-hidden="true"></div>
 
   <!-- ============== FOOTER ============== -->
   <footer class="foot">
