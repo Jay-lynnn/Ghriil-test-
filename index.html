@@ -470,12 +470,12 @@
     }
 
     /* ============================================================
-       CINEMATIC HERO — 3-scene parallax "walk into restaurant"
+       CINEMATIC HERO — actual WebGL 3D scene (Three.js)
     ============================================================ */
     .cinema-hero {
       position: relative;
-      height: 330vh; /* scroll length: 3.3 viewports for the 3-scene story */
-      background: var(--brown-deep);
+      height: 340vh; /* scroll length for 3D dolly */
+      background: #0a0500;
     }
     .cinema-stage {
       position: sticky;
@@ -484,83 +484,35 @@
       overflow: hidden;
       background: #0a0500;
     }
-    .cinema-scene {
+    #cinema-canvas {
       position: absolute;
       inset: 0;
-      opacity: 0;
-      will-change: opacity, transform;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      display: block;
     }
-    .cinema-scene.first { opacity: 1; } /* first scene visible on load */
-    .cinema-scene .layer {
+    .cinema-loader {
       position: absolute;
       inset: 0;
-      background-repeat: no-repeat;
-      background-position: center center;
-      background-size: cover;
-      will-change: transform;
+      background: #0a0500;
+      display: grid; place-items: center;
+      z-index: 6;
+      transition: opacity 600ms ease, visibility 600ms;
     }
-
-    /* Scene 1: Facade day */
-    .scene-facade .bg-sky {
-      background: linear-gradient(180deg, #7fb2d4 0%, #d4b899 60%, #b88f5f 100%);
+    .cinema-loader.ready { opacity: 0; visibility: hidden; }
+    .cinema-loader .load-text {
+      font-family: 'Big Shoulders Display', sans-serif;
+      font-weight: 800;
+      color: var(--saffron);
+      font-size: 0.9rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      animation: loaderPulse 1.4s ease-in-out infinite;
     }
-    .scene-facade .bg-facade {
-      background-image: url('resto-facade-day.jpg');
-      background-size: cover;
-      background-position: center 60%;
-    }
-    .scene-facade .fg-plants {
-      background:
-        radial-gradient(ellipse 60% 50% at 10% 100%, rgba(30,25,12,0.7), transparent 60%),
-        radial-gradient(ellipse 50% 45% at 90% 100%, rgba(30,25,12,0.6), transparent 60%);
-      pointer-events: none;
-    }
-    .scene-facade .scene-caption-bg {
-      position: absolute;
-      inset: auto 0 0 0;
-      padding: 3rem 0 4rem;
-      background: linear-gradient(to top, rgba(10,5,0,0.9), transparent);
-      color: var(--cream-soft);
-      text-align: center;
-    }
-
-    /* Scene 2: Entrance night with letters */
-    .scene-entrance .bg-entrance {
-      background-image: url('resto-entrance-night.jpg');
-      background-size: cover;
-      background-position: center center;
-    }
-    .scene-entrance .fg-vignette {
-      background: radial-gradient(ellipse at center, transparent 30%, rgba(10,5,0,0.6) 90%);
-      pointer-events: none;
-    }
-    .scene-entrance .neon-overlay {
-      position: absolute;
-      top: 12%; left: 50%;
-      transform: translateX(-50%);
-      z-index: 3;
-      pointer-events: none;
-    }
-
-    /* Scene 3: Interior with table */
-    .scene-interior .bg-interior {
-      background-image: url('resto-interior-day.jpg');
-      background-size: cover;
-      background-position: center center;
-    }
-    .scene-interior .fg-table {
-      background-image: url('resto-table-morning.jpg');
-      background-size: cover;
-      background-position: center 30%;
-      opacity: 0;
-    }
-    .scene-interior .interior-scrim {
-      background: linear-gradient(180deg,
-        rgba(10,5,0,0.55) 0%,
-        rgba(10,5,0,0.15) 30%,
-        rgba(10,5,0,0.1) 55%,
-        rgba(10,5,0,0.85) 100%);
-      pointer-events: none;
+    @keyframes loaderPulse {
+      0%, 100% { opacity: 0.5; }
+      50%      { opacity: 1; }
     }
 
     /* Text overlays inside stage */
@@ -1763,31 +1715,16 @@
     </div>
   </header>
 
-  <!-- ============== CINEMATIC HERO — walk into the restaurant ============== -->
-  <div class="cinema-hero" id="cinema" aria-label="Berjalan masuk ke Ghriil">
+  <!-- ============== CINEMATIC HERO — actual 3D WebGL scene ============== -->
+  <div class="cinema-hero" id="cinema" aria-label="Berjalan masuk ke Ghriil, 3D">
     <div class="cinema-stage">
 
-      <!-- Scene 1: Facade daytime, standing outside -->
-      <div class="cinema-scene scene-facade first mobile-final" data-scene="0">
-        <div class="layer bg-sky" data-parallax="0.1"></div>
-        <div class="layer bg-facade" data-parallax="0.35"></div>
-        <div class="layer fg-plants" data-parallax="0.7"></div>
-      </div>
+      <!-- Three.js render target -->
+      <canvas id="cinema-canvas" aria-hidden="true"></canvas>
 
-      <!-- Scene 2: Entrance night, "GHRIIL" letters glowing -->
-      <div class="cinema-scene scene-entrance" data-scene="1">
-        <div class="layer bg-entrance" data-parallax="0.25"></div>
-        <div class="layer fg-vignette" data-parallax="0.6"></div>
-        <div class="neon-overlay">
-          <span class="neon-sign">G.H.R.I.I.L <span class="neon-dot">-</span> ING ON PROGRESS</span>
-        </div>
-      </div>
-
-      <!-- Scene 3: Interior, sit at the table -->
-      <div class="cinema-scene scene-interior" data-scene="2">
-        <div class="layer bg-interior" data-parallax="0.2"></div>
-        <div class="layer fg-table" data-parallax="0.5"></div>
-        <div class="layer interior-scrim"></div>
+      <!-- Loading indicator (fades out when 3D scene ready) -->
+      <div class="cinema-loader" id="cinema-loader">
+        <span class="load-text">Loading 3D scene...</span>
       </div>
 
       <!-- Location meta, top center -->
@@ -2266,7 +2203,330 @@
     })();
   </script>
 
-  <!-- ====== Lenis smooth scroll + GSAP cinematic hero ====== -->
+  <!-- ====== Three.js importmap (for WebGL 3D scene) ====== -->
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js"
+      }
+    }
+  </script>
+
+  <!-- ====== Three.js cinematic 3D scene ====== -->
+  <script type="module">
+    import * as THREE from 'three';
+
+    const canvas = document.getElementById('cinema-canvas');
+    const cinema = document.getElementById('cinema');
+    const loader = document.getElementById('cinema-loader');
+    const topMeta = cinema && cinema.querySelector('[data-scene-text="0,1"]');
+    const bottomHero = cinema && cinema.querySelector('[data-scene-text="2"]');
+    const dots = cinema ? cinema.querySelectorAll('.cinema-progress .dot') : [];
+
+    if (canvas && cinema && !window.matchMedia('(prefers-reduced-motion: reduce)').matches
+        && !window.matchMedia('(max-width: 760px)').matches) {
+
+      const scene = new THREE.Scene();
+      scene.background = new THREE.Color(0x8fb8d4); // afternoon sky
+      scene.fog = new THREE.Fog(0x8fb8d4, 55, 120);
+
+      const camera = new THREE.PerspectiveCamera(52, window.innerWidth / window.innerHeight, 0.1, 500);
+      camera.position.set(0, 2, 55);
+      camera.lookAt(0, 4, 0);
+
+      const renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      renderer.outputColorSpace = THREE.SRGBColorSpace;
+
+      // ===== Lights =====
+      const sunLight = new THREE.DirectionalLight(0xffeecc, 1.1);
+      sunLight.position.set(30, 50, 25);
+      scene.add(sunLight);
+      const ambient = new THREE.AmbientLight(0xa8c4d4, 0.55);
+      scene.add(ambient);
+
+      // ===== Texture loader with progress =====
+      const texLoader = new THREE.TextureLoader();
+      const loadTex = (url) => new Promise((resolve) => {
+        texLoader.load(url, (tex) => {
+          tex.colorSpace = THREE.SRGBColorSpace;
+          tex.anisotropy = renderer.capabilities.getMaxAnisotropy();
+          resolve(tex);
+        }, undefined, () => resolve(null));
+      });
+
+      Promise.all([
+        loadTex('resto-facade-day.jpg'),
+        loadTex('resto-entrance-night.jpg'),
+        loadTex('resto-gallery-wall.jpg'),
+        loadTex('resto-interior-day.jpg'),
+        loadTex('resto-interior-industrial.jpg'),
+        loadTex('resto-table-morning.jpg'),
+        loadTex('resto-menu-booklet.jpg'),
+      ]).then(([texFacade, texEntrance, texGallery, texInteriorDay, texIndustrial, texTable, texMenu]) => {
+
+        // ===== OUTDOOR GROUP: building + ground + entourage =====
+        const outdoor = new THREE.Group();
+
+        // Ground (dark cobblestone-ish)
+        const ground = new THREE.Mesh(
+          new THREE.PlaneGeometry(300, 300),
+          new THREE.MeshLambertMaterial({ color: 0x3d2817 })
+        );
+        ground.rotation.x = -Math.PI / 2;
+        ground.position.y = -3;
+        outdoor.add(ground);
+
+        // Building — box with facade texture on front
+        const building = new THREE.Group();
+        const bW = 24, bH = 14, bD = 18;
+        const faceMat  = texFacade  ? new THREE.MeshLambertMaterial({ map: texFacade, color: 0xffffff })  : new THREE.MeshLambertMaterial({ color: 0xa76a3a });
+        const wallMat  = new THREE.MeshLambertMaterial({ color: 0x8B4F26 });
+        const roofMat  = new THREE.MeshLambertMaterial({ color: 0x2a1a13 });
+        const backMat  = new THREE.MeshLambertMaterial({ color: 0x5C3A21 });
+        const box = new THREE.Mesh(
+          new THREE.BoxGeometry(bW, bH, bD),
+          [wallMat, wallMat, roofMat, backMat, faceMat, backMat]
+        );
+        box.position.y = bH / 2 - 3;
+        building.add(box);
+
+        // Neon sign panel above door (front of building)
+        const neonGeo = new THREE.PlaneGeometry(9, 1.4);
+        const neonMat = new THREE.MeshBasicMaterial({ color: 0xffe066, transparent: true, opacity: 0.9 });
+        const neonMesh = new THREE.Mesh(neonGeo, neonMat);
+        neonMesh.position.set(0, 7.5, bD / 2 + 0.05);
+        building.add(neonMesh);
+
+        outdoor.add(building);
+
+        // Plants foreground (dark blobs to imply depth)
+        const plantMat = new THREE.MeshLambertMaterial({ color: 0x1e2510 });
+        for (let i = 0; i < 6; i++) {
+          const plant = new THREE.Mesh(
+            new THREE.SphereGeometry(1.2 + Math.random() * 0.6, 8, 8),
+            plantMat
+          );
+          plant.position.set(
+            (Math.random() - 0.5) * 30,
+            -2 + Math.random() * 0.6,
+            18 + Math.random() * 10
+          );
+          outdoor.add(plant);
+        }
+
+        scene.add(outdoor);
+
+        // ===== INDOOR GROUP: hidden by default =====
+        const indoor = new THREE.Group();
+        indoor.visible = false;
+        indoor.position.set(0, 0, -200); // far away initially
+
+        // Floor (wood)
+        indoor.add(new THREE.Mesh(
+          new THREE.PlaneGeometry(20, 14),
+          new THREE.MeshLambertMaterial({ color: 0x5c3a21 })
+        )).rotation.x = -Math.PI / 2;
+        const floor = indoor.children[0];
+        floor.position.y = -1.6;
+
+        // Back wall: gallery wall photo
+        const backWall = new THREE.Mesh(
+          new THREE.PlaneGeometry(18, 6),
+          texGallery ? new THREE.MeshBasicMaterial({ map: texGallery, color: 0xffffff }) : new THREE.MeshBasicMaterial({ color: 0x2a1a13 })
+        );
+        backWall.position.set(0, 1.5, -6);
+        indoor.add(backWall);
+
+        // Left wall: interior day photo
+        const leftWall = new THREE.Mesh(
+          new THREE.PlaneGeometry(12, 6),
+          texInteriorDay ? new THREE.MeshBasicMaterial({ map: texInteriorDay, color: 0xffffff }) : new THREE.MeshBasicMaterial({ color: 0x8B4F26 })
+        );
+        leftWall.position.set(-9, 1.5, 0);
+        leftWall.rotation.y = Math.PI / 2;
+        indoor.add(leftWall);
+
+        // Right wall: industrial photo
+        const rightWall = new THREE.Mesh(
+          new THREE.PlaneGeometry(12, 6),
+          texIndustrial ? new THREE.MeshBasicMaterial({ map: texIndustrial, color: 0xffffff }) : new THREE.MeshBasicMaterial({ color: 0x6B4423 })
+        );
+        rightWall.position.set(9, 1.5, 0);
+        rightWall.rotation.y = -Math.PI / 2;
+        indoor.add(rightWall);
+
+        // Ceiling
+        const ceiling = new THREE.Mesh(
+          new THREE.PlaneGeometry(20, 14),
+          new THREE.MeshLambertMaterial({ color: 0x1a0d05 })
+        );
+        ceiling.rotation.x = Math.PI / 2;
+        ceiling.position.y = 4.5;
+        indoor.add(ceiling);
+
+        // Table (box with wood texture from table-morning photo top)
+        const tableTop = new THREE.Mesh(
+          new THREE.BoxGeometry(5, 0.15, 2.4),
+          texTable ? new THREE.MeshLambertMaterial({ map: texTable, color: 0xffffff }) : new THREE.MeshLambertMaterial({ color: 0x8B4F26 })
+        );
+        tableTop.position.set(0, -0.6, 0);
+        indoor.add(tableTop);
+        // Table legs
+        [[-2.2, -1, -0.9], [2.2, -1, -0.9], [-2.2, -1, 0.9], [2.2, -1, 0.9]].forEach(([x, y, z]) => {
+          const leg = new THREE.Mesh(
+            new THREE.BoxGeometry(0.15, 1.2, 0.15),
+            new THREE.MeshLambertMaterial({ color: 0x2a1a13 })
+          );
+          leg.position.set(x, y, z);
+          indoor.add(leg);
+        });
+
+        // Guinness napkin holder (black box on table)
+        const holder = new THREE.Mesh(
+          new THREE.BoxGeometry(0.55, 0.55, 0.4),
+          new THREE.MeshLambertMaterial({ color: 0x0a0500 })
+        );
+        holder.position.set(0.3, -0.25, 0);
+        indoor.add(holder);
+
+        // Salt shaker (cylinder)
+        const shaker = new THREE.Mesh(
+          new THREE.CylinderGeometry(0.13, 0.13, 0.4, 12),
+          new THREE.MeshLambertMaterial({ color: 0xeeeeee })
+        );
+        shaker.position.set(-0.5, -0.3, 0.2);
+        indoor.add(shaker);
+
+        // Menu booklet (small plane on table)
+        const menuBook = new THREE.Mesh(
+          new THREE.PlaneGeometry(1.4, 0.9),
+          texMenu ? new THREE.MeshBasicMaterial({ map: texMenu, color: 0xffffff }) : new THREE.MeshBasicMaterial({ color: 0xffe4b0 })
+        );
+        menuBook.position.set(-1.5, -0.52, 0.5);
+        menuBook.rotation.x = -Math.PI / 2;
+        menuBook.rotation.z = 0.08;
+        indoor.add(menuBook);
+
+        // Interior warm point light
+        const interiorLight = new THREE.PointLight(0xffcc80, 1.4, 25);
+        interiorLight.position.set(0, 3.5, 0);
+        indoor.add(interiorLight);
+        // Second warm light for depth
+        const backLight = new THREE.PointLight(0xffa040, 0.7, 20);
+        backLight.position.set(0, 2, -4);
+        indoor.add(backLight);
+
+        scene.add(indoor);
+
+        // ===== Fade out loader =====
+        loader.classList.add('ready');
+
+        // ===== SCROLL DRIVEN CAMERA =====
+        let scrollProgress = 0;
+        function updateScroll() {
+          const rect = cinema.getBoundingClientRect();
+          const scrollable = rect.height - window.innerHeight;
+          scrollProgress = Math.max(0, Math.min(1, -rect.top / scrollable));
+          const p = scrollProgress;
+
+          // Progress dots
+          const idx = p < 0.4 ? 0 : (p < 0.7 ? 1 : 2);
+          dots.forEach((d, i) => d.classList.toggle('active', i === idx));
+
+          if (p < 0.55) {
+            // OUTDOOR phase: walk toward building
+            outdoor.visible = true;
+            indoor.visible = false;
+            const q = p / 0.55; // 0..1
+            // Camera dolly from z=55 → z=14 (just outside building), slight y rise
+            camera.position.set(0, 2 + q * 1.5, 55 - q * 41);
+            camera.lookAt(0, 4 + q * 1.2, 0);
+            scene.background = new THREE.Color().lerpColors(
+              new THREE.Color(0x8fb8d4),  // afternoon
+              new THREE.Color(0x1a0d05),  // evening at entrance
+              q
+            );
+            scene.fog.color.copy(scene.background);
+            // Neon brightens as we approach
+            neonMat.opacity = 0.4 + q * 0.6;
+            // Meta pill visible, headline hidden
+            if (topMeta)    topMeta.style.opacity = String(1 - q * 0.5);
+            if (bottomHero) bottomHero.style.opacity = '0';
+          } else {
+            // INDOOR phase: sitting at table
+            outdoor.visible = false;
+            indoor.visible = true;
+            indoor.position.z = 0;
+            const q = (p - 0.55) / 0.45; // 0..1
+            // Camera pulls back from close, orbits slightly to see the table nicely
+            camera.position.set(
+              Math.sin(q * 0.4) * 2.5,
+              1.2 - q * 0.4,
+              6 - q * 3.5
+            );
+            camera.lookAt(0, -0.5, 0);
+            scene.background = new THREE.Color(0x1a0d05);
+            scene.fog.color.copy(scene.background);
+            // Text hand-off
+            if (topMeta)    topMeta.style.opacity = '0';
+            if (bottomHero) {
+              bottomHero.style.opacity = String(Math.min(1, q * 2));
+              bottomHero.style.transform = `translateY(${(1 - Math.min(1, q * 2)) * 30}px)`;
+            }
+          }
+        }
+        window.addEventListener('scroll', updateScroll, { passive: true });
+        updateScroll();
+
+        // ===== Mouse look: subtle camera rotation =====
+        const mouse = { tx: 0, ty: 0, x: 0, y: 0 };
+        window.addEventListener('mousemove', (e) => {
+          mouse.tx = (e.clientX / window.innerWidth  - 0.5) * 2;
+          mouse.ty = (e.clientY / window.innerHeight - 0.5) * 2;
+        }, { passive: true });
+
+        // ===== Render loop =====
+        function animate() {
+          requestAnimationFrame(animate);
+          mouse.x += (mouse.tx - mouse.x) * 0.08;
+          mouse.y += (mouse.ty - mouse.y) * 0.08;
+          // Apply mouse to slight camera offset without breaking lookAt
+          const lookX = mouse.x * 2;
+          const lookY = -mouse.y * 1.2;
+          if (scrollProgress < 0.55) {
+            camera.lookAt(lookX, 4 + lookY, 0);
+          } else {
+            camera.lookAt(lookX * 0.5, -0.5 + lookY * 0.5, 0);
+          }
+          // Subtle neon flicker
+          neonMat.opacity *= 0.995 + Math.random() * 0.01;
+          renderer.render(scene, camera);
+        }
+        animate();
+
+        // ===== Resize =====
+        window.addEventListener('resize', () => {
+          camera.aspect = window.innerWidth / window.innerHeight;
+          camera.updateProjectionMatrix();
+          renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+      }).catch((err) => {
+        console.warn('3D scene texture load failed', err);
+        loader.querySelector('.load-text').textContent = 'Fallback view';
+        loader.classList.add('ready');
+      });
+
+    } else if (loader) {
+      // Mobile / reduced motion: hide loader, no 3D
+      loader.classList.add('ready');
+      if (bottomHero) { bottomHero.style.opacity = '1'; bottomHero.style.transform = 'none'; }
+    }
+  </script>
+
+  <!-- ====== Lenis + GSAP for smooth scroll + other section animations ====== -->
   <script src="https://cdn.jsdelivr.net/gh/darkroomengineering/lenis@1.1.13/dist/lenis.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
@@ -2276,13 +2536,11 @@
       if (!window.gsap) return;
       if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
       gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
-
       const isMobile = window.matchMedia('(max-width: 760px)').matches;
 
-      // ===== Lenis buttery smooth scroll (desktop only, mobile native scroll better) =====
       if (window.Lenis && !isMobile) {
         const lenis = new Lenis({
-          duration: 1.15,
+          duration: 1.1,
           easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
           smoothWheel: true,
           smoothTouch: false
@@ -2293,94 +2551,6 @@
         window.__lenis = lenis;
       }
 
-      // ===== CINEMATIC HERO: 3-scene scroll-scrubbed walk-in =====
-      const cinema = document.getElementById('cinema');
-      if (cinema && !isMobile) {
-        const stage = cinema.querySelector('.cinema-stage');
-        const sceneFacade   = cinema.querySelector('.scene-facade');
-        const sceneEntrance = cinema.querySelector('.scene-entrance');
-        const sceneInterior = cinema.querySelector('.scene-interior');
-        const topMeta       = cinema.querySelector('[data-scene-text="0,1"]');
-        const bottomHero    = cinema.querySelector('[data-scene-text="2"]');
-        const dots          = cinema.querySelectorAll('.cinema-progress .dot');
-
-        // Ensure initial states
-        gsap.set(sceneEntrance, { opacity: 0 });
-        gsap.set(sceneInterior, { opacity: 0 });
-        gsap.set(bottomHero,    { opacity: 0, y: 40 });
-        gsap.set(cinema.querySelectorAll('.scene-facade .layer.bg-facade'),   { scale: 1 });
-        gsap.set(cinema.querySelectorAll('.scene-entrance .layer.bg-entrance'), { scale: 1.02 });
-        gsap.set(cinema.querySelector('.scene-entrance .neon-overlay'),       { opacity: 0, scale: 0.9 });
-        gsap.set(cinema.querySelector('.scene-interior .fg-table'),           { opacity: 0, scale: 1.05 });
-
-        const tl = gsap.timeline({
-          scrollTrigger: {
-            trigger: cinema,
-            start: 'top top',
-            end: 'bottom bottom',
-            scrub: 1.2,
-            onUpdate: (self) => {
-              const p = self.progress;
-              const idx = p < 0.33 ? 0 : (p < 0.66 ? 1 : 2);
-              dots.forEach((d, i) => d.classList.toggle('active', i === idx));
-            }
-          }
-        });
-
-        tl
-          // ── Scene 0: Facade (walk forward, plants slide down)
-          .to('.scene-facade .bg-facade', { scale: 1.28, ease: 'none' }, 0)
-          .to('.scene-facade .fg-plants', { yPercent: 40, opacity: 0.4, ease: 'none' }, 0)
-          .to('.scene-facade .bg-sky',    { yPercent: -12, ease: 'none' }, 0)
-
-          // ── Cross-fade: facade → entrance (around 30-40%)
-          .to('.scene-facade',   { opacity: 0, ease: 'power2.inOut' }, 0.30)
-          .to('.scene-entrance', { opacity: 1, ease: 'power2.inOut' }, 0.30)
-
-          // ── Scene 1: Entrance (walk closer to GHRIIL letters)
-          .to('.scene-entrance .bg-entrance', { scale: 1.32, ease: 'none' }, 0.30)
-          .to('.scene-entrance .neon-overlay', { opacity: 1, scale: 1, ease: 'expo.out' }, 0.35)
-
-          // ── Cross-fade: entrance → interior (around 60-70%)
-          .to('.scene-entrance',   { opacity: 0, ease: 'power2.inOut' }, 0.62)
-          .to('.scene-interior',   { opacity: 1, ease: 'power2.inOut' }, 0.62)
-          .to('.scene-entrance .neon-overlay', { opacity: 0, ease: 'none' }, 0.62)
-
-          // ── Scene 2: Interior (settle at the table)
-          .to('.scene-interior .bg-interior', { scale: 1.08, ease: 'none' }, 0.62)
-          .to('.scene-interior .fg-table', { opacity: 0.5, scale: 1, ease: 'power2.out' }, 0.75)
-
-          // ── Text hand-off: top meta out at 55%, bottom hero in at 70%
-          .to(topMeta,    { opacity: 0, y: -20, ease: 'power2.out' }, 0.55)
-          .to(bottomHero, { opacity: 1, y: 0,   ease: 'expo.out'   }, 0.70);
-
-        // ===== Mouse parallax on foreground layers (subtle depth) =====
-        let rafId = null;
-        const target = { x: 0, y: 0 };
-        const current = { x: 0, y: 0 };
-        window.addEventListener('mousemove', (e) => {
-          target.x = (e.clientX / window.innerWidth  - 0.5) * 2;   // -1..1
-          target.y = (e.clientY / window.innerHeight - 0.5) * 2;
-          if (!rafId) rafId = requestAnimationFrame(tickMouse);
-        }, { passive: true });
-        function tickMouse () {
-          current.x += (target.x - current.x) * 0.08;
-          current.y += (target.y - current.y) * 0.08;
-          const layers = cinema.querySelectorAll('.layer[data-parallax]');
-          layers.forEach((el) => {
-            const depth = parseFloat(el.dataset.parallax) || 0;
-            el.style.setProperty('translate',
-              `${current.x * depth * 18}px ${current.y * depth * 12}px`);
-          });
-          if (Math.abs(target.x - current.x) > 0.001 || Math.abs(target.y - current.y) > 0.001) {
-            rafId = requestAnimationFrame(tickMouse);
-          } else {
-            rafId = null;
-          }
-        }
-      }
-
-      // ===== Topbar & body entrance (unchanged) =====
       const introTl = gsap.timeline({ defaults: { ease: 'expo.out' } });
       introTl
         .from('.topbar-brand .wordmark', { y: -16, opacity: 0, duration: 0.55 })
