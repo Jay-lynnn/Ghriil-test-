@@ -5,6 +5,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Menu Lengkap — Ghriil</title>
   <meta name="description" content="Menu lengkap Ghriil: Signature Bakar, Yakitori, Rumah Rasa, Coffee, Beer. Bistro modern di Jl. Chairil Anwar No. 8, Makassar." />
+  <link rel="canonical" href="https://jay-lynnn.github.io/Ghriil-test-/menu.html">
+
+  <!-- Link preview (WhatsApp, Instagram, dsb.) -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Ghriil">
+  <meta property="og:title" content="Menu Lengkap — Ghriil">
+  <meta property="og:description" content="Signature Bakar, Yakitori, Rumah Rasa, Coffee, Beer. Semua yang kami sajikan di Jl. Chairil Anwar No. 8, Makassar.">
+  <meta property="og:url" content="https://jay-lynnn.github.io/Ghriil-test-/menu.html">
+  <meta property="og:image" content="https://jay-lynnn.github.io/Ghriil-test-/bebek-kuning.jpg">
+  <meta property="og:image:alt" content="Bebek Kuning Kacang Kenari, signature bakar Ghriil">
+  <meta property="og:locale" content="id_ID">
+  <meta name="twitter:card" content="summary_large_image">
 
   <link rel="icon" type="image/png" sizes="32x32" href="favicon.png?v=2">
   <link rel="icon" type="image/png" sizes="192x192" href="favicon.png?v=2">
@@ -46,6 +58,7 @@
       --terracotta:      #E89B5F;
       --terracotta-deep: #C66B3D;
       --saffron:         #F4A93C;
+      --saffron-deep:    #B26205;
       --honey:           #E89B26;
       --brown-warm:      #8B4F26;
       --brown-deep:      #5C3A21;
@@ -65,6 +78,26 @@
     }
 
     .wrap { width: min(1240px, 92%); margin-inline: auto; }
+
+    /* anchor kategori tidak tertutup topbar sticky */
+    [id], section[id] { scroll-margin-top: 84px; }
+
+    /* keyboard focus */
+    a:focus-visible, button:focus-visible {
+      outline: 3px solid var(--orange);
+      outline-offset: 3px;
+      border-radius: 2px;
+    }
+
+    .skip-link {
+      position: absolute; top: -100px; left: 1rem;
+      z-index: 60;
+      background: var(--orange); color: var(--cream-soft);
+      padding: 0.7rem 1.2rem;
+      font-weight: 700;
+      transition: top 200ms ease;
+    }
+    .skip-link:focus { top: 1rem; }
 
     /* ============ TOPBAR (same as landing) ============ */
     .topbar {
@@ -386,7 +419,7 @@
     .dish .price {
       font-family: 'Big Shoulders Display', sans-serif;
       font-weight: 900; font-size: 1.4rem;
-      color: var(--saffron);
+      color: var(--saffron-deep);
       letter-spacing: -0.01em;
     }
     .dish .tag {
@@ -425,7 +458,7 @@
     .mini .mini-price {
       font-family: 'Big Shoulders Display', sans-serif;
       font-weight: 900; font-size: 1rem;
-      color: var(--saffron);
+      color: var(--saffron-deep);
       letter-spacing: -0.01em;
     }
     .mini .mini-vol {
@@ -536,7 +569,7 @@
       display: flex; justify-content: space-between; gap: 1rem;
       flex-wrap: wrap;
       font-size: 0.82rem;
-      color: rgba(255,246,233,0.5);
+      color: rgba(255,246,233,0.72);
     }
     @media (max-width: 720px) {
       .foot-grid { grid-template-columns: 1fr; }
@@ -584,6 +617,8 @@
   </style>
 </head>
 <body>
+
+  <a class="skip-link" href="#starters">Langsung ke daftar menu</a>
 
   <!-- TOPBAR -->
   <header class="topbar">

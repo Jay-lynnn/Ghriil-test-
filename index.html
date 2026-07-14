@@ -5,6 +5,52 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Ghriil — Bistro, Coffee, Cheers</title>
   <meta name="description" content="Ghriil. Panggangan rempah Makassar, dimasak dua belas jam. Kopi sore. Bir hingga tengah malam. Jl. Chairil Anwar No. 8." />
+  <link rel="canonical" href="https://jay-lynnn.github.io/Ghriil-test-/">
+
+  <!-- Link preview (WhatsApp, Instagram, dsb.) -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Ghriil">
+  <meta property="og:title" content="Ghriil — Bistro, Coffee, Cheers">
+  <meta property="og:description" content="Panggangan rempah Makassar, dimasak dua belas jam. Kopi sore, bir hingga tengah malam. Jl. Chairil Anwar No. 8, Makassar.">
+  <meta property="og:url" content="https://jay-lynnn.github.io/Ghriil-test-/">
+  <meta property="og:image" content="https://jay-lynnn.github.io/Ghriil-test-/nasi-brisket.jpg">
+  <meta property="og:image:alt" content="Nasi Brisket Sayur Ubi, hidangan andalan Ghriil">
+  <meta property="og:locale" content="id_ID">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Restaurant",
+    "name": "Ghriil",
+    "description": "Bistro panggangan rempah Makassar. Slow-cooked 12 jam, kopi sore, bir hingga tengah malam.",
+    "url": "https://jay-lynnn.github.io/Ghriil-test-/",
+    "image": "https://jay-lynnn.github.io/Ghriil-test-/resto-entrance-night.jpg",
+    "servesCuisine": ["Indonesian", "Grill", "Coffee"],
+    "priceRange": "Rp10.000–Rp185.000",
+    "telephone": "+628988822208",
+    "email": "ghriilsay@gmail.com",
+    "menu": "https://jay-lynnn.github.io/Ghriil-test-/menu.html",
+    "acceptsReservations": "https://wa.me/628988822208",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Jl. Chairil Anwar No. 8",
+      "addressLocality": "Makassar",
+      "addressRegion": "Sulawesi Selatan",
+      "addressCountry": "ID"
+    },
+    "openingHoursSpecification": [{
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
+      "opens": "10:00",
+      "closes": "24:00"
+    }],
+    "sameAs": [
+      "https://instagram.com/say.ghriil",
+      "https://tiktok.com/@ghriil"
+    ]
+  }
+  </script>
 
   <!-- Favicon (mascot Ghriil) -->
   <link rel="icon" type="image/png" sizes="32x32" href="favicon.png?v=2">
@@ -50,7 +96,8 @@
       --orange-deep:   #D03E0C;   /* hover state */
       --terracotta:    #E89B5F;   /* decorative rich accent */
       --terracotta-deep:#C66B3D;  /* deeper terracotta for sections */
-      --saffron:       #F4A93C;   /* prices, badges, highlights */
+      --saffron:       #F4A93C;   /* badges, highlights on dark */
+      --saffron-deep:  #B26205;   /* prices on cream, kontras terjaga */
       --honey:         #E89B26;   /* warmer amber alternative */
       --brown-warm:    #8B4F26;   /* warm dark sections (replaces burgundy) */
       --brown-deep:    #5C3A21;   /* deepest warm brown (replaces espresso) */
@@ -105,6 +152,26 @@
     }
 
     .wrap { width: min(1240px, 92%); margin-inline: auto; }
+
+    /* anchor tidak tertutup topbar sticky */
+    [id] { scroll-margin-top: 90px; }
+
+    /* keyboard focus */
+    a:focus-visible, button:focus-visible {
+      outline: 3px solid var(--orange);
+      outline-offset: 3px;
+      border-radius: 2px;
+    }
+
+    .skip-link {
+      position: absolute; top: -100px; left: 1rem;
+      z-index: var(--z-toast);
+      background: var(--orange); color: var(--warm-white);
+      padding: 0.7rem 1.2rem;
+      font-weight: 700;
+      transition: top 200ms ease;
+    }
+    .skip-link:focus { top: 1rem; }
 
     /* ===== type primitives ===== */
     .display {
@@ -192,7 +259,7 @@
 
     .nav-toggle { display: none; font-size: 1.4rem; padding: 0.3rem 0.5rem; }
 
-    @media (max-width: 740px) {
+    @media (max-width: 920px) {
       .topbar nav ul {
         display: none;
         position: absolute; top: 100%; inset-inline: 0;
@@ -211,7 +278,7 @@
     .hero {
       position: relative;
       min-height: min(92vh, 820px);
-      background: var(--espresso);
+      background: var(--espresso) url('resto-entrance-night.jpg') center 35%/cover no-repeat;
       color: var(--cream-50);
       overflow: hidden;
       isolation: isolate;
@@ -343,7 +410,7 @@
       background: rgba(61,40,23,0.55);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
-      border-left: 3px solid var(--orange);
+      border: 1px solid rgba(255,216,181,0.22);
       display: inline-block;
     }
     .hero-lede strong { color: var(--saffron); font-weight: 700; }
@@ -799,7 +866,7 @@
       font-family: 'Big Shoulders Display', sans-serif;
       font-weight: 900;
       font-size: 1.4rem;
-      color: var(--amber);
+      color: var(--saffron-deep);
       letter-spacing: -0.01em;
     }
     .dish .tag {
@@ -975,6 +1042,96 @@
     }
 
     /* ============================================================
+       TEMPAT — galeri suasana (glass block + neon identity)
+    ============================================================ */
+    .place {
+      color: var(--warm-white);
+      padding: clamp(4rem, 10vh, 7rem) 0 clamp(4.5rem, 11vh, 7.5rem);
+      position: relative;
+      overflow: hidden;
+    }
+    .place-head {
+      display: flex; justify-content: space-between; align-items: end;
+      gap: 1.5rem 3rem; flex-wrap: wrap;
+      margin-bottom: clamp(2rem, 5vw, 3.2rem);
+    }
+    .place-head h2 {
+      font-family: 'Big Shoulders Display', sans-serif;
+      font-weight: 900;
+      font-size: var(--t-step-4);
+      line-height: 0.9;
+      letter-spacing: -0.02em;
+      text-transform: uppercase;
+      text-wrap: balance;
+      color: var(--warm-white);
+    }
+    .place-head h2 em { font-style: italic; color: var(--saffron); font-weight: 900; }
+    .place-head p {
+      max-width: 44ch;
+      color: rgba(255,246,233,0.82);
+      font-size: var(--t-step-0);
+      line-height: 1.55;
+    }
+    .place-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      grid-auto-rows: clamp(130px, 15vw, 195px);
+      gap: clamp(0.7rem, 1.4vw, 1.1rem);
+    }
+    .place-shot {
+      position: relative;
+      overflow: hidden;
+      background: var(--brown-deep);
+    }
+    .place-shot img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform 700ms cubic-bezier(0.165,0.84,0.44,1);
+    }
+    .place-shot:hover img { transform: scale(1.05); }
+    .place-shot figcaption {
+      position: absolute; left: 0.9rem; bottom: 0.9rem;
+      background: var(--amber);
+      color: var(--espresso);
+      font-family: 'Big Shoulders Display', sans-serif;
+      font-weight: 800;
+      font-size: 0.74rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.32rem 0.65rem 0.28rem;
+      transform: rotate(-1.5deg);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.35);
+      white-space: nowrap;
+    }
+    .shot-1 { grid-column: 1 / 3; grid-row: 1 / 3; }
+    .shot-2 { grid-column: 3 / 7; grid-row: 1 / 2; }
+    .shot-3 { grid-column: 3 / 5; grid-row: 2 / 4; }
+    .shot-4 { grid-column: 5 / 7; grid-row: 2 / 4; }
+    .shot-5 { grid-column: 1 / 3; grid-row: 3 / 5; }
+    .shot-6 { grid-column: 3 / 7; grid-row: 4 / 5; }
+    .shot-6 img { object-position: center 40%; }
+    .place-note {
+      margin-top: clamp(1.6rem, 3vw, 2.4rem);
+      display: flex; flex-wrap: wrap; align-items: center; gap: 1rem 1.6rem;
+      color: rgba(255,246,233,0.82);
+      font-size: 0.95rem;
+    }
+    .place-note .btn-ghost { border-color: rgba(255,246,233,0.4); }
+    @media (max-width: 760px) {
+      .place-grid {
+        grid-template-columns: repeat(2, 1fr);
+        grid-auto-rows: clamp(140px, 32vw, 200px);
+      }
+      .shot-1 { grid-column: 1 / 2; grid-row: 1 / 3; }
+      .shot-2 { grid-column: 2 / 3; grid-row: 1 / 3; }
+      .shot-3 { grid-column: 1 / 3; grid-row: 3 / 4; }
+      .shot-4 { grid-column: 1 / 2; grid-row: 4 / 6; }
+      .shot-5 { grid-column: 2 / 3; grid-row: 4 / 6; }
+      .shot-6 { grid-column: 1 / 3; grid-row: 6 / 7; }
+      .place-shot figcaption { left: 0.6rem; bottom: 0.6rem; font-size: 0.68rem; }
+    }
+
+    /* ============================================================
        FOOTER
     ============================================================ */
     footer.foot {
@@ -992,7 +1149,7 @@
     .foot-grid .wordmark { color: var(--cream-50); }
     .foot-tag {
       margin-top: 0.6rem; font-size: 0.9rem; max-width: 30ch;
-      color: rgba(243,226,196,0.6);
+      color: rgba(243,226,196,0.75);
     }
     .foot-col h4 {
       font-family: 'Big Shoulders Display', sans-serif;
@@ -1004,7 +1161,7 @@
     .foot-col a, .foot-col p {
       display: block;
       font-size: 0.9rem;
-      color: rgba(243,226,196,0.65);
+      color: rgba(243,226,196,0.78);
       padding: 0.2rem 0;
       transition: color 200ms ease;
     }
@@ -1015,9 +1172,9 @@
       display: flex; justify-content: space-between; gap: 1rem;
       flex-wrap: wrap;
       font-size: 0.82rem;
-      color: rgba(243,226,196,0.45);
+      color: rgba(243,226,196,0.72);
     }
-    .foot-bot a { color: rgba(243,226,196,0.55); }
+    .foot-bot a { color: rgba(243,226,196,0.78); }
     .foot-bot a:hover { color: var(--ember); }
 
     @media (max-width: 720px) {
@@ -1284,7 +1441,7 @@
       margin: 1.5rem 0;
       padding: 0.9rem 1rem;
       background: var(--cream);
-      border-left: 4px solid var(--amber);
+      border: 1px solid var(--beige);
     }
     .sig-social .stars {
       color: var(--amber);
@@ -1378,6 +1535,8 @@
 </head>
 <body>
 
+  <a class="skip-link" href="#menu">Langsung ke menu</a>
+
   <!-- ============== NAVBAR ============== -->
   <header class="topbar">
     <div class="wrap topbar-inner">
@@ -1399,6 +1558,7 @@
           <li><a href="#why">Kenapa</a></li>
           <li><a href="#signature">Andalan</a></li>
           <li><a href="#menu">Menu</a></li>
+          <li><a href="#tempat">Tempat</a></li>
           <li><a href="#contact">Mampir</a></li>
           <li><a class="nav-cta" href="https://wa.me/628988822208?text=Halo%20Ghriil,%20saya%20mau%20reservasi%20meja" target="_blank" rel="noopener">Reservasi</a></li>
         </ul>
@@ -1411,6 +1571,7 @@
     <video class="hero-video"
            autoplay muted loop playsinline
            preload="metadata"
+           poster="resto-entrance-night.jpg"
            aria-hidden="true">
       <source src="hero-web.mp4" type="video/mp4">
     </video>
@@ -1689,6 +1850,54 @@
     </div>
   </div>
 
+  <!-- ============== TEMPAT (galeri suasana) ============== -->
+  <section id="tempat" class="place glass-block-bg">
+    <div class="wrap">
+      <div class="place-head">
+        <h2>Tempatnya <em>hidup.</em></h2>
+        <p>
+          Dinding glass block, booth merah bata, lampu neon kuning yang sama
+          seperti di foto. Datang sore untuk kopi, bertahan sampai malam untuk
+          bir dan panggangan.
+        </p>
+      </div>
+
+      <div class="place-grid">
+        <figure class="place-shot shot-1">
+          <img src="resto-entrance-night.jpg" alt="Gerbang Ghriil menyala di malam hari, sign biru di atas pintu masuk" loading="lazy" decoding="async">
+          <figcaption>Jl. Chairil Anwar 8</figcaption>
+        </figure>
+        <figure class="place-shot shot-2">
+          <img src="resto-table-morning.jpg" alt="Meja kayu tebal dengan ruang makan luas di belakangnya" loading="lazy" decoding="async">
+          <figcaption>Meja kayu tebal</figcaption>
+        </figure>
+        <figure class="place-shot shot-3">
+          <img src="resto-exterior-neon.jpg" alt="Neon kuning G.H.R.I.I.L-ING ON PROGRESS di dinding anyaman rotan" loading="lazy" decoding="async">
+          <figcaption>Sign kuning kami</figcaption>
+        </figure>
+        <figure class="place-shot shot-4">
+          <img src="resto-interior-industrial.jpg" alt="Booth merah bata dan kursi kulit di ruang makan utama" loading="lazy" decoding="async">
+          <figcaption>Booth merah bata</figcaption>
+        </figure>
+        <figure class="place-shot shot-5">
+          <img src="resto-gallery-wall.jpg" alt="Dinding galeri berisi foto rempah dan bara, dengan bangku kayu" loading="lazy" decoding="async">
+          <figcaption>Sudut galeri</figcaption>
+        </figure>
+        <figure class="place-shot shot-6">
+          <img src="resto-interior-day.jpg" alt="Ruang makan Ghriil ramai pengunjung di sore hari" loading="lazy" decoding="async">
+          <figcaption>Ramai tiap sore</figcaption>
+        </figure>
+      </div>
+
+      <div class="place-note">
+        <a class="btn btn-ghost" href="https://maps.google.com/?q=Jl+Chairil+Anwar+No+8+Makassar" target="_blank" rel="noopener">
+          Lihat rute di Google Maps <span class="arrow">→</span>
+        </a>
+        <span>Live music tiap akhir pekan.</span>
+      </div>
+    </div>
+  </section>
+
   <!-- ============== CONTACT ============== -->
   <section id="contact" class="contact">
     <div class="wrap contact-grid">
@@ -1763,6 +1972,7 @@
           <a href="#why">Kenapa Ghriil</a>
           <a href="#signature">Andalan</a>
           <a href="#menu">Menu</a>
+          <a href="#tempat">Tempat</a>
           <a href="#contact">Mampir</a>
         </div>
         <div class="foot-col">
@@ -1772,8 +1982,10 @@
           <a href="https://maps.google.com/?q=Jl+Chairil+Anwar+No+8+Makassar" target="_blank" rel="noopener">Google Maps</a>
         </div>
         <div class="foot-col">
-          <h4>Internal</h4>
-          <a href="absensi.html">Absensi karyawan</a>
+          <h4>Kontak</h4>
+          <a href="https://wa.me/628988822208?text=Halo%20Ghriil" target="_blank" rel="noopener">WhatsApp</a>
+          <a href="tel:+628988822208">+62 898-8822-208</a>
+          <a href="mailto:ghriilsay@gmail.com">ghriilsay@gmail.com</a>
         </div>
       </div>
       <div class="foot-bot">
@@ -1825,6 +2037,19 @@
       update();
       setInterval(update, 30000);
     })();
+
+    /* ===== Tutup menu mobile setelah link diklik ===== */
+    (function () {
+      const nav = document.getElementById('primary-nav');
+      if (!nav) return;
+      const toggle = nav.querySelector('.nav-toggle');
+      nav.querySelectorAll('ul a').forEach(function (link) {
+        link.addEventListener('click', function () {
+          nav.classList.remove('open');
+          if (toggle) toggle.setAttribute('aria-expanded', 'false');
+        });
+      });
+    })();
   </script>
 
   <!-- ====== GSAP animations ====== -->
@@ -1847,7 +2072,8 @@
         .from('.live-pill', { y: -16, opacity: 0, duration: 0.45 }, '-=0.35')
         .from('.topbar nav ul > li', { y: -14, opacity: 0, duration: 0.4, stagger: 0.05 }, '-=0.35')
         .from('.hero-meta', { y: 24, opacity: 0, duration: 0.65 }, '+=0.05')
-        .from('.hero h1 .line', { y: 56, opacity: 0, duration: 0.85, stagger: 0.13 }, '-=0.35')
+        .from('.hero h1 .neon-sign', { y: 24, opacity: 0, duration: 0.7 }, '-=0.35')
+        .from('.hero-taglines .line', { y: 56, opacity: 0, duration: 0.85, stagger: 0.13 }, '-=0.45')
         .from('.hero-lede', { y: 24, opacity: 0, duration: 0.7 }, '-=0.45')
         .from('.hero-cta .btn', { y: 24, opacity: 0, duration: 0.6, stagger: 0.09 }, '-=0.45')
         .from('.scroll-hint', { opacity: 0, duration: 0.6 }, '-=0.2');
@@ -1926,6 +2152,24 @@
       gsap.from('.dish', {
         y: 36, opacity: 0, duration: 0.65, stagger: 0.07, ease: 'expo.out',
         scrollTrigger: { trigger: '.menu-grid', start: 'top 80%', once: true }
+      });
+
+      // === Tempat: head slide, foto masuk berurutan mengikuti kolase ===
+      gsap.from('.place-head h2, .place-head p', {
+        y: 28, opacity: 0, duration: 0.85, stagger: 0.12, ease: 'expo.out',
+        scrollTrigger: { trigger: '.place-head', start: 'top 82%', once: true }
+      });
+      gsap.from('.place-shot', {
+        opacity: 0, y: 34, scale: 0.97, duration: 0.75, stagger: 0.09, ease: 'expo.out',
+        scrollTrigger: { trigger: '.place-grid', start: 'top 80%', once: true }
+      });
+      gsap.from('.place-shot figcaption', {
+        opacity: 0, y: 10, rotate: 3, duration: 0.5, stagger: 0.09, delay: 0.35, ease: 'expo.out',
+        scrollTrigger: { trigger: '.place-grid', start: 'top 80%', once: true }
+      });
+      gsap.from('.place-note', {
+        opacity: 0, y: 20, duration: 0.6, ease: 'expo.out',
+        scrollTrigger: { trigger: '.place-note', start: 'top 90%', once: true }
       });
 
       // === Foot subtle ===
