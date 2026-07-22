@@ -630,12 +630,6 @@
     /* ---- Card tilt needs perspective ---- */
     .dish { transform-style: preserve-3d; }
 
-    /* ---- Lenis smooth scroll ---- */
-    html.lenis, html.lenis body { height: auto; }
-    .lenis.lenis-smooth { scroll-behavior: auto !important; }
-    .lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
-    .lenis.lenis-stopped { overflow: hidden; }
-
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after {
         animation-duration: 0.001ms !important;
@@ -1389,14 +1383,12 @@
       });
       btn.addEventListener('click', function (e) {
         e.preventDefault();
-        if (window.__lenis) window.__lenis.scrollTo(0, { duration: 1.05 });
-        else window.scrollTo({ top: 0, behavior: 'smooth' });
+        window.scrollTo({ top: 0, behavior: 'smooth' });
       });
     })();
   </script>
 
-  <!-- Smooth scroll + GSAP (versi ringan: reveal + tilt kartu + ember cursor) -->
-  <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+  <!-- GSAP (versi ringan: reveal + tilt kartu + ember cursor, native scroll) -->
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
   <script>
@@ -1405,24 +1397,9 @@
       const fine    = window.matchMedia('(pointer: fine)').matches;
       const hasGsap = !!window.gsap;
 
-      /* ---- Lenis smooth scroll ---- */
-      let lenis = null;
-      if (window.Lenis && !reduce) {
-        lenis = new Lenis({ duration: 1.05, smoothWheel: true });
-        window.__lenis = lenis;
-        if (hasGsap) {
-          gsap.registerPlugin(ScrollTrigger);
-          lenis.on('scroll', ScrollTrigger.update);
-          gsap.ticker.add(function (t) { lenis.raf(t * 1000); });
-          gsap.ticker.lagSmoothing(0);
-        } else {
-          (function raf(time) { lenis.raf(time); requestAnimationFrame(raf); })();
-        }
-      } else if (hasGsap && !reduce) {
-        gsap.registerPlugin(ScrollTrigger);
-      }
+      if (hasGsap && !reduce) gsap.registerPlugin(ScrollTrigger);
 
-      /* ---- Quick-jump / anchor scrolling ---- */
+      /* ---- Quick-jump / anchor scrolling (native, CSS-smooth) ---- */
       document.querySelectorAll('a[href^="#"]').forEach(function (link) {
         link.addEventListener('click', function (e) {
           const id = link.getAttribute('href');
@@ -1430,8 +1407,7 @@
           const target = document.querySelector(id);
           if (!target) return;
           e.preventDefault();
-          if (lenis) lenis.scrollTo(target, { offset: -70, duration: 1.05 });
-          else target.scrollIntoView();
+          target.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth' });
         });
       });
 

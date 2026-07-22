@@ -1570,46 +1570,6 @@
     .place > .wrap,
     .contact > .contact-grid { position: relative; z-index: 1; }
 
-    /* --- Manifesto (kinetic type) --- */
-    .manifesto {
-      background: var(--brown-deep);
-      color: var(--cream-50);
-      padding: clamp(4.5rem, 13vh, 8.5rem) 0;
-      position: relative;
-      overflow: hidden;
-    }
-    .manifesto .m-inner { position: relative; z-index: 1; }
-    .m-eyebrow {
-      font-family: 'Big Shoulders Display', sans-serif;
-      font-weight: 800;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      font-size: 0.82rem;
-      color: var(--saffron);
-      margin-bottom: 1.4rem;
-    }
-    .m-line {
-      font-family: 'Big Shoulders Display', sans-serif;
-      font-weight: 900;
-      text-transform: uppercase;
-      line-height: 0.86;
-      letter-spacing: -0.02em;
-      font-size: clamp(2.8rem, 12vw, 7.5rem);
-      overflow: hidden;
-    }
-    .m-line .m-clip { display: inline-block; }
-    .m-line.m-2 { color: var(--saffron); }
-    .m-line.m-3 { color: var(--orange); }
-    .m-line .m-count { font-variant-numeric: tabular-nums; }
-    .m-foot {
-      margin-top: 2rem;
-      max-width: 54ch;
-      color: rgba(255,246,233,0.82);
-      font-size: var(--t-step-1);
-      line-height: 1.5;
-    }
-    .m-foot strong { color: var(--saffron); font-weight: 700; }
-
     /* --- Ember cursor (desktop pointer only) --- */
     .ember-cursor {
       position: fixed; top: 0; left: 0;
@@ -1637,12 +1597,6 @@
 
     /* --- Caution stripe draws in on enter (initial scaleX set via JS so no-JS stays visible) --- */
     .caution-stripe.js-draw { transform-origin: left center; }
-
-    /* --- Lenis smooth scroll --- */
-    html.lenis, html.lenis body { height: auto; }
-    .lenis.lenis-smooth { scroll-behavior: auto !important; }
-    .lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
-    .lenis.lenis-stopped { overflow: hidden; }
 
     /* ============================================================
        Reduced motion
@@ -1763,21 +1717,6 @@
       <span>Rempah Makassar <em class="sep">/</em> Slow-cooked 12 jam <em class="sep">/</em> Bistro Coffee Cheers <em class="sep">/</em> Open 10 till midnight <em class="sep">/</em></span>
     </div>
   </div>
-
-  <!-- ============== MANIFESTO (tipografi kinetik) ============== -->
-  <section class="manifesto" aria-label="Dimasak dua belas jam">
-    <div class="wrap m-inner">
-      <p class="m-eyebrow">Kenapa lama? Karena rasa nggak bisa buru-buru.</p>
-      <div class="m-line m-1"><span class="m-clip">Dimasak</span></div>
-      <div class="m-line m-2"><span class="m-clip"><span class="m-count" data-count-to="12">12</span> jam</span></div>
-      <div class="m-line m-3"><span class="m-clip">nonstop.</span></div>
-      <p class="m-foot">
-        Brisket, bebek, ayam, semua masuk panggangan tertutup dari pagi.
-        Bumbu Makassar meresap pelan sampai serat terakhir.
-        <strong>Yang kamu cicipi malam ini, dimulai sebelum matahari naik.</strong>
-      </p>
-    </div>
-  </section>
 
   <!-- ============== APPETITE TRIPTYCH (replaces story) ============== -->
   <section id="why" class="appetite">
@@ -2208,8 +2147,7 @@
     })();
   </script>
 
-  <!-- ====== Smooth scroll + GSAP animations ====== -->
-  <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+  <!-- ====== GSAP animations (native scroll) ====== -->
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollToPlugin.min.js"></script>
@@ -2219,23 +2157,9 @@
       const fine    = window.matchMedia('(pointer: fine)').matches;
       const hasGsap = !!window.gsap;
 
-      /* ---------- Lenis smooth scroll ---------- */
-      let lenis = null;
-      if (window.Lenis && !reduce) {
-        lenis = new Lenis({ duration: 1.1, smoothWheel: true, wheelMultiplier: 1, touchMultiplier: 1.4 });
-        if (hasGsap) {
-          gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
-          lenis.on('scroll', ScrollTrigger.update);
-          gsap.ticker.add(function (t) { lenis.raf(t * 1000); });
-          gsap.ticker.lagSmoothing(0);
-        } else {
-          (function raf(time) { lenis.raf(time); requestAnimationFrame(raf); })();
-        }
-      } else if (hasGsap && !reduce) {
-        gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
-      }
+      if (hasGsap && !reduce) gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
-      /* ---------- Anchor scrolling (works with/without lenis) ---------- */
+      /* ---------- Anchor scrolling (native, GSAP-eased when available) ---------- */
       document.querySelectorAll('a[href^="#"]').forEach(function (link) {
         link.addEventListener('click', function (e) {
           const id = link.getAttribute('href');
@@ -2243,8 +2167,7 @@
           const target = document.querySelector(id);
           if (!target) return;
           e.preventDefault();
-          if (lenis) lenis.scrollTo(target, { offset: -70, duration: 1.1 });
-          else if (hasGsap && !reduce) gsap.to(window, { duration: 0.9, scrollTo: { y: target, offsetY: 70 }, ease: 'expo.inOut' });
+          if (hasGsap && !reduce) gsap.to(window, { duration: 0.9, scrollTo: { y: target, offsetY: 70 }, ease: 'expo.inOut' });
           else target.scrollIntoView();
         });
       });
@@ -2258,7 +2181,7 @@
           x = e.clientX; y = e.clientY;
           if (!on) { on = true; cursor.classList.add('is-active'); }
         });
-        document.querySelectorAll('a.btn, .nav-cta, .wa-float, .btn-allmenu, .wa-pill, .m-line').forEach(function (m) {
+        document.querySelectorAll('a.btn, .nav-cta, .wa-float, .btn-allmenu, .wa-pill').forEach(function (m) {
           m.addEventListener('mouseenter', function () { cursor.classList.add('is-magnet'); });
           m.addEventListener('mouseleave', function () { cursor.classList.remove('is-magnet'); });
         });
@@ -2386,24 +2309,6 @@
 
       // Embers only on wider screens (has teardown when narrowing)
       mm.add('(min-width: 700px)', function () { return setupEmbers(); });
-
-      /* ---------- Manifesto: kinetic type reveal + 12-jam counter ----------
-         immediateRender:false so text stays visible by default (headless /
-         background tabs never ship blank); the reveal only enhances it. */
-      gsap.from('.m-eyebrow', { y: 20, opacity: 0, duration: 0.7, ease: 'expo.out', immediateRender: false,
-        scrollTrigger: { trigger: '.manifesto', start: 'top 75%', once: true } });
-      gsap.from('.m-line .m-clip', { yPercent: 115, duration: 0.9, stagger: 0.13, ease: 'expo.out', immediateRender: false,
-        scrollTrigger: { trigger: '.manifesto', start: 'top 68%', once: true } });
-      gsap.from('.m-foot', { y: 24, opacity: 0, duration: 0.8, delay: 0.35, ease: 'expo.out', immediateRender: false,
-        scrollTrigger: { trigger: '.manifesto', start: 'top 60%', once: true } });
-      (function () {
-        const el = document.querySelector('.m-count[data-count-to]');
-        if (!el) return;
-        const to = parseInt(el.dataset.countTo, 10), o = { n: 1 };
-        gsap.to(o, { n: to, duration: 1.2, ease: 'power2.out', immediateRender: false,
-          onUpdate: function () { el.textContent = Math.round(o.n); },
-          scrollTrigger: { trigger: '.manifesto', start: 'top 62%', once: true } });
-      })();
 
       // === Section heads, scrub-once on enter (4 distinct intros, not uniform) ===
       // Appetite: slide from left, h2 + p stagger
